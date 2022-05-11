@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.databinding.RecordRowBinding
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 
 class RecordAdapter()
@@ -54,7 +56,13 @@ class RecordAdapter()
             tvTitle.text = item.title
             tvLabel.text = item.year
             tvFrom.text = item.genre?.toString()
-            Picasso.with(holder.itemView.context).load(item.cover_image).into(imageRecord)
+
+            Glide.with(holder.itemView.context)
+                .load(item.cover_image)
+                .placeholder(androidx.constraintlayout.widget.R.drawable.abc_ic_menu_paste_mtrl_am_alpha)
+                .into(imageRecord)
+
+
         }
 
     }
