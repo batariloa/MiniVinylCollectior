@@ -3,6 +3,8 @@ package com.batarilo.vinylcollection.ui.home
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,14 +33,30 @@ class MainActivity : AppCompatActivity() {
 
 
         setupRecyclerView()
+        search("Nirvana")
 
+        findViewById<Button>(R.id.btn_search).setOnClickListener {
+            search(findViewById<EditText>(R.id.et_search).text.toString())
+        }
+
+
+
+    }
+
+    private fun setupRecyclerView() = findViewById<RecyclerView>(R.id.rv_record).apply {
+        recordAdapter = RecordAdapter()
+        adapter = recordAdapter
+        layoutManager = LinearLayoutManager(this@MainActivity)
+
+    }
+    private fun search(term:String){
         lifecycleScope.launchWhenCreated {
 
             var result = try {
                 RetrofitInstance.api.homeSearch(
                     RecordApiService.AUTH_KEY,
                     RecordApiService.AUTH_SECRET,
-                    "Nirvana"
+                    term
                 )
             }
             catch (e:IOException){
@@ -55,13 +73,7 @@ class MainActivity : AppCompatActivity() {
                 recordAdapter.records = result.body()!!.results
             }
 
-        }}
-
-    private fun setupRecyclerView() = findViewById<RecyclerView>(R.id.rv_record).apply {
-        recordAdapter = RecordAdapter()
-        adapter = recordAdapter
-        layoutManager = LinearLayoutManager(this@MainActivity)
-
+        }
     }
 }
 
