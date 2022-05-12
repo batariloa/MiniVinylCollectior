@@ -72,7 +72,7 @@ class HomeActivity : AppCompatActivity(), RecordAdapter.OnRecordListener  {
                 return@launchWhenCreated
             }
             catch (e: HttpException){
-                Log.d(tag, "EXCEPTIOn $e")
+                Log.d(tag, "EXCEPTION $e")
                 return@launchWhenCreated
             }
 
@@ -80,7 +80,6 @@ class HomeActivity : AppCompatActivity(), RecordAdapter.OnRecordListener  {
                 println("results")
                 recordAdapter.records = result.body()!!.results
             }
-
         }
     }
 
