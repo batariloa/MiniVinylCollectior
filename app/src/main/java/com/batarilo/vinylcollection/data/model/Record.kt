@@ -1,21 +1,28 @@
 package com.batarilo.vinylcollection.data.model
 
-data class Record(
-    val barcode: List<String>,
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.batarilo.vinylcollection.data.room.RecordConverters
+
+@Entity(tableName = "record_table")
+data class Record (
+
+    @PrimaryKey
+    val id: Int,
     val catno: String,
-    val community: Community,
     val country: String,
     val cover_image: String,
+    @TypeConverters(RecordConverters::class)
     val format: List<String>,
     val format_quantity: Int,
-    val formats: List<Format>,
+    @TypeConverters(RecordConverters::class)
+
     val genre: List<String>,
-    val id: Int,
+    @TypeConverters(RecordConverters::class)
+
     val label: List<String>,
-    val master_id: Int,
-    val master_url: Any,
-    val resource_url: String,
-    val style: List<String>,
+
     val thumb: String,
     val title: String,
     val type: String,

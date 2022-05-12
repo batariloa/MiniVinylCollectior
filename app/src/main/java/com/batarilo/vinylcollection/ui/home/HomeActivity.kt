@@ -1,25 +1,26 @@
 package com.batarilo.vinylcollection.ui.home
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
-import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.data.retrofit.RecordApiService
 import com.batarilo.vinylcollection.data.retrofit.RetrofitInstance
-import com.batarilo.vinylcollection.ui.recycle.RecordAdapter
+import com.batarilo.vinylcollection.ui.home.recycle.RecordAdapter
+import com.batarilo.vinylcollection.ui.singleRecord.SingleRecordActivity
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.HttpException
 import java.io.IOException
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), RecordAdapter.OnRecordListener  {
 
 
     val tag = "MainActivity"
@@ -31,22 +32,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-
         setupRecyclerView()
         search("Nirvana")
 
-        findViewById<Button>(R.id.btn_search).setOnClickListener {
-            search(findViewById<EditText>(R.id.et_search).text.toString())
-        }
+        findViewById<SearchView>(R.id.sv_record).setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                search(findViewById<SearchView>(R.id.sv_record).query.toString())
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+
+        })
 
 
 
     }
 
     private fun setupRecyclerView() = findViewById<RecyclerView>(R.id.rv_record).apply {
-        recordAdapter = RecordAdapter()
+        recordAdapter = RecordAdapter(this@HomeActivity)
         adapter = recordAdapter
-        layoutManager = LinearLayoutManager(this@MainActivity)
+        layoutManager = LinearLayoutManager(this@HomeActivity)
 
     }
     private fun search(term:String){
@@ -74,6 +82,19 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    override fun onRecordClicked(position: Int) {
+        Toast.makeText(this, "BBLBLB", Toast.LENGTH_LONG)
+        println(" "+ recordAdapter.records[position].toString() + " clicked record")
+        val intent = Intent(this, SingleRecordActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onCollectedClicked(position: Int) {
+        var clickedRecord = recordAdapter.records[position]
+        viewModel.addRecord(clickedRecord)
+
     }
 }
 

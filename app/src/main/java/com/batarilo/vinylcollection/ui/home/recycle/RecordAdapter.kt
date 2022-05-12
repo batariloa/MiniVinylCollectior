@@ -1,4 +1,4 @@
-package com.batarilo.vinylcollection.ui.recycle
+package com.batarilo.vinylcollection.ui.home.recycle
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,17 +6,14 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.databinding.RecordRowBinding
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 
-class RecordAdapter()
-    : Adapter<RecordAdapter.RecordViewHolder>() {
+class RecordAdapter(
+    private val onRecordListener: OnRecordListener
+) : Adapter<RecordAdapter.RecordViewHolder>() {
 
-
-    class RecordViewHolder(val binding: RecordRowBinding) : RecyclerView.ViewHolder(binding.root)
 
     private val diffCallback = object : DiffUtil.ItemCallback<Record>() {
         override fun areItemsTheSame(oldItem: Record, newItem: Record): Boolean {
@@ -35,16 +32,14 @@ class RecordAdapter()
 
 
 
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
         return RecordViewHolder(
             RecordRowBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ),
+            onRecordListener
         )
 
     }
@@ -55,10 +50,10 @@ class RecordAdapter()
             val item = records[position]
             tvTitle.text = item.title
             tvLabel.text = item.year
-            tvFrom.text = item.genre?.toString()
+            tvFrom.text = item.country?.toString()
 
             Glide.with(holder.itemView.context)
-                .load(item.cover_image)
+                .load(item.thumb)
                 .placeholder(androidx.constraintlayout.widget.R.drawable.abc_ic_menu_paste_mtrl_am_alpha)
                 .into(imageRecord)
 
@@ -68,7 +63,31 @@ class RecordAdapter()
     }
 
     override fun getItemCount(): Int {
-       return records.size
+        return records.size
+    }
+
+
+    class RecordViewHolder(
+        val binding: RecordRowBinding,
+        val onRecordListener: OnRecordListener
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+
+        init {
+            binding.root.setOnClickListener{
+                onRecordListener.onRecordClicked(adapterPosition)
+            }
+            binding.btnAddToCollection.setOnClickListener{
+                onRecordListener.onCollectedClicked(adapterPosition)
+            }
+        }
+
+    }
+
+
+    interface OnRecordListener{
+        fun onRecordClicked(position:Int)
+        fun onCollectedClicked(position: Int)
     }
 
 

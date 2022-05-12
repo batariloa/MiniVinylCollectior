@@ -5,35 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.home.MainActivity">
+    tools:context=".ui.home.HomeActivity">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="100dp">
 
-        <ImageButton
-            android:id="@+id/imageButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_launcher_foreground" />
+
+        <SearchView
+            android:id="@+id/sv_record"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></SearchView>
+
 
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/et_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
 
-    <Button
-        android:id="@+id/btn_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_record"
