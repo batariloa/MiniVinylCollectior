@@ -80,6 +80,9 @@ class RecordAdapter(
             binding.btnAddToCollection.setOnClickListener{
                 onRecordListener.onCollectedClicked(adapterPosition)
             }
+            binding.btnAddToWishlist.setOnClickListener{
+                onRecordListener.onAddToWishListClicked(adapterPosition)
+            }
         }
 
     }
@@ -88,6 +91,7 @@ class RecordAdapter(
     interface OnRecordListener{
         fun onRecordClicked(position:Int)
         fun onCollectedClicked(position: Int)
+        fun onAddToWishListClicked(position: Int)
     }
 
 

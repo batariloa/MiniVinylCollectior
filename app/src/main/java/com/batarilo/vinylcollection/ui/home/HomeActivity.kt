@@ -85,7 +85,7 @@ class HomeActivity : AppCompatActivity(), RecordAdapter.OnRecordListener  {
     }
 
     override fun onRecordClicked(position: Int) {
-        Toast.makeText(this, "BBLBLB", Toast.LENGTH_LONG)
+        Toast.makeText(this, "Added to collection", Toast.LENGTH_SHORT)
         println(" "+ recordAdapter.records[position].toString() + " clicked record")
         val intent = Intent(this, SingleRecordActivity::class.java)
         startActivity(intent)
@@ -93,9 +93,17 @@ class HomeActivity : AppCompatActivity(), RecordAdapter.OnRecordListener  {
 
     override fun onCollectedClicked(position: Int) {
         var clickedRecord = recordAdapter.records[position]
-        viewModel.addRecord(clickedRecord)
+        viewModel.addRecordToCollection(clickedRecord)
 
     }
+
+    override fun onAddToWishListClicked(position: Int) {
+        Toast.makeText(this, "Added to wishlist", Toast.LENGTH_LONG)
+        val clickedRecord = recordAdapter.records[position]
+        viewModel.addRecordToWishlist(clickedRecord)
+    }
+
+
 }
 
 

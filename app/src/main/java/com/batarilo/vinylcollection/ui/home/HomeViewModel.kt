@@ -15,12 +15,17 @@ class HomeViewModel @Inject constructor(
 )
     : ViewModel() {
 
-    fun addRecord(record:Record){
+    fun addRecordToCollection(record:Record){
         viewModelScope.launch(Dispatchers.IO) {
-            recordRepository.addRecord(record)
+            recordRepository.addRecordToCollection(record)
         }
     }
 
+    fun addRecordToWishlist(record: Record){
+        viewModelScope.launch(Dispatchers.IO) {
+            recordRepository.addRecordToWishlist(record)
+        }
+    }
 
 
 }

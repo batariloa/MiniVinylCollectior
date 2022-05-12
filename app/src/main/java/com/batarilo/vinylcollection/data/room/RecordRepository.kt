@@ -2,6 +2,7 @@ package com.batarilo.vinylcollection.data.room
 
 import androidx.lifecycle.LiveData
 import com.batarilo.vinylcollection.data.model.Record
+import com.batarilo.vinylcollection.data.model.RecordType
 import javax.inject.Inject
 
 class RecordRepository  @Inject constructor(private val recordDao: RecordDao) {
@@ -10,7 +11,13 @@ class RecordRepository  @Inject constructor(private val recordDao: RecordDao) {
        return recordDao.readAllData()
    }
 
-    suspend fun addRecord(record: Record){
+    suspend fun addRecordToCollection(record: Record){
+        record.belongsTo = RecordType.COLLECTED
+        recordDao.addRecord(record)
+    }
+
+    suspend fun addRecordToWishlist(record: Record) {
+        record.belongsTo = RecordType.WISHLIST
         recordDao.addRecord(record)
     }
 }
