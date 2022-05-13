@@ -12,9 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VinylCollection">
-        <activity
-            android:name=".ui.singleRecord.SingleRecordActivity"
-            android:exported="false" />
+
+
+
         <activity
             android:name=".ui.home.HomeActivity"
             android:exported="true">

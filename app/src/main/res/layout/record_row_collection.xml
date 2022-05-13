@@ -59,14 +59,14 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/btn_add_to_collection"
+                    android:id="@+id/btn_remove_from_collection"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:srcCompat="@android:drawable/btn_star" />
+                    app:srcCompat="@android:drawable/btn_dialog" />
 
                 <ImageButton
-                    android:id="@+id/btn_add_to_wishlist"
+                    android:id="@+id/btn_add_note_collection"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_weight="1"

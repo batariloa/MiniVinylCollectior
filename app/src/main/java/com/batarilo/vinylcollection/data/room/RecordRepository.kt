@@ -20,4 +20,8 @@ class RecordRepository  @Inject constructor(private val recordDao: RecordDao) {
         record.belongsTo = RecordType.WISHLIST
         recordDao.addRecord(record)
     }
+
+    suspend fun removeRecord(record:Record){
+        recordDao.deleteRecord(record)
+    }
 }

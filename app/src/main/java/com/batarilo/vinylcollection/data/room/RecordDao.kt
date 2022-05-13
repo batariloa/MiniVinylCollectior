@@ -1,10 +1,7 @@
 package com.batarilo.vinylcollection.data.room
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.batarilo.vinylcollection.data.model.Record
 
 @Dao
@@ -15,4 +12,7 @@ interface RecordDao {
 
     @Query("SELECT * FROM record_table ORDER BY id ASC")
     fun readAllData():LiveData<List<Record>>
+
+    @Delete
+    suspend fun deleteRecord(record: Record)
 }
