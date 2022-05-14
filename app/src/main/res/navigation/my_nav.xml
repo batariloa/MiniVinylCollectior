@@ -21,5 +21,22 @@
         <action
             android:id="@+id/action_searchFragment_to_myCollectionFragment"
             app:destination="@id/myCollectionFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_wishlistFragment"
+            app:destination="@id/wishlistFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_myCollectionFragment2"
+            app:destination="@id/myCollectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/wishlistFragment"
+        android:name="com.batarilo.vinylcollection.ui.wishlist.WishlistFragment"
+        android:label="WishlistFragment" >
+        <action
+            android:id="@+id/action_wishlistFragment_to_myCollectionFragment"
+            app:destination="@id/myCollectionFragment" />
+        <action
+            android:id="@+id/action_wishlistFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 </navigation>

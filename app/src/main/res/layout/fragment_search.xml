@@ -7,16 +7,13 @@
     android:orientation="vertical"
     tools:context=".ui.home.HomeActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
+
 
 
         <SearchView
             android:id="@+id/sv_record"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></SearchView></LinearLayout>
+            android:layout_height="50dp"></SearchView>
 
 
 

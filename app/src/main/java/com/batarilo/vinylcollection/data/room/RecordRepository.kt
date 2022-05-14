@@ -12,7 +12,7 @@ class RecordRepository  @Inject constructor(private val recordDao: RecordDao) {
    }
 
     suspend fun addRecordToCollection(record: Record){
-        record.belongsTo = RecordType.COLLECTED
+        record.belongsTo = RecordType.COLLECTION
         recordDao.addRecord(record)
     }
 
@@ -23,5 +23,13 @@ class RecordRepository  @Inject constructor(private val recordDao: RecordDao) {
 
     suspend fun removeRecord(record:Record){
         recordDao.deleteRecord(record)
+    }
+
+    fun readFromWishlist(): LiveData<List<Record>> {
+     return recordDao.readWishList()
+    }
+
+    fun readFromCollection(): LiveData<List<Record>> {
+        return recordDao.readCollection()
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.viewModels
@@ -26,11 +27,18 @@ import java.io.IOException
 class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
 
     lateinit var navigationToggled: ActionBarDrawerToggle
-    private lateinit var recordAdapterSearch: RecordAdapterSearch
+
    lateinit var viewCurrent: View
-    private val viewModel:HomeViewModel by viewModels()
+    private val viewModel:SearchViewModel by viewModels()
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+
+
+    }
 
 
     override fun onCreateView(
@@ -39,7 +47,26 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     ): View? {
         viewCurrent  = inflater.inflate(R.layout.fragment_search, container, false)
         setupRecyclerView()
-        search("bo")
+        search("something")
+
+
+        val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
+
+        src.setOnQueryTextListener(object:SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                if (p0 != null) {
+                    search(p0)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return true
+            }
+
+        })
+
+
         return viewCurrent
     }
 
@@ -51,8 +78,8 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     }
 
     private fun setupRecyclerView() = viewCurrent.findViewById<RecyclerView>(R.id.rv_record)?.apply {
-        recordAdapterSearch = RecordAdapterSearch(this@SearchFragment)
-        adapter = recordAdapterSearch
+        viewModel.recordAdapterSearch = RecordAdapterSearch(this@SearchFragment)
+        adapter = viewModel.recordAdapterSearch
         layoutManager = LinearLayoutManager(activity)
 
     }
@@ -77,7 +104,8 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
 
             if(result.isSuccessful && result.body()!=null){
                 println("results")
-                recordAdapterSearch.records = result.body()!!.results
+                viewModel.recordAdapterSearch.records = result.body()!!.results
+
             }
             else throw HttpException(result)
         }
@@ -85,19 +113,22 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
 
     override fun onRecordClicked(position: Int) {
         Toast.makeText(context, "Added to collection", Toast.LENGTH_SHORT).show()
-        println(" "+ recordAdapterSearch.records[position].toString() + " clicked record")
+        println("RECORD ADAPTER RECORDS " + viewModel.recordAdapterSearch.records)
+        println(" "+ viewModel.recordAdapterSearch.records[position].toString() + " clicked record")
 
     }
 
     override fun onCollectedClicked(position: Int) {
-        val clickedRecord = recordAdapterSearch.records[position]
+        Toast.makeText(context, "Added to collection", Toast.LENGTH_LONG).show()
+
+        val clickedRecord = viewModel.recordAdapterSearch.records[position]
         viewModel.addRecordToCollection(clickedRecord)
 
     }
 
     override fun onAddToWishListClicked(position: Int) {
         Toast.makeText(context, "Added to wishlist", Toast.LENGTH_LONG).show()
-        val clickedRecord = recordAdapterSearch.records[position]
+        val clickedRecord = viewModel.recordAdapterSearch.records[position]
         viewModel.addRecordToWishlist(clickedRecord)
     }
 

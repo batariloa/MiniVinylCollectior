@@ -74,7 +74,7 @@ class RecordAdapterSearch(
 
     class RecordViewHolder(
         val binding: RecordRowSearchBinding,
-        val onRecordListenerSearch: OnRecordListenerSearch
+        private val onRecordListenerSearch: OnRecordListenerSearch
     ) : RecyclerView.ViewHolder(binding.root) {
 
 

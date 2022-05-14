@@ -11,10 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
-import com.batarilo.vinylcollection.ui.home.recycle.RecordAdapterSearch
 
 
-class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListener {
+class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListenerCollection {
 
 
 
@@ -34,7 +33,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
     }
 
 
-    fun loadCollection(){
+    private fun loadCollection(){
        viewModel.readAllFromCollection().observe(viewLifecycleOwner, Observer {
            recordAdapter.records = it
        })
@@ -48,13 +47,13 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
 
     }
     override fun onRecordClicked(position: Int) {
-
+//TODO
 
     }
 
-    override fun onRemoveFromCollectedClicked(position: Int) {
-        TODO("Not yet implemented")
-    }
+    override fun onRemoveClicked(position: Int) {
+        viewModel.removeRecordFromCollection(recordAdapter.records[position])
+     }
 
     override fun onAddToNotesClicked(position: Int) {
         TODO("Not yet implemented")

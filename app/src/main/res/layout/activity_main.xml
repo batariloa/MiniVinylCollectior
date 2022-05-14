@@ -10,18 +10,36 @@
 
 
 
-    <fragment
-        android:id="@+id/fragment"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/my_nav"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp">
+
+    3
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+
+        <fragment
+            android:layout_marginTop="50dp"
+            android:id="@+id/fragment"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/my_nav"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </fragment>
+
+    </RelativeLayout>
 
 
-
-
-    </fragment>
 
 
     <com.google.android.material.navigation.NavigationView
@@ -32,7 +50,6 @@
         app:menu="@menu/navigation_menu"
         app:headerLayout="@layout/nav_header"
 
-        ></com.google.android.material.navigation.NavigationView
-        >
+        />
 
 </androidx.drawerlayout.widget.DrawerLayout>

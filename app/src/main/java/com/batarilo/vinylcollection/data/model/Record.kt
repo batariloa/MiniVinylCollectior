@@ -12,23 +12,24 @@ data class Record (
     val id: Int,
 
     @TypeConverters(RecordConverters::class)
-    val format: List<String>,
+    val format: List<String>?,
     @TypeConverters(RecordConverters::class)
-    val genre: List<String>,
+    val genre: List<String>?,
     @TypeConverters(RecordConverters::class)
-    val label: List<String>,
+    val label: List<String>?,
 
     var belongsTo: RecordType, //Place to be saved
 
-    val catno: String,
-    val country: String,
-    val cover_image: String,
+
+    val catno: String?,
+    val country: String?,
+    val cover_image: String?,
     val format_quantity: Int,
-    val thumb: String,
-    val title: String,
-    val type: String,
-    val uri: String,
-    val year: String
+    val thumb: String?,
+    val title: String?,
+    val type: String?,
+    val uri: String?,
+    val year: String?
 )
 
-enum class RecordType {COLLECTED, WISHLIST}
+enum class RecordType {COLLECTION, WISHLIST}

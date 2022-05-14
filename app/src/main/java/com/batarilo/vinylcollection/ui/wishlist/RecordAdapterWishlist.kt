@@ -1,4 +1,4 @@
-package com.batarilo.vinylcollection.ui.collection.recycle
+package com.batarilo.vinylcollection.ui.wishlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.data.model.Record
-import com.batarilo.vinylcollection.databinding.RecordRowCollectionBinding
+import com.batarilo.vinylcollection.databinding.RecordRowWishlistBinding
 import com.bumptech.glide.Glide
 
-class RecordAdapterCollection(
-    private val onRecordListener: OnRecordListenerCollection
-) : Adapter<RecordAdapterCollection.RecordViewHolderSearch>() {
+class RecordAdapterWishlist(
+    private val onRecordListener: OnRecordListenerWishlist
+) : Adapter<RecordAdapterWishlist.RecordViewHolder>() {
 
 
     private val diffCallback = object : DiffUtil.ItemCallback<Record>() {
@@ -33,11 +33,11 @@ class RecordAdapterCollection(
 
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolderSearch {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
 
 
-        return RecordViewHolderSearch(
-            RecordRowCollectionBinding.inflate(
+        return RecordViewHolder(
+            RecordRowWishlistBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -49,7 +49,7 @@ class RecordAdapterCollection(
 
 
 
-    override fun onBindViewHolder(holderSearch: RecordViewHolderSearch, position: Int) {
+    override fun onBindViewHolder(holderSearch: RecordViewHolder, position: Int) {
 
         holderSearch.binding.apply {
             val item = records[position]
@@ -72,9 +72,9 @@ class RecordAdapterCollection(
     }
 
 
-    class RecordViewHolderSearch(
-        val binding: RecordRowCollectionBinding,
-        private val onRecordListener: OnRecordListenerCollection
+    class RecordViewHolder(
+        val binding: RecordRowWishlistBinding,
+        private val onRecordListener: OnRecordListenerWishlist
     ) : RecyclerView.ViewHolder(binding.root) {
 
 
@@ -97,7 +97,7 @@ class RecordAdapterCollection(
     }
 
 
-    interface OnRecordListenerCollection{
+    interface OnRecordListenerWishlist{
         fun onRecordClicked(position:Int)
         fun onRemoveClicked(position: Int)
         fun onAddToNotesClicked(position: Int)

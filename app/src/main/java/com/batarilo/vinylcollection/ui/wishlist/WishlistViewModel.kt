@@ -1,4 +1,4 @@
-package com.batarilo.vinylcollection.ui.collection
+package com.batarilo.vinylcollection.ui.wishlist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -11,18 +11,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MyCollectionViewModel @Inject constructor(
+class WishlistViewModel @Inject constructor(
     private val recordRepository: RecordRepository
 )
-    : ViewModel(){
+    : ViewModel() {
 
-    fun readAllFromCollection(): LiveData<List<Record>> {
-    return recordRepository.readFromCollection()
-    }
-    fun removeRecordFromCollection(record: Record){
-        viewModelScope.launch(Dispatchers.IO) {
-            recordRepository.removeRecord(record)
+        fun removeRecord(record: Record){
+            viewModelScope.launch(Dispatchers.IO) {
+                recordRepository.removeRecord(record)
+            }
         }
-    }
+
+        fun loadWishList(): LiveData<List<Record>> {
+              return  recordRepository.readFromWishlist()
+        }
+
+
 
 }

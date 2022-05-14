@@ -40,6 +40,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setSupportActionBar(findViewById(R.id.toolbar))
+
 
 
 
@@ -82,6 +84,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 println("CLICKED MY COLLECTION")
 
             }
+            R.id.nav_wishlist -> {
+                Navigation.findNavController(this, R.id.fragment)
+                    .navigate(R.id.wishlistFragment)
+            }
+
 
         }
         item.isChecked = true
