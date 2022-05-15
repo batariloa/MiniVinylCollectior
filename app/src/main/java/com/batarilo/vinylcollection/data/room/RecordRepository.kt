@@ -21,9 +21,29 @@ class RecordRepository  @Inject constructor(private val recordDao: RecordDao) {
         recordDao.addRecord(record)
     }
 
-    suspend fun removeRecord(record:Record){
+    suspend fun deleteRecord(record:Record){
         recordDao.deleteRecord(record)
     }
+
+    //if the record is not in either the collection or wishlist, delete it
+    suspend fun removeRecordFromWishlist(record: Record){
+        record.inWishlist=false
+
+        if(record.inCollection==false)
+            recordDao.deleteRecord(record)
+        else
+            recordDao.updateRecord(record)
+    }
+
+    suspend fun removeRecordFromCollection(record: Record){
+        record.inCollection=false
+
+        if(record.inWishlist==false)
+            recordDao.deleteRecord(record)
+        else
+        recordDao.updateRecord(record)
+    }
+
 
     fun readFromWishlist(): LiveData<List<Record>> {
      return recordDao.readWishList()

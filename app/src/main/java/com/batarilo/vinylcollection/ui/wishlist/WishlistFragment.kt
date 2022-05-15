@@ -55,7 +55,7 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
     }
 
     override fun onRemoveClicked(position: Int) {
-
+        viewModel.removeRecord(recordAdapter.records[position])
      }
 
     override fun onAddToNotesClicked(position: Int) {

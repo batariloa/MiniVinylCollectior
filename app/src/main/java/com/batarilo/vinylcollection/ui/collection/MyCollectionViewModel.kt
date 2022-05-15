@@ -21,7 +21,7 @@ class MyCollectionViewModel @Inject constructor(
     }
     fun removeRecordFromCollection(record: Record){
         viewModelScope.launch(Dispatchers.IO) {
-            recordRepository.removeRecord(record)
+            recordRepository.removeRecordFromCollection(record)
         }
     }
 

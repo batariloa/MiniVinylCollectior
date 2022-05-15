@@ -18,7 +18,7 @@ class WishlistViewModel @Inject constructor(
 
         fun removeRecord(record: Record){
             viewModelScope.launch(Dispatchers.IO) {
-                recordRepository.removeRecord(record)
+                recordRepository.removeRecordFromWishlist(record)
             }
         }
 
