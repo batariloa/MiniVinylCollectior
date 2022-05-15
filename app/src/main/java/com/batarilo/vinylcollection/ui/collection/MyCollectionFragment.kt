@@ -57,7 +57,13 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
      }
 
     override fun onAddToNotesClicked(position: Int) {
-        NoteDialog(viewCurrent.context, recordAdapter.records[position], viewModel.recordRepository).show()
+        NoteDialog(viewCurrent.context, recordAdapter.records[position], viewModel.recordRepository).apply {
+            show()
+            setOnDismissListener{
+                setupRecyclerView()
+            }
+        }
+
     }
 
 

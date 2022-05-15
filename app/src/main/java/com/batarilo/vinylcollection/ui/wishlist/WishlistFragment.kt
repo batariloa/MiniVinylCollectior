@@ -59,8 +59,12 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
      }
 
     override fun onAddToNotesClicked(position: Int) {
-        NoteDialog(viewCurrent.context, recordAdapter.records[position], viewModel.recordRepository).show()
-
+        NoteDialog(viewCurrent.context, recordAdapter.records[position], viewModel.recordRepository).apply {
+            show()
+            setOnDismissListener{
+                setupRecyclerView()
+            }
+        }
     }
     private fun loadWishList(){
         viewModel.loadWishList().observe(viewLifecycleOwner, Observer {
