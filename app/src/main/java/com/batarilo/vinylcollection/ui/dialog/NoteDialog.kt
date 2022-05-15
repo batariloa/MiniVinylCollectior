@@ -52,5 +52,13 @@ class NoteDialog(context: Context, val record:Record, val recordRepository: Reco
         findViewById<ImageButton>(R.id.btn_close_dialog).setOnClickListener{
             dismiss()
         }
+
+        findViewById<ImageButton>(R.id.btn_delete).setOnClickListener{
+            record.note = null
+            mainActivityScope.launch {
+                recordRepository.updateRecord(record)
+            }
+            dismiss()
+        }
     }
 }
