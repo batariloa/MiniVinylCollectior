@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyCollectionViewModel @Inject constructor(
-    private val recordRepository: RecordRepository
+    val recordRepository: RecordRepository
 )
     : ViewModel(){
 

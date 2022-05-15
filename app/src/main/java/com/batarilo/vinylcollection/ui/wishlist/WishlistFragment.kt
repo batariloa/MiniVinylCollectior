@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.ui.collection.MyCollectionViewModel
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
+import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,7 +59,8 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
      }
 
     override fun onAddToNotesClicked(position: Int) {
-        TODO("Not yet implemented")
+        NoteDialog(viewCurrent.context, recordAdapter.records[position], viewModel.recordRepository).show()
+
     }
     private fun loadWishList(){
         viewModel.loadWishList().observe(viewLifecycleOwner, Observer {

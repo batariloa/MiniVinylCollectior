@@ -14,12 +14,15 @@ interface RecordDao {
     @Query("SELECT * FROM record_table ORDER BY id ASC")
     fun readAllData():LiveData<List<Record>>
 
-    @Query("SELECT * FROM record_table WHERE belongsTo='WISHLIST'")
+    @Query("SELECT * FROM record_table WHERE inWishlist=1")
     fun readWishList():LiveData<List<Record>>
 
-    @Query("SELECT * FROM record_table WHERE belongsTo='COLLECTION'")
+    @Query("SELECT * FROM record_table WHERE inCollection=1")
     fun readCollection():LiveData<List<Record>>
 
     @Delete
     suspend fun deleteRecord(record: Record)
+
+    @Update
+    suspend fun updateRecord(record: Record)
 }

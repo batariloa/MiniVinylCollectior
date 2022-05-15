@@ -2,9 +2,11 @@ package com.batarilo.vinylcollection.di
 
 import android.content.Context
 import androidx.room.Room
+import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.data.room.RecordDao
 import com.batarilo.vinylcollection.data.room.RecordDatabase
 import com.batarilo.vinylcollection.data.room.RecordRepository
+import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +23,12 @@ class AppModule {
     @Provides
     fun provideApplication(@ApplicationContext app: Context):VinylApp{
         return app as VinylApp
+    }
+
+
+    @Provides
+    fun provideString():String{
+        return "blbl"
     }
 
 
@@ -41,5 +49,7 @@ class AppModule {
     fun provideRecordRepository(recordDao: RecordDao): RecordRepository{
         return RecordRepository(recordDao)
     }
+
+
 
 }

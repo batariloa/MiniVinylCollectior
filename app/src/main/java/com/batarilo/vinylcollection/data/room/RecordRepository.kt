@@ -12,12 +12,12 @@ class RecordRepository  @Inject constructor(private val recordDao: RecordDao) {
    }
 
     suspend fun addRecordToCollection(record: Record){
-        record.belongsTo = RecordType.COLLECTION
+        record.inCollection = true
         recordDao.addRecord(record)
     }
 
     suspend fun addRecordToWishlist(record: Record) {
-        record.belongsTo = RecordType.WISHLIST
+        record.inWishlist = true
         recordDao.addRecord(record)
     }
 
@@ -31,5 +31,9 @@ class RecordRepository  @Inject constructor(private val recordDao: RecordDao) {
 
     fun readFromCollection(): LiveData<List<Record>> {
         return recordDao.readCollection()
+    }
+
+    suspend fun updateRecord(record: Record){
+        return recordDao.updateRecord(record)
     }
 }

@@ -16,6 +16,7 @@ class SearchViewModel @Inject constructor(
 )
     : ViewModel() {
 
+    var izadji = 0
     lateinit var recordAdapterSearch: RecordAdapterSearch
 
     fun addRecordToCollection(record:Record){

@@ -32,14 +32,6 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     private val viewModel:SearchViewModel by viewModels()
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-
-
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -112,14 +104,17 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     }
 
     override fun onRecordClicked(position: Int) {
-        Toast.makeText(context, "Added to collection", Toast.LENGTH_SHORT).show()
         println("RECORD ADAPTER RECORDS " + viewModel.recordAdapterSearch.records)
         println(" "+ viewModel.recordAdapterSearch.records[position].toString() + " clicked record")
 
     }
 
     override fun onCollectedClicked(position: Int) {
-        Toast.makeText(context, "Added to collection", Toast.LENGTH_LONG).show()
+        viewModel.izadji++
+        if(viewModel.izadji>10) {
+            Toast.makeText(context, "COMI IZADJI IZ ZIDA", Toast.LENGTH_LONG).show()
+            viewModel.izadji =0
+        }
 
         val clickedRecord = viewModel.recordAdapterSearch.records[position]
         viewModel.addRecordToCollection(clickedRecord)
@@ -127,7 +122,7 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     }
 
     override fun onAddToWishListClicked(position: Int) {
-        Toast.makeText(context, "Added to wishlist", Toast.LENGTH_LONG).show()
+
         val clickedRecord = viewModel.recordAdapterSearch.records[position]
         viewModel.addRecordToWishlist(clickedRecord)
     }

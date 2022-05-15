@@ -61,6 +61,10 @@ class RecordAdapterWishlist(
                 .load(item.thumb)
                 .placeholder(R.drawable.empty_record)
                 .into(imageRecord)
+
+
+            //TODO changed icon for a set note
+
         }
 
 

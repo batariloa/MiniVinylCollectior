@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WishlistViewModel @Inject constructor(
-    private val recordRepository: RecordRepository
+    val recordRepository: RecordRepository
 )
     : ViewModel() {
 

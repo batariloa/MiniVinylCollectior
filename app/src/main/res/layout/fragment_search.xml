@@ -17,8 +17,6 @@
 
 
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_record"
         android:layout_width="match_parent"

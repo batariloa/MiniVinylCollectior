@@ -61,6 +61,12 @@ class RecordAdapterCollection(
                 .load(item.thumb)
                 .placeholder(R.drawable.empty_record)
                 .into(imageRecord)
+
+
+            if(item.note!=null){
+                btnAddNoteCollection.setImageResource(R.drawable.ic_baseline_sticky_note_2_24)
+
+            }
         }
 
 

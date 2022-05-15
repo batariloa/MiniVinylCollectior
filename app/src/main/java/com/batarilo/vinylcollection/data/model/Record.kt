@@ -18,8 +18,10 @@ data class Record (
     @TypeConverters(RecordConverters::class)
     val label: List<String>?,
 
-    var belongsTo: RecordType, //Place to be saved
+    var inCollection:Boolean?,
+    var inWishlist:Boolean?,
 
+    var note:String?, //added note
 
     val catno: String?,
     val country: String?,

@@ -57,12 +57,10 @@ class RecordAdapterSearch(
             tvLabel.text = item.year
             tvFrom.text = item.country
 
-            Glide.with(holder.itemView.context)
-                .load(item.thumb)
-                .placeholder(R.drawable.empty_record)
-                .into(imageRecord)
-
-
+                Glide.with(holder.itemView.context)
+                    .load(item.thumb)
+                    .placeholder(R.drawable.empty_record)
+                    .into(imageRecord)
         }
 
     }

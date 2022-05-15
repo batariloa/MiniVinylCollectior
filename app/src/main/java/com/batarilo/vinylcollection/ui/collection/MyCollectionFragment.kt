@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
+import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 
 
 class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListenerCollection {
@@ -56,7 +57,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
      }
 
     override fun onAddToNotesClicked(position: Int) {
-        TODO("Not yet implemented")
+        NoteDialog(viewCurrent.context, recordAdapter.records[position], viewModel.recordRepository).show()
     }
 
 
