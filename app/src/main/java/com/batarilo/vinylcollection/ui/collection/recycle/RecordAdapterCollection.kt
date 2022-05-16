@@ -63,6 +63,7 @@ class RecordAdapterCollection(
                 .placeholder(R.drawable.empty_record)
                 .into(imageRecord)
 
+            println("IS IT NULL ${item.record}.")
 
             if(item.record.note!=null){
                 rowButtons.btnAddNoteCollection.setImageResource(R.drawable.ic_baseline_sticky_note_set)

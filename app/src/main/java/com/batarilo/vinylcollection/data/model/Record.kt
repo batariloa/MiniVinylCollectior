@@ -19,10 +19,6 @@ data class Record (
 
     var note:String?, //added note
 
-    var inCollection:Boolean?,
-    var inHistory:Boolean?,
-    var inWishlist: Boolean?,
-
 
     val catno: String?,
     val country: String?,

@@ -30,13 +30,11 @@ interface RecordDao {
      @Query("SELECT EXISTS(SELECT * FROM record_table WHERE id=:id)")
      fun recordExists(id:Int):Boolean
 
-     @Query("UPDATE record_table SET inCollection=1 WHERE id=:id")
-     fun updateCollectionTrue(id: Int)
 
     @Delete
     suspend fun deleteRecordInList(record: RecordInList)
 
     @Update
-    suspend fun updateRecord(record: Record)
+    suspend fun updateRecord(record: RecordInList)
 
 }

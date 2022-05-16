@@ -39,7 +39,7 @@ class RecordRepository  @Inject constructor(private val recordDao: RecordDao) {
         return recordDao.readCollection()
     }
 
-    suspend fun updateRecord(record: Record){
+    suspend fun updateRecord(record: RecordInList){
         return recordDao.updateRecord(record)
     }
 
