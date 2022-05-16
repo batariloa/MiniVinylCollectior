@@ -1,4 +1,4 @@
-package com.batarilo.vinylcollection.ui.home
+package com.batarilo.vinylcollection.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -43,8 +43,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(findViewById(R.id.toolbar))
 
 
-
-
          drawerLayout = findViewById(R.id.drawer_layout)
         navigationView= findViewById(R.id.nav_view)
 
@@ -76,19 +74,15 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_home -> {
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.searchFragment)
-                println("HOME CLICKED")
             }
             R.id.nav_my_collection -> {
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.myCollectionFragment)
-                println("CLICKED MY COLLECTION")
-
             }
             R.id.nav_wishlist -> {
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.wishlistFragment)
             }
-
 
         }
         item.isChecked = true

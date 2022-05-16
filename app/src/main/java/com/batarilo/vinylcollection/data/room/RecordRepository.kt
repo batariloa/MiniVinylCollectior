@@ -1,59 +1,46 @@
 package com.batarilo.vinylcollection.data.room
 
 import androidx.lifecycle.LiveData
+import com.batarilo.vinylcollection.data.model.ListType
 import com.batarilo.vinylcollection.data.model.Record
-import com.batarilo.vinylcollection.data.model.RecordType
+import com.batarilo.vinylcollection.data.model.RecordInList
 import javax.inject.Inject
 
 class RecordRepository  @Inject constructor(private val recordDao: RecordDao) {
 
-   fun readAllData(): LiveData<List<Record>>{
-       return recordDao.readAllData()
-   }
+
 
     suspend fun addRecordToCollection(record: Record){
-        record.inCollection = true
-        recordDao.addRecord(record)
+
+        recordDao.addRecord(RecordInList(0,record, ListType.COLLECTION))
     }
 
     suspend fun addRecordToWishlist(record: Record) {
-        record.inWishlist = true
-        recordDao.addRecord(record)
+
+        recordDao.addRecord(RecordInList(0,record, ListType.WISHLIST))
     }
 
-    suspend fun deleteRecord(record:Record){
-        recordDao.deleteRecord(record)
-    }
+    suspend fun addRecordToHistory(record: Record) {
 
-    //if the record is not in either the collection or wishlist, delete it
-    suspend fun removeRecordFromWishlist(record: Record){
-        record.inWishlist=false
-
-        if(record.inCollection==false)
-            recordDao.deleteRecord(record)
-        else
-            recordDao.updateRecord(record)
-    }
-
-    suspend fun removeRecordFromCollection(record: Record){
-        record.inCollection=false
-
-        if(record.inWishlist==false)
-            recordDao.deleteRecord(record)
-        else
-        recordDao.updateRecord(record)
+        recordDao.addRecord(RecordInList(0,record, ListType.HISTORY))
     }
 
 
-    fun readFromWishlist(): LiveData<List<Record>> {
+    suspend fun deleteRecordInList(record: RecordInList){
+        recordDao.deleteRecordInList(record)
+    }
+
+
+    fun readFromWishlist(): LiveData<List<RecordInList>> {
      return recordDao.readWishList()
     }
 
-    fun readFromCollection(): LiveData<List<Record>> {
+    fun readFromCollection(): LiveData<List<RecordInList>> {
         return recordDao.readCollection()
     }
 
     suspend fun updateRecord(record: Record){
         return recordDao.updateRecord(record)
     }
+
 }

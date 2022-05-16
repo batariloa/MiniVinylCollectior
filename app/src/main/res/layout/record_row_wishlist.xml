@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
     <LinearLayout
         android:layout_width="409dp"
         android:layout_height="130dp"
@@ -12,13 +13,18 @@
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
-        <ImageView
+
+        <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearance="@style/roundedCorners"
+            android:padding="5dp"
             android:id="@+id/image_record"
             android:layout_width="130dp"
+            android:backgroundTint="@color/black"
             android:layout_height="fill_parent"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             app:srcCompat="@android:drawable/ic_dialog_alert" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,53 +32,13 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+            <include
+                android:id="@+id/textviews"
+                layout="@layout/row_textviews"></include>
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="title" />
-
-                <TextView
-                    android:id="@+id/tv_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="label" />
-
-                <TextView
-                    android:id="@+id/tv_from"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="tv_from" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/btn_remove_from_collection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@android:drawable/ic_menu_delete" />
-
-                <ImageButton
-                    android:id="@+id/btn_add_note_collection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@android:drawable/stat_notify_chat"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </LinearLayout>
+            <include android:id="@+id/row_buttons"
+                layout="@layout/buttons_wishlist">
+            </include>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

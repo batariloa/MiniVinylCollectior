@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.ui.collection.MyCollectionViewModel
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
+import com.batarilo.vinylcollection.ui.info.InfoFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,7 +53,12 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
     }
 
     override fun onRecordClicked(position: Int) {
-        TODO("Not yet implemented")
+        val bundle = Bundle().also {
+            it.putSerializable(InfoFragment.RECORD_PARAM,recordAdapter.records[position].record)
+        }
+        Navigation.findNavController(viewCurrent)
+            .navigate(R.id.infoFragment, bundle)
+
     }
 
     override fun onRemoveClicked(position: Int) {
@@ -59,7 +66,7 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
      }
 
     override fun onAddToNotesClicked(position: Int) {
-        NoteDialog(viewCurrent.context, recordAdapter.records[position], viewModel.recordRepository).apply {
+        NoteDialog(viewCurrent.context, recordAdapter.records[position].record, viewModel.recordRepository).apply {
             show()
             setOnDismissListener{
                 setupRecyclerView()

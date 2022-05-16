@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.data.model.Record
+import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.databinding.RecordRowCollectionBinding
 import com.bumptech.glide.Glide
 
@@ -16,18 +17,18 @@ class RecordAdapterCollection(
 ) : Adapter<RecordAdapterCollection.RecordViewHolderSearch>() {
 
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Record>() {
-        override fun areItemsTheSame(oldItem: Record, newItem: Record): Boolean {
-            return oldItem.id == newItem.id
+    private val diffCallback = object : DiffUtil.ItemCallback<RecordInList>() {
+        override fun areItemsTheSame(oldItem: RecordInList, newItem: RecordInList): Boolean {
+            return oldItem.id_record_listed == newItem.id_record_listed
         }
 
-        override fun areContentsTheSame(oldItem: Record, newItem: Record): Boolean {
+        override fun areContentsTheSame(oldItem: RecordInList, newItem: RecordInList): Boolean {
             return oldItem == newItem
         }
     }
 
     private val differ = AsyncListDiffer(this, diffCallback)
-    var records: List<Record>
+    var records: List<RecordInList>
         get() = differ.currentList
         set(value) { differ.submitList(value) }
 
@@ -53,18 +54,18 @@ class RecordAdapterCollection(
 
         holderSearch.binding.apply {
             val item = records[position]
-            tvTitle.text = item.title
-            tvLabel.text = item.year
-            tvFrom.text = item.country
+           textviews.tvTitle.text = item.record.title
+            textviews.tvLabel.text = item.record.year
+            textviews.tvFrom.text = item.record.country
 
             Glide.with(holderSearch.itemView.context)
-                .load(item.thumb)
+                .load(item.record.thumb)
                 .placeholder(R.drawable.empty_record)
                 .into(imageRecord)
 
 
-            if(item.note!=null){
-                btnAddNoteCollection.setImageResource(R.drawable.ic_baseline_sticky_note_2_24)
+            if(item.record.note!=null){
+                rowButtons.btnAddNoteCollection.setImageResource(R.drawable.ic_baseline_sticky_note_set)
 
             }
         }
@@ -88,10 +89,10 @@ class RecordAdapterCollection(
             binding.root.setOnClickListener{
                 onRecordListener.onRecordClicked(adapterPosition)
             }
-            binding.btnRemoveFromCollection.setOnClickListener{
+            binding.rowButtons.btnRemoveFromCollection.setOnClickListener{
                 onRecordListener.onRemoveClicked(adapterPosition)
             }
-            binding.btnAddNoteCollection.setOnClickListener{
+            binding.rowButtons.btnAddNoteCollection.setOnClickListener{
                 onRecordListener.onAddToNotesClicked(adapterPosition)
             }
 

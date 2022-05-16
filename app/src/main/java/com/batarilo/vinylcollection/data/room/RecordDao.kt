@@ -3,26 +3,40 @@ package com.batarilo.vinylcollection.data.room
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.batarilo.vinylcollection.data.model.Record
-import com.batarilo.vinylcollection.data.model.RecordType
+import com.batarilo.vinylcollection.data.model.RecordInList
 
 @Dao
 interface RecordDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addRecord(record:Record)
+    suspend fun addRecord(record:RecordInList)
+
 
     @Query("SELECT * FROM record_table ORDER BY id ASC")
     fun readAllData():LiveData<List<Record>>
 
-    @Query("SELECT * FROM record_table WHERE inWishlist=1")
-    fun readWishList():LiveData<List<Record>>
+    @Query("SELECT * FROM record_in_list WHERE belongsTo='WISHLIST'")
+    fun readWishList():LiveData<List<RecordInList>>
 
-    @Query("SELECT * FROM record_table WHERE inCollection=1")
-    fun readCollection():LiveData<List<Record>>
+    @Query("SELECT * FROM record_in_list WHERE belongsTo='COLLECTION'")
+    fun readCollection():LiveData<List<RecordInList>>
+
+    @Query("SELECT * FROM record_in_list WHERE belongsTo='HISTORY'")
+    fun readHistory():LiveData<List<RecordInList>>
+
+    @Query("SELECT * FROM record_table WHERE id=:id")
+     fun findRecordById(id:Int):LiveData<Record>
+
+     @Query("SELECT EXISTS(SELECT * FROM record_table WHERE id=:id)")
+     fun recordExists(id:Int):Boolean
+
+     @Query("UPDATE record_table SET inCollection=1 WHERE id=:id")
+     fun updateCollectionTrue(id: Int)
 
     @Delete
-    suspend fun deleteRecord(record: Record)
+    suspend fun deleteRecordInList(record: RecordInList)
 
     @Update
     suspend fun updateRecord(record: Record)
+
 }

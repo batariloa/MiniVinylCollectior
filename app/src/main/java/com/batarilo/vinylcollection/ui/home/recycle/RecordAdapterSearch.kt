@@ -53,9 +53,9 @@ class RecordAdapterSearch(
 
         holder.binding.apply {
             val item = records[position]
-            tvTitle.text = item.title
-            tvLabel.text = item.year
-            tvFrom.text = item.country
+             rowTextViews.tvTitle.text = item.title
+            rowTextViews.tvLabel.text = item.year
+            rowTextViews.tvFrom.text = item.country
 
                 Glide.with(holder.itemView.context)
                     .load(item.thumb)
@@ -80,10 +80,10 @@ class RecordAdapterSearch(
             binding.root.setOnClickListener{
                 onRecordListenerSearch.onRecordClicked(adapterPosition)
             }
-            binding.btnAddToCollection.setOnClickListener{
+            binding.rowButtons.btnAddToCollection.setOnClickListener{
                 onRecordListenerSearch.onCollectedClicked(adapterPosition)
             }
-            binding.btnAddToWishlist.setOnClickListener{
+            binding.rowButtons.btnAddToWishlist.setOnClickListener{
                 onRecordListenerSearch.onAddToWishListClicked(adapterPosition)
             }
         }

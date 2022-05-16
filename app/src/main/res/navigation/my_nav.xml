@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_myCollectionFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_myCollectionFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+        <action
+            android:id="@+id/action_myCollectionFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -27,6 +33,12 @@
         <action
             android:id="@+id/action_searchFragment_to_myCollectionFragment2"
             app:destination="@id/myCollectionFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment" />
     </fragment>
     <fragment
         android:id="@+id/wishlistFragment"
@@ -37,6 +49,51 @@
             app:destination="@id/myCollectionFragment" />
         <action
             android:id="@+id/action_wishlistFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_wishlistFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+        <action
+            android:id="@+id/action_wishlistFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment" />
+        <action
+            android:id="@+id/action_wishlistFragment_to_exploreFragment2"
+            app:destination="@id/exploreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.batarilo.vinylcollection.ui.info.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info" >
+        <action
+            android:id="@+id/action_infoFragment_to_wishlistFragment"
+            app:destination="@id/wishlistFragment" />
+        <action
+            android:id="@+id/action_infoFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <argument
+            android:name="record"
+            app:argType="com.batarilo.vinylcollection.data.model.Record" />
+        <action
+            android:id="@+id/action_infoFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.batarilo.vinylcollection.ui.ExploreFragment"
+        android:label="fragment_explore"
+        tools:layout="@layout/fragment_explore" >
+        <action
+            android:id="@+id/action_exploreFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_wishlistFragment"
+            app:destination="@id/wishlistFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_myCollectionFragment"
+            app:destination="@id/myCollectionFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
     </fragment>
 </navigation>

@@ -11,18 +11,34 @@ interface RecordApiService {
         USER_AGENT_HEADER,
         CONTENT_TYPE_HEADER
     )
-   suspend fun homeSearch(
+   suspend fun searchDiscog(
         @Query("key") auth_key:String,
         @Query ("secret") auth_secret:String,
-        @Query("release_title") searchTerm:String
+        @Query("release_title") searchTerm:String,
+        @Query("type") type:String
     ): Response<JsonResponse>
 
 
+
+    @GET("database/search")
+    @Headers(
+        USER_AGENT_HEADER,
+        CONTENT_TYPE_HEADER
+    )
+    suspend fun searchCountry(
+        @Query("key") auth_key:String,
+        @Query ("secret") auth_secret:String,
+        @Query("release_title") searchTerm:String,
+        @Query("type") type:String
+    ): Response<JsonResponse>
+
+
+
     companion object{
-         const val USER_AGENT_HEADER = "User-Agent: FooBarApp/3.0"
-         const val CONTENT_TYPE_HEADER = "Accept: application/json"
+        const val USER_AGENT_HEADER = "User-Agent: FooBarApp/3.0"
+        const val CONTENT_TYPE_HEADER = "Accept: application/json"
         const val AUTH_KEY = "aDHPMLIyOyNPkvTkCyPY"
-         const val AUTH_SECRET = "RoSLDJLGyNMZXazEsuIskUmVeALHLlZE"
+        const val AUTH_SECRET = "RoSLDJLGyNMZXazEsuIskUmVeALHLlZE"
         const val BASE_URL = "https://api.discogs.com/"
     }
 

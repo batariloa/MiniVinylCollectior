@@ -13,7 +13,8 @@
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
+           app:shapeAppearance="@style/roundedCorners"
             android:padding="5dp"
             android:id="@+id/image_record"
             android:layout_width="130dp"
@@ -29,54 +30,14 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+           <include
+               android:id="@+id/row_textViews"
+               layout="@layout/row_textviews"></include>
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="title" />
+          <include
+              android:id="@+id/row_buttons"
+              layout="@layout/buttons_search"></include>
 
-                <TextView
-                    android:id="@+id/tv_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="label" />
-
-                <TextView
-                    android:id="@+id/tv_from"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="tv_from" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="20dp"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/btn_add_to_collection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_baseline_folder_open_24" />
-
-                <ImageButton
-                    android:id="@+id/btn_add_to_wishlist"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_baseline_stars_24" />
-
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

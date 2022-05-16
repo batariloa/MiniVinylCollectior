@@ -1,9 +1,8 @@
 package com.batarilo.vinylcollection.data.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
+import androidx.room.*
 import com.batarilo.vinylcollection.data.room.RecordConverters
+import java.io.Serializable
 
 @Entity(tableName = "record_table")
 data class Record (
@@ -18,10 +17,12 @@ data class Record (
     @TypeConverters(RecordConverters::class)
     val label: List<String>?,
 
-    var inCollection:Boolean?,
-    var inWishlist:Boolean?,
-
     var note:String?, //added note
+
+    var inCollection:Boolean?,
+    var inHistory:Boolean?,
+    var inWishlist: Boolean?,
+
 
     val catno: String?,
     val country: String?,
@@ -32,6 +33,17 @@ data class Record (
     val type: String?,
     val uri: String?,
     val year: String?
+): Serializable
+
+@Entity(tableName = "record_in_list",
+    indices = arrayOf(Index(value = ["id","belongsTo"], unique = true)))
+data class RecordInList(
+    @PrimaryKey(autoGenerate = true)
+    var id_record_listed: Int,
+    @Embedded
+    val record: Record,
+    val belongsTo:ListType
+
 )
 
-enum class RecordType {COLLECTION, WISHLIST}
+enum class ListType {COLLECTION, WISHLIST, HISTORY}

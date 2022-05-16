@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batarilo.vinylcollection.data.model.Record
+import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.data.room.RecordRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,13 +17,14 @@ class WishlistViewModel @Inject constructor(
 )
     : ViewModel() {
 
-        fun removeRecord(record: Record){
+        fun removeRecord(record: RecordInList){
             viewModelScope.launch(Dispatchers.IO) {
-                recordRepository.removeRecordFromWishlist(record)
+                recordRepository.deleteRecordInList(record)
             }
         }
 
-        fun loadWishList(): LiveData<List<Record>> {
+        fun loadWishList(): LiveData<List<RecordInList>> {
+
               return  recordRepository.readFromWishlist()
         }
 

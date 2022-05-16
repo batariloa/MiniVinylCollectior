@@ -12,12 +12,14 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.data.retrofit.RecordApiService
 import com.batarilo.vinylcollection.data.retrofit.RetrofitInstance
 import com.batarilo.vinylcollection.ui.home.recycle.RecordAdapterSearch
+import com.batarilo.vinylcollection.ui.info.InfoFragment
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.HttpException
 import java.io.IOException
@@ -39,7 +41,7 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     ): View? {
         viewCurrent  = inflater.inflate(R.layout.fragment_search, container, false)
         setupRecyclerView()
-        search("something")
+        search("")
 
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
@@ -79,10 +81,11 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
         lifecycleScope.launchWhenCreated {
 
             val result = try {
-                RetrofitInstance.api.homeSearch(
+                RetrofitInstance.api.searchDiscog(
                     RecordApiService.AUTH_KEY,
                     RecordApiService.AUTH_SECRET,
-                    term
+                    term,
+                    "release"
                 )
             }
             catch (e: IOException){
@@ -107,14 +110,17 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
         println("RECORD ADAPTER RECORDS " + viewModel.recordAdapterSearch.records)
         println(" "+ viewModel.recordAdapterSearch.records[position].toString() + " clicked record")
 
+        val bundle = Bundle().also {
+           it.putSerializable(InfoFragment.RECORD_PARAM,viewModel.recordAdapterSearch.records[position])
+        }
+        Navigation.findNavController(viewCurrent)
+            .navigate(R.id.infoFragment, bundle)
+
+
     }
 
     override fun onCollectedClicked(position: Int) {
-        viewModel.izadji++
-        if(viewModel.izadji>10) {
-            Toast.makeText(context, "COMI IZADJI IZ ZIDA", Toast.LENGTH_LONG).show()
-            viewModel.izadji =0
-        }
+
 
         val clickedRecord = viewModel.recordAdapterSearch.records[position]
         viewModel.addRecordToCollection(clickedRecord)

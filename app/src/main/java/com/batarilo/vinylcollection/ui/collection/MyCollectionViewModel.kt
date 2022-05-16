@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batarilo.vinylcollection.data.model.Record
+import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.data.room.RecordRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,12 +17,12 @@ class MyCollectionViewModel @Inject constructor(
 )
     : ViewModel(){
 
-    fun readAllFromCollection(): LiveData<List<Record>> {
+    fun readAllFromCollection(): LiveData<List<RecordInList>> {
     return recordRepository.readFromCollection()
     }
-    fun removeRecordFromCollection(record: Record){
+    fun removeRecordFromCollection(record: RecordInList){
         viewModelScope.launch(Dispatchers.IO) {
-            recordRepository.removeRecordFromCollection(record)
+            recordRepository.deleteRecordInList(record)
         }
     }
 

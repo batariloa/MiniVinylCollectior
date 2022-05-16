@@ -6,8 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.batarilo.vinylcollection.data.model.Record
+import com.batarilo.vinylcollection.data.model.RecordInList
 
-@Database(entities = [Record::class], version = 10, exportSchema = false)
+@Database(entities = [Record::class, RecordInList::class], version = 18, exportSchema = false)
 @TypeConverters(RecordConverters::class)
 abstract class RecordDatabase
     : RoomDatabase(){
