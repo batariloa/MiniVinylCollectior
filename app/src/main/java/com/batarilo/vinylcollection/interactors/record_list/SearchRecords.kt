@@ -27,6 +27,7 @@ class SearchRecords(
             delay(1000)
 
 
+            Log.d("CACHE", "IS network available? $isNetworkAvailable")
             if(isNetworkAvailable) {
                 var records = getRecordFromNetwork(query)
                 //insert into cache
@@ -37,7 +38,7 @@ class SearchRecords(
                 recordDao.readAllData()
             }
             else{
-                recordDao.searchRecords()
+                getRecordFromCache(query)
             }
             Log.d("CACHE","CACHE RESULT $cacheResult")
             //emit list from the cache
@@ -55,7 +56,7 @@ class SearchRecords(
             RecordApiService.TYPE_RELEASE
         )
     }
-    private suspend fun getRecordFromCache():List<Record>{
-        return recordDao.searchRecords()
+    private suspend fun getRecordFromCache(query: String):List<Record>{
+        return recordDao.searchRecords(query)
     }
 }

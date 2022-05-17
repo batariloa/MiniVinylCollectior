@@ -9,9 +9,9 @@ import java.util.concurrent.TimeUnit
 object RetrofitInstance {
 
     var okHttpClient = OkHttpClient().newBuilder()
-        .connectTimeout(1, TimeUnit.SECONDS)
-        .readTimeout(1, TimeUnit.SECONDS)
-        .writeTimeout(1, TimeUnit.SECONDS)
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(10, TimeUnit.SECONDS)
+        .writeTimeout(10, TimeUnit.SECONDS)
         .build()
     val api: RecordApiService by lazy {
         Retrofit.Builder()

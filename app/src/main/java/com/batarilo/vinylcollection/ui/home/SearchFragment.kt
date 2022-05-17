@@ -52,6 +52,9 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 if (p0 != null) {
                     viewModel.query.value=p0
+                    viewModel.newSearch()
+                    setupRecyclerView()
+
 
                 }
                 return false

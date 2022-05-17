@@ -6,6 +6,8 @@ import androidx.lifecycle.LifecycleOwner
 import javax.inject.Inject
 import javax.inject.Singleton
 
+
+//class that provides connection status in other parts of the app
 @Singleton
 class ConnectivityManager
 @Inject
@@ -18,9 +20,9 @@ constructor(
     val isNetworkAvailable = mutableStateOf(false)
 
     fun registerConnectionObserver(lifecycleOwner: LifecycleOwner){
-        connectionLiveData.observe(lifecycleOwner, { isConnected ->
+        connectionLiveData.observe(lifecycleOwner) { isConnected ->
             isConnected?.let { isNetworkAvailable.value = it }
-        })
+        }
     }
 
     fun unregisterConnectionObserver(lifecycleOwner: LifecycleOwner){

@@ -36,47 +36,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
 
-    lateinit var cm : ConnectivityManager
-    val TAG= "c-Manager"
-    val networkRequest = NetworkRequest.Builder()
-        .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-        .build()
-
-    val networkCallback = object: ConnectivityManager.NetworkCallback(){
-        override fun onAvailable(network: Network) {
-
-            super.onAvailable(network)
-
-            Log.d(TAG, "onAvailable")
-            val networkCapabilities = cm.getNetworkCapabilities(network)
-            val hasInternetCapability = networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-
-            if(hasInternetCapability == true){
-                CoroutineScope(Dispatchers.IO).launch {
-
-                }
-        }}
-
-        override fun onLost(network: Network) {
-            Log.d(TAG, "onLost")
-            super.onLost(network)
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        cm = this.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-        cm.registerNetworkCallback(networkRequest, networkCallback)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        cm.unregisterNetworkCallback(networkCallback)
-    }
 
     lateinit var navController:NavController
     lateinit var drawerLayout: DrawerLayout

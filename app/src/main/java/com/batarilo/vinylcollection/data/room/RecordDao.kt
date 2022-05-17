@@ -21,14 +21,12 @@ interface RecordDao {
     @Query("SELECT * FROM record_table ORDER BY id ASC")
    suspend fun readAllData():List<Record>
 
-    @Query("SELECT * FROM record_table WHERE title LIKE '%'+:query+'%'")
+    @Query("SELECT * FROM record_table WHERE title LIKE '%' || :query || '%'")
     suspend fun searchRecords(query:String):List<Record>
 
-    @Query("SELECT * FROM record_table")
-    fun searchRecords():List<Record>
 
     @Query("SELECT * FROM record_in_list WHERE belongsTo='WISHLIST'")
-    fun readWishList():LiveData<List<RecordInList>>
+     fun readWishList():LiveData<List<RecordInList>>
 
     @Query("SELECT * FROM record_in_list WHERE belongsTo='COLLECTION'")
     fun readCollection():LiveData<List<RecordInList>>

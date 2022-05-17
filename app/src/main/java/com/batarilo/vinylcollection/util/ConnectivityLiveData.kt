@@ -16,12 +16,10 @@ import kotlinx.coroutines.withContext
 val TAG = "C-Manager"
 
 /**
- * Save all available networks with an internet connection to a set (@validNetworks).
- * As long as the size of the set > 0, this LiveData emits true.
- * MinSdk = 21.
- *
- * Inspired by:
- * https://github.com/AlexSheva-mason/Rick-Morty-Database/blob/master/app/src/main/java/com/shevaalex/android/rickmortydatabase/utils/networking/ConnectionLiveData.kt
+This class handles the logic of whether there the connection exists or not
+
+This approach was inspired by CodingWithMitch
+ Github: https://github.com/mitchtabian/food2fork-compose/blob/master/app/src/main/java/com/codingwithmitch/food2forkcompose/presentation/util/ConnectionLiveData.kt
  */
 class ConnectionLiveData(context: Context) : LiveData<Boolean>() {
 
@@ -48,10 +46,7 @@ class ConnectionLiveData(context: Context) : LiveData<Boolean>() {
 
     private fun createNetworkCallback() = object : ConnectivityManager.NetworkCallback() {
 
-        /*
-          Called when a network is detected. If that network has internet, save it in the Set.
-          Source: https://developer.android.com/reference/android/net/ConnectivityManager.NetworkCallback#onAvailable(android.net.Network)
-         */
+       //called when network is detected, not sure if it has internet yet
         override fun onAvailable(network: Network) {
             Log.d(TAG, "onAvailable: ${network}")
             val networkCapabilities = cm.getNetworkCapabilities(network)
