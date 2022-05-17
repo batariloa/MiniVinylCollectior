@@ -43,9 +43,36 @@ android {
 
 dependencies {
 
+
+    //lifecycle
+    def lifecycle_version = "2.5.0-rc01"
+    def arch_version = "2.1.0"
+
+    //paging
+    def paging_version = "3.1.1"
+
+    implementation("androidx.paging:paging-runtime:$paging_version")
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    // ViewModel utilities for Compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    // Lifecycles only (without ViewModel or LiveData)
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
+
+    // Saved state module for ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+
+
+
     implementation 'androidx.navigation:navigation-fragment:2.4.2'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     def nav_version = "2.4.2"
+
+
 
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'

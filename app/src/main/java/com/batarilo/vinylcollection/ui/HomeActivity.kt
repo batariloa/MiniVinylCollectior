@@ -1,6 +1,11 @@
 package com.batarilo.vinylcollection.ui
 
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -20,18 +25,61 @@ import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.data.retrofit.RecordApiService
 import com.batarilo.vinylcollection.data.retrofit.RetrofitInstance
 import com.batarilo.vinylcollection.ui.home.recycle.RecordAdapterSearch
+import com.batarilo.vinylcollection.util.DoesNetworkHaveInternet
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
 
+    lateinit var cm : ConnectivityManager
+    val TAG= "c-Manager"
+    val networkRequest = NetworkRequest.Builder()
+        .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        .build()
 
-    lateinit var  navController:NavController
-    lateinit var  drawerLayout: DrawerLayout
+    val networkCallback = object: ConnectivityManager.NetworkCallback(){
+        override fun onAvailable(network: Network) {
+
+            super.onAvailable(network)
+
+            Log.d(TAG, "onAvailable")
+            val networkCapabilities = cm.getNetworkCapabilities(network)
+            val hasInternetCapability = networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+
+            if(hasInternetCapability == true){
+                CoroutineScope(Dispatchers.IO).launch {
+
+                }
+        }}
+
+        override fun onLost(network: Network) {
+            Log.d(TAG, "onLost")
+            super.onLost(network)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        cm = this.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        cm.registerNetworkCallback(networkRequest, networkCallback)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cm.unregisterNetworkCallback(networkCallback)
+    }
+
+    lateinit var navController:NavController
+    lateinit var drawerLayout: DrawerLayout
     lateinit var navigationView: NavigationView
     lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -43,7 +91,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(findViewById(R.id.toolbar))
 
 
-         drawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout = findViewById(R.id.drawer_layout)
         navigationView= findViewById(R.id.nav_view)
 
             initNavigation()
@@ -83,7 +131,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.wishlistFragment)
             }
-
         }
         item.isChecked = true
         drawerLayout.closeDrawer(GravityCompat.START)

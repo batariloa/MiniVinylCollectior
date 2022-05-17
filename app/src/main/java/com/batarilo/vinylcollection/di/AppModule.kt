@@ -1,12 +1,12 @@
 package com.batarilo.vinylcollection.di
 
 import android.content.Context
-import androidx.room.Room
-import com.batarilo.vinylcollection.data.model.Record
+import com.batarilo.vinylcollection.data.retrofit.RecordApiService
+import com.batarilo.vinylcollection.data.retrofit.RetrofitInstance
 import com.batarilo.vinylcollection.data.room.RecordDao
 import com.batarilo.vinylcollection.data.room.RecordDatabase
 import com.batarilo.vinylcollection.data.room.RecordRepository
-import com.batarilo.vinylcollection.ui.dialog.NoteDialog
+import com.batarilo.vinylcollection.interactors.record_list.SearchRecords
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,11 +45,21 @@ class AppModule {
     }
 
     @Provides
-    @Singleton
-    fun provideRecordRepository(recordDao: RecordDao): RecordRepository{
-        return RecordRepository(recordDao)
+    fun provideApi(): RecordApiService {
+        return RetrofitInstance.api
     }
 
+
+    @Provides
+    @Singleton
+    fun provideRecordRepository(recordDao: RecordDao): RecordRepository{
+        return RecordRepository(recordDao, RetrofitInstance.api)
+    }
+
+    @Provides
+    fun provideSearchRecordUseCase(recordDao: RecordDao, recordApiService: RecordApiService): SearchRecords {
+        return SearchRecords(recordDao,recordApiService)
+    }
 
 
 }

@@ -11,6 +11,8 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +32,7 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
 
     lateinit var navigationToggled: ActionBarDrawerToggle
 
-   lateinit var viewCurrent: View
+   private lateinit var viewCurrent: View
     private val viewModel:SearchViewModel by viewModels()
 
 
@@ -41,7 +43,7 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     ): View? {
         viewCurrent  = inflater.inflate(R.layout.fragment_search, container, false)
         setupRecyclerView()
-        search("")
+        viewModel.newSearch()
 
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
@@ -49,7 +51,8 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
         src.setOnQueryTextListener(object:SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 if (p0 != null) {
-                    search(p0)
+                    viewModel.query.value=p0
+
                 }
                 return false
             }
@@ -77,34 +80,7 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
         layoutManager = LinearLayoutManager(activity)
 
     }
-    private fun search(term:String){
-        lifecycleScope.launchWhenCreated {
 
-            val result = try {
-                RetrofitInstance.api.searchDiscog(
-                    RecordApiService.AUTH_KEY,
-                    RecordApiService.AUTH_SECRET,
-                    term,
-                    "release"
-                )
-            }
-            catch (e: IOException){
-                Log.d(tag, "EXCEPTION $e. You might not have an internet connection.")
-                return@launchWhenCreated
-            }
-            catch (e: HttpException){
-                Log.d(tag, "EXCEPTION $e")
-                return@launchWhenCreated
-            }
-
-            if(result.isSuccessful && result.body()!=null){
-                println("results")
-                viewModel.recordAdapterSearch.records = result.body()!!.results
-
-            }
-            else throw HttpException(result)
-        }
-    }
 
     override fun onRecordClicked(position: Int) {
         println("RECORD ADAPTER RECORDS " + viewModel.recordAdapterSearch.records)

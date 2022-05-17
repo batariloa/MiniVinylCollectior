@@ -32,6 +32,20 @@ interface RecordApiService {
         @Query("type") type:String
     ): Response<JsonResponse>
 
+    @GET("database/search")
+    @Headers(
+        USER_AGENT_HEADER,
+        CONTENT_TYPE_HEADER
+    )
+    suspend fun searchDiscogResponse(
+        @Query("key") auth_key:String,
+        @Query ("secret") auth_secret:String,
+        @Query("release_title") searchTerm:String,
+        @Query("type") type:String
+    ): JsonResponse
+
+
+
 
 
     companion object{
@@ -40,6 +54,7 @@ interface RecordApiService {
         const val AUTH_KEY = "aDHPMLIyOyNPkvTkCyPY"
         const val AUTH_SECRET = "RoSLDJLGyNMZXazEsuIskUmVeALHLlZE"
         const val BASE_URL = "https://api.discogs.com/"
-    }
+        const val TYPE_RELEASE = "release"
+        }
 
 }

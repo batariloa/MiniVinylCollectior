@@ -8,7 +8,7 @@ import java.io.Serializable
 data class Record (
 
     @PrimaryKey
-    val id: Int,
+    val id: Int?,
 
     @TypeConverters(RecordConverters::class)
     val format: List<String>?,
@@ -32,7 +32,8 @@ data class Record (
 ): Serializable
 
 @Entity(tableName = "record_in_list",
-    indices = arrayOf(Index(value = ["id","belongsTo"], unique = true)))
+    indices = [Index(value = ["id","belongsTo"], unique = true)]
+)
 data class RecordInList(
     @PrimaryKey(autoGenerate = true)
     var id_record_listed: Int,

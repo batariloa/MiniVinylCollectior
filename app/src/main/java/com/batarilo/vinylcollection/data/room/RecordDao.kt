@@ -1,9 +1,12 @@
 package com.batarilo.vinylcollection.data.room
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.data.model.RecordInList
+import retrofit2.Response
+import retrofit2.http.GET
 
 @Dao
 interface RecordDao {
@@ -11,9 +14,18 @@ interface RecordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addRecord(record:RecordInList)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addRecords(list:List<Record>)
+
 
     @Query("SELECT * FROM record_table ORDER BY id ASC")
-    fun readAllData():LiveData<List<Record>>
+   suspend fun readAllData():List<Record>
+
+    @Query("SELECT * FROM record_table WHERE title LIKE '%'+:query+'%'")
+    suspend fun searchRecords(query:String):List<Record>
+
+    @Query("SELECT * FROM record_table")
+    fun searchRecords():List<Record>
 
     @Query("SELECT * FROM record_in_list WHERE belongsTo='WISHLIST'")
     fun readWishList():LiveData<List<RecordInList>>
@@ -29,6 +41,9 @@ interface RecordDao {
 
      @Query("SELECT EXISTS(SELECT * FROM record_table WHERE id=:id)")
      fun recordExists(id:Int):Boolean
+
+
+
 
 
     @Delete
