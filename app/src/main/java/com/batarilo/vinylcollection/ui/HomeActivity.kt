@@ -1,45 +1,40 @@
 package com.batarilo.vinylcollection.ui
 
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
-import android.net.NetworkRequest
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.*
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.batarilo.vinylcollection.R
-import com.batarilo.vinylcollection.data.retrofit.RecordApiService
-import com.batarilo.vinylcollection.data.retrofit.RetrofitInstance
-import com.batarilo.vinylcollection.ui.home.recycle.RecordAdapterSearch
-import com.batarilo.vinylcollection.util.DoesNetworkHaveInternet
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.HttpException
-import java.io.IOException
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
+
+    //Observing network connection in activity
+
+    @Inject
+    lateinit var connectivityManager: com.batarilo.vinylcollection.util.ConnectivityManager
+
+
+    override fun onStart() {
+        super.onStart()
+        connectivityManager.registerConnectionObserver(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        connectivityManager.unregisterConnectionObserver(this)
+    }
 
 
     lateinit var navController:NavController

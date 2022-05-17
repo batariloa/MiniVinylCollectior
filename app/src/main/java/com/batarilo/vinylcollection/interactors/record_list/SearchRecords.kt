@@ -1,6 +1,5 @@
 package com.batarilo.vinylcollection.interactors.record_list
 
-import android.provider.ContactsContract
 import android.util.Log
 import com.batarilo.vinylcollection.data.model.JsonResponse
 import com.batarilo.vinylcollection.data.model.Record
@@ -10,7 +9,6 @@ import com.batarilo.vinylcollection.data.room.cache.DataState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.lang.Exception
 
 class SearchRecords(
     private val recordDao: RecordDao,
@@ -29,8 +27,10 @@ class SearchRecords(
 
             Log.d("CACHE", "IS network available? $isNetworkAvailable")
             if(isNetworkAvailable) {
-                var records = getRecordFromNetwork(query)
+                val records = getRecordFromNetwork(query)
                 //insert into cache
+                Log.d("CACHE", "Adding to cache ${records.results}")
+
                 recordDao.addRecords(records.results)
             }
             //query the cache
