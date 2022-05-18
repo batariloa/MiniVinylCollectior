@@ -9,11 +9,10 @@ import com.batarilo.vinylcollection.data.room.RecordDao
 class RecordDaoFake (
     private val databaseFake: DatabaseFake
     ): RecordDao{
-
-    override suspend fun addRecord(record: RecordInList) {
-    databaseFake.recordsInList.add(record)
-    databaseFake.recordsInList.add(record)
+    override suspend fun addRecordInList(record: RecordInList) {
+        TODO("Not yet implemented")
     }
+
 
     override suspend fun addRecords(list: List<Record>): LongArray {
         databaseFake.records.addAll(list)

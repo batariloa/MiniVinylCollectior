@@ -1,4 +1,4 @@
-package com.batarilo.vinylcollection.ui.home.recycle
+package com.batarilo.vinylcollection.ui.search.recycle
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -78,13 +78,13 @@ class RecordAdapterSearch(
 
         init {
             binding.root.setOnClickListener{
-                onRecordListenerSearch.onRecordClicked(adapterPosition)
+                onRecordListenerSearch.onRecordClicked(bindingAdapterPosition)
             }
             binding.rowButtons.btnAddToCollection.setOnClickListener{
-                onRecordListenerSearch.onCollectedClicked(adapterPosition)
+                onRecordListenerSearch.onCollectedClicked(bindingAdapterPosition)
             }
             binding.rowButtons.btnAddToWishlist.setOnClickListener{
-                onRecordListenerSearch.onAddToWishListClicked(adapterPosition)
+                onRecordListenerSearch.onAddToWishListClicked(bindingAdapterPosition)
             }
         }
 

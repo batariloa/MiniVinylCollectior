@@ -1,30 +1,21 @@
-package com.batarilo.vinylcollection.ui.home
+package com.batarilo.vinylcollection.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
-import com.batarilo.vinylcollection.data.retrofit.RecordApiService
-import com.batarilo.vinylcollection.data.retrofit.RetrofitInstance
-import com.batarilo.vinylcollection.ui.home.recycle.RecordAdapterSearch
+import com.batarilo.vinylcollection.ui.search.recycle.RecordAdapterSearch
 import com.batarilo.vinylcollection.ui.info.InfoFragment
 import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.HttpException
-import java.io.IOException
 
 
 @AndroidEntryPoint
@@ -40,7 +31,7 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         viewCurrent  = inflater.inflate(R.layout.fragment_search, container, false)
         setupRecyclerView()
         viewModel.newSearch()
@@ -59,7 +50,6 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
                 }
                 return false
             }
-
             override fun onQueryTextChange(p0: String?): Boolean {
                 return true
             }

@@ -1,12 +1,10 @@
 package com.batarilo.vinylcollection.data.room
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.batarilo.vinylcollection.data.model.ListType
 import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.data.retrofit.RecordApiService
-import com.bumptech.glide.load.engine.Resource
 import javax.inject.Inject
 
 
@@ -18,17 +16,17 @@ class RecordRepository  @Inject constructor(private val recordDao: RecordDao,
 
     suspend fun addRecordToCollection(record: Record){
 
-        recordDao.addRecord(RecordInList(0,record, ListType.COLLECTION))
+        recordDao.addRecordInList(RecordInList(0,record, ListType.COLLECTION))
     }
 
     suspend fun addRecordToWishlist(record: Record) {
 
-        recordDao.addRecord(RecordInList(0,record, ListType.WISHLIST))
+        recordDao.addRecordInList(RecordInList(0,record, ListType.WISHLIST))
     }
 
     suspend fun addRecordToHistory(record: Record) {
 
-        recordDao.addRecord(RecordInList(0,record, ListType.HISTORY))
+        recordDao.addRecordInList(RecordInList(0,record, ListType.HISTORY))
     }
 
 

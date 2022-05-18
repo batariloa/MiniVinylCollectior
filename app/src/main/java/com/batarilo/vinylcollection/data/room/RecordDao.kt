@@ -12,7 +12,7 @@ import retrofit2.http.GET
 interface RecordDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addRecord(record:RecordInList)
+    suspend fun addRecordInList(record:RecordInList)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addRecords(list:List<Record>):LongArray
