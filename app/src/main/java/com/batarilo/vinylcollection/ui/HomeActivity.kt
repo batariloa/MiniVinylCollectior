@@ -90,6 +90,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.wishlistFragment)
             }
+            R.id.nav_history -> {
+                Navigation.findNavController(this, R.id.fragment)
+                    .navigate(R.id.historyFragment)
+            }
         }
         item.isChecked = true
         drawerLayout.closeDrawer(GravityCompat.START)

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_myCollectionFragment_to_infoFragment"
             app:destination="@id/infoFragment" />
+        <action
+            android:id="@+id/action_myCollectionFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -33,6 +36,9 @@
         <action
             android:id="@+id/action_searchFragment_to_infoFragment"
             app:destination="@id/infoFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
     </fragment>
     <fragment
         android:id="@+id/wishlistFragment"
@@ -47,6 +53,9 @@
         <action
             android:id="@+id/action_wishlistFragment_to_infoFragment"
             app:destination="@id/infoFragment" />
+        <action
+            android:id="@+id/action_wishlistFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
@@ -62,5 +71,31 @@
         <argument
             android:name="record"
             app:argType="com.batarilo.vinylcollection.data.model.Record" />
+        <action
+            android:id="@+id/action_infoFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_infoFragment_to_historyFragment2"
+            app:destination="@id/historyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.batarilo.vinylcollection.ui.history.HistoryFragment"
+        android:label="HistoryFragment" >
+        <action
+            android:id="@+id/action_historyFragment_to_wishlistFragment"
+            app:destination="@id/wishlistFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_wishlistFragment2"
+            app:destination="@id/wishlistFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_wishlistFragment3"
+            app:destination="@id/wishlistFragment" />
+        <action
+            android:id="@+id/action_historyFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
     </fragment>
 </navigation>

@@ -3,6 +3,8 @@ package com.batarilo.vinylcollection.data.model
 import androidx.room.*
 import com.batarilo.vinylcollection.data.room.RecordConverters
 import java.io.Serializable
+import java.sql.Date
+import java.sql.Timestamp
 
 @Entity(tableName = "record_table")
 data class Record (
@@ -39,7 +41,8 @@ data class RecordInList(
     var id_record_listed: Int,
     @Embedded
     val record: Record,
-    val belongsTo:ListType
+    val belongsTo:ListType,
+
 
 )
 

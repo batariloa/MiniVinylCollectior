@@ -22,22 +22,17 @@ class SearchRecords(
         try {
             emit(DataState.loading())
 
-            print("IS THIS WORKING??")
+            //for testing
             if(query=="errorForce"){
                 throw Exception("Search FAILED!")}
 
-            println("WHAT ABOUT NOW $isNetworkAvailable")
 
             if(isNetworkAvailable) {
-                println("ABOVE RECORDS ")
 
                 val records = getRecordFromNetwork(query)
-                println("NEtWOWRK AVAILABLE $records")
                 //insert into cache
-
                 recordDao.addRecords(records.results)
             }
-            println("BELOW IF ")
             //query the cache
             val cacheResult = if(query.isBlank()){
                 recordDao.readAllData()
@@ -49,12 +44,11 @@ class SearchRecords(
             emit(DataState.success(cacheResult))
 
         }catch (e:Exception){
-            println("ERROOOOR $e")
+            println("ERROR IN SEARCH: $e")
             emit(DataState.error(e.message?:"Unknown error"))
         }
     }
     private suspend fun getRecordFromNetwork(query:String): JsonResponse {
-        println("Inside get network")
         return recordApiService.searchDiscogResponse(
             RecordApiService.AUTH_KEY,
             RecordApiService.AUTH_SECRET,

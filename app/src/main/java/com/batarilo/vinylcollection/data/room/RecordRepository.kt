@@ -42,6 +42,9 @@ class RecordRepository  @Inject constructor(private val recordDao: RecordDao,
     fun readFromCollection(): LiveData<List<RecordInList>> {
         return recordDao.readCollection()
     }
+    fun readFromHistory(): LiveData<List<RecordInList>> {
+        return recordDao.readHistory()
+    }
 
     suspend fun updateRecord(record: RecordInList){
         return recordDao.updateRecord(record)

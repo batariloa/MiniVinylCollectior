@@ -29,7 +29,7 @@ interface RecordDao {
     @Query("SELECT * FROM record_in_list WHERE belongsTo='COLLECTION'")
     fun readCollection():LiveData<List<RecordInList>>
 
-    @Query("SELECT * FROM record_in_list WHERE belongsTo='HISTORY'")
+    @Query("SELECT * FROM record_in_list WHERE belongsTo='HISTORY' ORDER BY id_record_listed DESC")
     fun readHistory():LiveData<List<RecordInList>>
 
     @Delete
