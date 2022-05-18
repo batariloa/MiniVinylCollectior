@@ -15,15 +15,13 @@ interface RecordDao {
     suspend fun addRecord(record:RecordInList)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addRecords(list:List<Record>)
-
+    suspend fun addRecords(list:List<Record>):LongArray
 
     @Query("SELECT * FROM record_table ORDER BY id ASC")
    suspend fun readAllData():List<Record>
 
     @Query("SELECT * FROM record_table WHERE title LIKE '%' || :query || '%'")
     suspend fun searchRecords(query:String):List<Record>
-
 
     @Query("SELECT * FROM record_in_list WHERE belongsTo='WISHLIST'")
      fun readWishList():LiveData<List<RecordInList>>
@@ -33,16 +31,6 @@ interface RecordDao {
 
     @Query("SELECT * FROM record_in_list WHERE belongsTo='HISTORY'")
     fun readHistory():LiveData<List<RecordInList>>
-
-    @Query("SELECT * FROM record_table WHERE id=:id")
-     fun findRecordById(id:Int):LiveData<Record>
-
-     @Query("SELECT EXISTS(SELECT * FROM record_table WHERE id=:id)")
-     fun recordExists(id:Int):Boolean
-
-
-
-
 
     @Delete
     suspend fun deleteRecordInList(record: RecordInList)

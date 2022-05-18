@@ -24,6 +24,8 @@ class SearchRecords(
             //just to show progress bar because api is fast
             delay(1000)
 
+            if(query=="errorForce")
+                throw Exception("Search FAILED!")
 
             Log.d("CACHE", "IS network available? $isNetworkAvailable")
             if(isNetworkAvailable) {
