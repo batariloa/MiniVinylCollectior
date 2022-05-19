@@ -28,29 +28,23 @@ class MyCollectionViewModel @Inject constructor(
     val readAllFromCollection: ReadAllFromCollection
 )
     : ViewModel(){
-    private val loading = mutableStateOf(false)
+
     lateinit var recordAdapter: RecordAdapterCollection
 
 
 
     fun readAllFromCollection(){
-        readAllFromCollection.execute().onEach { dataState ->
-        loading.value= dataState.loading
-
-        dataState.data?.let { list ->
-            recordAdapter.records = list
+        viewModelScope.launch(Dispatchers.IO){
+          val records = readAllFromCollection.execute()
+            recordAdapter.records = records
         }
-            dataState.error?.let { error->
-                Log.d("MYCOLLECTIONVIEWMODEL", "Here is the error: $error")
-            }
-
-        }.launchIn(viewModelScope)
     }
 
     fun searchCollection(query:String){
 
         viewModelScope.launch(Dispatchers.IO) {
-            searchCollectionRecords.execute(query, recordAdapter)
+          val records = searchCollectionRecords.execute(query)
+            recordAdapter.records = records
         }
 
     }

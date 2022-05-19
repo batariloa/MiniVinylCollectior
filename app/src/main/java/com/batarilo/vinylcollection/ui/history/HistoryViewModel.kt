@@ -36,36 +36,18 @@ class HistoryViewModel @Inject constructor(
     }
 
     lateinit var recordAdapter: RecordAdapterCollection
-    private val loading = mutableStateOf(false)
 
     fun readAllFromHistory(){
-        readAllFromHistory.execute().onEach { dataState ->
+    viewModelScope.launch(Dispatchers.IO){
+        recordAdapter.records = readAllFromHistory.execute()
 
-            loading.value = dataState.loading
-
-            dataState.data?.let { list ->
-                recordAdapter.records = list
-            }
-            dataState.error?.let { error->
-                Log.d("MYCOLLECTIONVIEWMODEL", "Here is the error: $error")
-            }
-
-        }.launchIn(viewModelScope)
+    }
     }
 
     fun searchHistory(query:String){
 
-        searchHistoryRecords.execute(query).onEach { dataState ->
-            loading.value = dataState.loading
-
-            dataState.data?.let { list->
-                recordAdapter.records = list
-            }
-            dataState.error?.let { error->
-                Log.d("MYCOLLECTIONVIEWMODEL", "Here is the error: $error")
-            }
-
-        }.launchIn(viewModelScope)
+        viewModelScope.launch(Dispatchers.IO){
+            recordAdapter.records = searchHistoryRecords.execute(query)        }
     }
 
 }

@@ -1,7 +1,5 @@
 package com.batarilo.vinylcollection.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.data.room.RecordDao

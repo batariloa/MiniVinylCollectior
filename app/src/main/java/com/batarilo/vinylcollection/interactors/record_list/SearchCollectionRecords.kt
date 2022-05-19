@@ -11,9 +11,8 @@ import java.lang.Exception
 
 class SearchCollectionRecords(private val recordDao: RecordDao) {
 
-    suspend fun execute(query:String, adapterCollection: RecordAdapterCollection){
-        val records = recordDao.searchCollection(query)
-        adapterCollection.records = records
+    suspend fun execute(query:String): List<RecordInList> {
+       return recordDao.searchCollection(query)
 
     }
 }

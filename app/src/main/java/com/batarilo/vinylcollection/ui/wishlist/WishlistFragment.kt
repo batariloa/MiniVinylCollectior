@@ -31,7 +31,7 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
     ): View? {
         // Inflate the layout for this fragment
         viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
-
+        setupRecyclerView()
         loadWishList()
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
@@ -51,16 +51,6 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
 
         })
         return viewCurrent
-    }
-
-    companion object {
-
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(){
-
-        }
-
     }
 
     override fun onRecordClicked(position: Int) {

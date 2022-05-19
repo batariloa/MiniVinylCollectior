@@ -39,24 +39,16 @@ class WishlistViewModel @Inject constructor(
 
     fun readAllFromWishlist(){
         viewModelScope.launch(Dispatchers.IO) {
-            readAllFromWishlist.execute(recordAdapter)
+            recordAdapter.records = readAllFromWishlist.execute()
         }
 
     }
 
     fun searchWishlist(query:String){
 
-       searchWishlist.execute(query).onEach { dataState ->
-            loading.value = dataState.loading
-
-            dataState.data?.let { list->
-                recordAdapter.records = list
-            }
-            dataState.error?.let { error->
-                Log.d("MYCOLLECTIONVIEWMODEL", "Here is the error: $error")
-            }
-
-        }.launchIn(viewModelScope)
+        viewModelScope.launch(Dispatchers.IO){
+         recordAdapter.records = searchWishlist.execute(query)
+        }
     }
 
 

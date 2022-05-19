@@ -1,6 +1,5 @@
 package com.batarilo.vinylcollection.interactors.record_list
 
-import android.util.Log
 import com.batarilo.vinylcollection.data.model.JsonResponse
 import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.data.retrofit.RecordApiService

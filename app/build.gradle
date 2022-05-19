@@ -11,6 +11,9 @@ android {
         unitTests.all {
             useJUnitPlatform()
         }
+
+            unitTests.returnDefaultValues = true
+
     }
     compileSdk 32
 
@@ -48,7 +51,8 @@ android {
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
-
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation("org.mockito:mockito-core:2.1.0")
 
     //lifecycle
     def lifecycle_version = "2.5.0-rc01"
