@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.138" />
+        <entry key="app/src/main/res/drawable/ic_baseline_library_add_24.xml" value="0.1125" />
         <entry key="app/src/main/res/drawable/ic_baseline_library_add_40.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/ic_baseline_library_add_50.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.142" />
@@ -15,7 +16,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_stars_40.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/ic_baseline_sticky_note_2_24.xml" value="0.1295" />
         <entry key="app/src/main/res/drawable/ic_baseline_sticky_note_set.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/shape_linear.xml" value="0.1765" />
+        <entry key="app/src/main/res/drawable/shape_linear.xml" value="0.1125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_my_collection.xml" value="0.3676923076923077" />
         <entry key="app/src/main/res/layout/activity_single_record.xml" value="0.2109375" />
@@ -28,7 +29,7 @@
         <entry key="app/src/main/res/layout/fragment_explore_list.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/fragment_info.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/fragment_my_collection.xml" value="0.2869791666666667" />
-        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_wishlist.xml" value="0.28425925925925927" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.1640625" />
         <entry key="app/src/main/res/layout/navigation_toolbar.xml" value="0.3175925925925926" />

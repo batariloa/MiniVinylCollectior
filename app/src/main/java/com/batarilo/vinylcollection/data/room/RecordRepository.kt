@@ -15,35 +15,25 @@ class RecordRepository  @Inject constructor(private val recordDao: RecordDao,
 
 
     suspend fun addRecordToCollection(record: Record){
-
         recordDao.addRecordInList(RecordInList(0,record, ListType.COLLECTION))
     }
 
     suspend fun addRecordToWishlist(record: Record) {
-
         recordDao.addRecordInList(RecordInList(0,record, ListType.WISHLIST))
     }
 
     suspend fun addRecordToHistory(record: Record) {
-
         recordDao.addRecordInList(RecordInList(0,record, ListType.HISTORY))
     }
-
 
     suspend fun deleteRecordInList(record: RecordInList){
         recordDao.deleteRecordInList(record)
     }
 
 
-    fun readFromWishlist(): LiveData<List<RecordInList>> {
-     return recordDao.readWishList()
-    }
 
-    fun readFromCollection(): LiveData<List<RecordInList>> {
+    suspend fun readFromCollection(): List<RecordInList> {
         return recordDao.readCollection()
-    }
-    fun readFromHistory(): LiveData<List<RecordInList>> {
-        return recordDao.readHistory()
     }
 
     suspend fun updateRecord(record: RecordInList){

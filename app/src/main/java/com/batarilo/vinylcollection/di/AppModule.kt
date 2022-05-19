@@ -6,7 +6,7 @@ import com.batarilo.vinylcollection.data.retrofit.RetrofitInstance
 import com.batarilo.vinylcollection.data.room.RecordDao
 import com.batarilo.vinylcollection.data.room.RecordDatabase
 import com.batarilo.vinylcollection.data.room.RecordRepository
-import com.batarilo.vinylcollection.interactors.record_list.SearchRecords
+import com.batarilo.vinylcollection.interactors.record_list.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,23 +43,45 @@ class AppModule {
     fun provideRecordDao(recordDatabase: RecordDatabase): RecordDao {
         return recordDatabase.recordDao()
     }
-
     @Provides
     fun provideApi(): RecordApiService {
         return RetrofitInstance.api
     }
-
-
     @Provides
     @Singleton
     fun provideRecordRepository(recordDao: RecordDao): RecordRepository{
         return RecordRepository(recordDao, RetrofitInstance.api)
     }
+    @Provides
+    fun provideSearchRecordUseCase(recordDao: RecordDao, recordApiService: RecordApiService): SearchRecordsApi {
+        return SearchRecordsApi(recordDao,recordApiService)
+    }
+    @Provides
+    fun provdideReadAllFromCollectionUseCase(recordDao: RecordDao): ReadAllFromCollection {
+        return ReadAllFromCollection(recordDao)
+    }
+    @Provides
+    fun searchFromCollectionUseCase(recordDao: RecordDao): SearchCollectionRecords {
+        return SearchCollectionRecords(recordDao)
+    }
+    @Provides
+    fun provdideReadAllFromHistoryUseCase(recordDao: RecordDao): ReadAllFromHistory {
+        return ReadAllFromHistory(recordDao)
+    }
+    @Provides
+    fun searchFromHistoryUseCase(recordDao: RecordDao): SearchHistoryRecords {
+        return SearchHistoryRecords(recordDao)
+    }
+
+    @Provides fun provideSearchWishlistUseCase(recordDao: RecordDao): SearchWishlist {
+        return SearchWishlist(recordDao)
+    }
 
     @Provides
-    fun provideSearchRecordUseCase(recordDao: RecordDao, recordApiService: RecordApiService): SearchRecords {
-        return SearchRecords(recordDao,recordApiService)
+    fun provideReadAllFromWishlistUseCase(recordDao: RecordDao): ReadAllFromWishlist {
+        return ReadAllFromWishlist(recordDao)
     }
+
 
 
 }

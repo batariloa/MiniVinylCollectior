@@ -28,16 +28,31 @@ class RecordDaoFake (
         return databaseFake.records //return all records to keep it simple
     }
 
-    override fun readWishList(): LiveData<List<RecordInList>> {
-    return liveData { databaseFake.records }
-     }
+    override suspend fun searchCollection(query: String): List<RecordInList> {
+        return databaseFake.recordsInList //return all records to keep it simple
 
-    override fun readCollection(): LiveData<List<RecordInList>> {
-        return liveData { databaseFake.records }
     }
 
-    override fun readHistory(): LiveData<List<RecordInList>> {
-        return liveData { databaseFake.records }
+    override suspend fun searchWishlist(query: String): List<RecordInList> {
+        return databaseFake.recordsInList //return all records to keep it simple
+    }
+
+    override suspend fun searchHistory(query: String): List<RecordInList> {
+        return databaseFake.recordsInList //return all records to keep it simple
+
+    }
+
+    override suspend fun readWishList(): List<RecordInList> {
+        return databaseFake.recordsInList //return all records to keep it simple
+
+    }
+
+    override suspend fun readCollection(): List<RecordInList> {
+        return databaseFake.recordsInList //return all records to keep it simple
+    }
+
+    override suspend fun readHistory(): List<RecordInList> {
+        return databaseFake.recordsInList //return all records to keep it simple
     }
 
 

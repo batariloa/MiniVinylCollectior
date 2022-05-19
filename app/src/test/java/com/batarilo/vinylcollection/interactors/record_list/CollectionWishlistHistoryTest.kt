@@ -13,17 +13,12 @@ import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-
-
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.net.HttpURLConnection
 
-class SearchRecordsTest {
+class CollectionWishlistHistoryTest {
 
-    private lateinit var mockWebServer: MockWebServer
-    private lateinit var baseUrl: HttpUrl
-    val dummyQuery = "Zeppelin"
 
     //system in test
     private lateinit var searchRecordsApi:SearchRecordsApi
@@ -36,16 +31,7 @@ class SearchRecordsTest {
     @BeforeEach
     fun setup(){
 
-        mockWebServer = MockWebServer()
-        mockWebServer.start()
 
-        baseUrl = mockWebServer.url("/")
-
-        recordService = Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .build()
-            .create(RecordApiService::class.java)
 
         databaseFake = DatabaseFake()
         recordDaoFake = RecordDaoFake(databaseFake)
@@ -59,7 +45,7 @@ class SearchRecordsTest {
 
     @AfterEach
     fun tearDown(){
-        mockWebServer.shutdown()
+
     }
 
     /**
@@ -69,14 +55,9 @@ class SearchRecordsTest {
      * 3. Are the records then emitted to the UI? (as a flow)
      */
     @Test
-    fun geRecordsFromNetwork_emitRecordFromCache()  {
+    fun geRecordsFromHistory_emit()  {
         runBlocking {
-            mockWebServer.enqueue(
-                MockResponse()
-                    .setResponseCode(HttpURLConnection.HTTP_OK)
-                    .addHeader("Content-Type", "application/json")
-                    .setBody(WebMockServerResponse.recordListResponse)
-            )
+
 
 
             println("Tell me if its empty "+ recordDaoFake.readAllData().isEmpty())
@@ -104,20 +85,6 @@ class SearchRecordsTest {
             //ensure loading is false now
             assert(!flowItems[1].loading)
         }
-        }
-
-    @Test
-    fun getRecipesFromNetwork_emitHttpError():Unit= runBlocking {
-        mockWebServer.enqueue(
-            MockResponse()
-                .setResponseCode(HttpURLConnection.HTTP_BAD_REQUEST)
-                .setBody("{}")
-        )
-
-        val flowItems = searchRecordsApi.execute(dummyQuery,true).toList()
-        assert(flowItems[0].loading)
-        assert(flowItems[1].error!=null)
-
     }
 
 

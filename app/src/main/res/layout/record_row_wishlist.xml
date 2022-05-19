@@ -3,28 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:padding="7dp"
+    android:paddingRight="20dp"
+    android:paddingLeft="20dp"
+    android:backgroundTint="@color/white"
+    android:background="@drawable/shape_linear"
     android:layout_height="wrap_content">
 
-
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="130dp"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
         android:orientation="horizontal"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+        tools:layout_editor_absoluteY="1dp"
+        android:background="@color/bgWhite"
+        >
 
 
         <com.google.android.material.imageview.ShapeableImageView
             app:shapeAppearance="@style/roundedCorners"
             android:padding="5dp"
+            android:background="@color/bgWhite"
             android:id="@+id/image_record"
-            android:layout_width="130dp"
-            android:backgroundTint="@color/black"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             app:srcCompat="@android:drawable/ic_dialog_alert" />
-
 
         <LinearLayout
             android:layout_width="match_parent"

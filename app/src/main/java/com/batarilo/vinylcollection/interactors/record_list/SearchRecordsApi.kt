@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 
-class SearchRecords(
+class SearchRecordsApi(
     private val recordDao: RecordDao,
     private val recordApiService: RecordApiService,
 

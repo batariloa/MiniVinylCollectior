@@ -54,15 +54,14 @@ class RecordAdapterSearch(
         holder.binding.apply {
             val item = records[position]
              rowTextViews.tvTitle.text = item.title
-            rowTextViews.tvLabel.text = item.year
-            rowTextViews.tvFrom.text = item.country
+            rowTextViews.tvLabel.text = item.year + " " + item.country
+            rowTextViews.tvFrom.text = item.genre.toString().substring(1,item.genre.toString().length-1 )
 
                 Glide.with(holder.itemView.context)
                     .load(item.thumb)
                     .placeholder(R.drawable.empty_record)
                     .into(imageRecord)
         }
-
     }
 
     override fun getItemCount(): Int {

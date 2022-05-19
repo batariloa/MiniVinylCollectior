@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.data.room.RecordRepository
-import com.batarilo.vinylcollection.interactors.record_list.SearchRecords
+import com.batarilo.vinylcollection.interactors.record_list.SearchRecordsApi
 import com.batarilo.vinylcollection.ui.search.recycle.RecordAdapterSearch
 import com.batarilo.vinylcollection.util.ConnectivityManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,14 +19,12 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val recordRepository: RecordRepository,
-    private val searchRecords: SearchRecords,
+    private val searchRecordsApi: SearchRecordsApi,
     private val connectivityManager: ConnectivityManager
 )
     : ViewModel() {
 
 
-
-    val record:MutableState<Record?> = mutableStateOf(null)
     val query = mutableStateOf("")
     private val loading = mutableStateOf(false)
 
@@ -49,7 +47,7 @@ class SearchViewModel @Inject constructor(
 
      fun newSearch(){
 
-        searchRecords.execute(query.value, connectivityManager.isNetworkAvailable.value).onEach { dataState ->
+        searchRecordsApi.execute(query.value, connectivityManager.isNetworkAvailable.value).onEach { dataState ->
             loading.value = dataState.loading
 
             dataState.data?.let { list ->

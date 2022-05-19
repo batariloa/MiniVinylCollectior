@@ -54,9 +54,10 @@ class RecordAdapterCollection(
 
         holderSearch.binding.apply {
             val item = records[position]
-           textviews.tvTitle.text = item.record.title
-            textviews.tvLabel.text = item.record.year
-            textviews.tvFrom.text = item.record.country
+            
+       rowTextViews.tvTitle.text = item.record.title
+        rowTextViews.tvLabel.text = item.record.year
+        rowTextViews.tvFrom.text = item.record.country
 
             Glide.with(holderSearch.itemView.context)
                 .load(item.record.thumb)

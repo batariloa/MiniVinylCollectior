@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -20,7 +21,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
 
 
 
-    lateinit var recordAdapter: RecordAdapterCollection
+
     lateinit var viewCurrent:View
     val viewModel: MyCollectionViewModel by activityViewModels()
 
@@ -30,28 +31,50 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
     ): View? {
         // Inflate the layout for this fragment
         viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
-        setupRecyclerView()
         loadCollection()
+
+
+
+        val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
+
+        src.setOnClickListener { src.isIconified = false }
+
+        src.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                if (p0 != null) {
+                    viewModel.searchCollection(p0)
+                    setupRecyclerView()
+
+                }
+                return false
+            }
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return true
+            }
+
+        })
+
+
         return viewCurrent
     }
 
 
     private fun loadCollection(){
-       viewModel.readAllFromCollection().observe(viewLifecycleOwner, Observer {
-           recordAdapter.records = it
-       })
+       viewModel.readAllFromCollection()
+        setupRecyclerView()
     }
 
 
     private fun setupRecyclerView() = viewCurrent.findViewById<RecyclerView>(R.id.rv_record)?.apply {
-        recordAdapter = RecordAdapterCollection(this@MyCollectionFragment)
-        adapter = recordAdapter
+        viewModel.recordAdapter = RecordAdapterCollection(this@MyCollectionFragment)
+        adapter = viewModel.recordAdapter
         layoutManager = LinearLayoutManager(activity)
 
     }
     override fun onRecordClicked(position: Int) {
         val bundle = Bundle().also {
-            it.putSerializable(InfoFragment.RECORD_PARAM,recordAdapter.records[position].record)
+            it.putSerializable(InfoFragment.RECORD_PARAM,
+                viewModel.recordAdapter.records[position].record)
         }
         Navigation.findNavController(viewCurrent)
             .navigate(R.id.infoFragment, bundle)
@@ -60,11 +83,10 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
     }
 
     override fun onRemoveClicked(position: Int) {
-        viewModel.removeRecordFromCollection(recordAdapter.records[position])
      }
 
     override fun onAddToNotesClicked(position: Int) {
-        NoteDialog(viewCurrent.context, recordAdapter.records[position], viewModel.recordRepository).apply {
+        NoteDialog(viewCurrent.context, viewModel.recordAdapter.records[position], viewModel.recordRepository).apply {
             show()
             setOnDismissListener{
                 setupRecyclerView()

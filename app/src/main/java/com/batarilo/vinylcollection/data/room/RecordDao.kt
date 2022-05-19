@@ -23,14 +23,23 @@ interface RecordDao {
     @Query("SELECT * FROM record_table WHERE title LIKE '%' || :query || '%'")
     suspend fun searchRecords(query:String):List<Record>
 
+    @Query("SELECT * FROM record_in_list WHERE belongsTo='COLLECTION' AND title LIKE '%' || :query || '%'")
+    suspend fun searchCollection(query:String):List<RecordInList>
+
+    @Query("SELECT * FROM record_in_list WHERE belongsTo='WISHLIST' AND title LIKE '%' || :query || '%'")
+    suspend fun searchWishlist(query:String):List<RecordInList>
+
+    @Query("SELECT * FROM record_in_list WHERE belongsTo='HISTORY' AND title LIKE '%' || :query || '%'")
+    suspend fun searchHistory(query:String):List<RecordInList>
+
     @Query("SELECT * FROM record_in_list WHERE belongsTo='WISHLIST'")
-     fun readWishList():LiveData<List<RecordInList>>
+     suspend fun readWishList():List<RecordInList>
 
     @Query("SELECT * FROM record_in_list WHERE belongsTo='COLLECTION'")
-    fun readCollection():LiveData<List<RecordInList>>
+    suspend fun readCollection():List<RecordInList>
 
     @Query("SELECT * FROM record_in_list WHERE belongsTo='HISTORY' ORDER BY id_record_listed DESC")
-    fun readHistory():LiveData<List<RecordInList>>
+    suspend fun readHistory():List<RecordInList>
 
     @Delete
     suspend fun deleteRecordInList(record: RecordInList)
