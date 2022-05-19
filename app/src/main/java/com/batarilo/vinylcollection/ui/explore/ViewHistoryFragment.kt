@@ -24,7 +24,7 @@ class ExploreFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewCurrent = inflater.inflate(R.layout.fragment_explore, container, false)
+        viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
         return viewCurrent
     }
 

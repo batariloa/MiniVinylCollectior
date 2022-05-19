@@ -2,6 +2,7 @@ package com.batarilo.vinylcollection.ui
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -48,7 +49,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(findViewById(R.id.toolbar))
-
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView= findViewById(R.id.nav_view)
@@ -71,6 +72,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView.setNavigationItemSelectedListener(this)
 
         appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
+
         setupActionBarWithNavController(navController,appBarConfiguration)
     }
 
