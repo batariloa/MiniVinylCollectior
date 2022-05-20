@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,8 +32,6 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
         viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
         setupRecyclerView()
         loadCollection()
-
-
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 

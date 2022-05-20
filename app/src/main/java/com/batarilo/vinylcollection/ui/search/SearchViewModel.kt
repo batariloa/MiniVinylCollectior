@@ -45,9 +45,9 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-     fun newSearch(){
+     fun newSearch(query:String){
 
-        searchRecordsApi.execute(query.value, connectivityManager.isNetworkAvailable.value).onEach { dataState ->
+        searchRecordsApi.execute(query, connectivityManager.isNetworkAvailable.value).onEach { dataState ->
             loading.value = dataState.loading
 
             dataState.data?.let { list ->

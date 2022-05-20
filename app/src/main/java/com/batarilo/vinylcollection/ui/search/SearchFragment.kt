@@ -34,7 +34,7 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     ): View {
         viewCurrent  = inflater.inflate(R.layout.fragment_search, container, false)
         setupRecyclerView()
-        viewModel.newSearch()
+        viewModel.newSearch("")
 
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
@@ -44,7 +44,7 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
         src.setOnQueryTextListener(object:SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 if (p0 != null) {
-                    viewModel.newSearch()
+                    viewModel.newSearch(p0)
                     setupRecyclerView()
 
                 }

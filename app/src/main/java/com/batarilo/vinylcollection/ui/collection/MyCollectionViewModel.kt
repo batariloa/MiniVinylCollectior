@@ -24,8 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MyCollectionViewModel @Inject constructor(
     val recordRepository: RecordRepository,
-    val searchCollectionRecords: SearchCollectionRecords,
-    val readAllFromCollection: ReadAllFromCollection
+    private val searchCollectionRecords: SearchCollectionRecords,
+    private val readAllFromCollection: ReadAllFromCollection
 )
     : ViewModel(){
 
