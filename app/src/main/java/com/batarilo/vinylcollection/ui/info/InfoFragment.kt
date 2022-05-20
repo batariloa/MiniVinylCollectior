@@ -38,15 +38,15 @@ class InfoFragment : Fragment() {
     private fun initializeView(){
 
         Glide.with(viewCurrent.context)
-            .load(record?.thumb)
+            .load(record?.cover_image)
             .placeholder(R.drawable.empty_record)
             .into(viewCurrent.findViewById(R.id.image_record))
 
         viewCurrent.findViewById<TextView>(R.id.tv_title_info).text = record?.title
         viewCurrent.findViewById<TextView>(R.id.tv_year_info).text = record?.year
         viewCurrent.findViewById<TextView>(R.id.tv_country_info).text = record?.country
-        viewCurrent.findViewById<TextView>(R.id.tv_genre_info).text = record?.genre.toString()
-        viewCurrent.findViewById<TextView>(R.id.tv_label_info).text = record?.label.toString()
+        viewCurrent.findViewById<TextView>(R.id.tv_genre_info).text = record?.genre.toString().substring(1, record?.genre.toString().length-1)
+        viewCurrent.findViewById<TextView>(R.id.tv_label_info).text = record?.label.toString().substring(1, record?.genre.toString().length-1)
 
 
     }

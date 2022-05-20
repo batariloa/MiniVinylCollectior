@@ -30,8 +30,6 @@ class SearchViewModel @Inject constructor(
 
     lateinit var recordAdapterSearch: RecordAdapterSearch
 
-    private val records : MutableState<List<Record>> = mutableStateOf(ArrayList())
-
 
     fun addRecordToCollection(record:Record){
         viewModelScope.launch(Dispatchers.IO) {
@@ -51,8 +49,7 @@ class SearchViewModel @Inject constructor(
             loading.value = dataState.loading
 
             dataState.data?.let { list ->
-            records.value = list
-                recordAdapterSearch.records= list
+                recordAdapterSearch.records=  list.map { list -> list.record }
                 println("LISTA REZULTATA $list")
             }
             dataState.error?.let { error ->

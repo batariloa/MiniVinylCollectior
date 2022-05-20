@@ -14,7 +14,6 @@ class ReadAllFromHistory(val recordDao: RecordDao) {
 
      return recordDao.readHistory()
 
-
     }
 
 }

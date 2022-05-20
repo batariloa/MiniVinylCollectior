@@ -1,7 +1,9 @@
 package com.batarilo.vinylcollection.interactors.record_list
 
 import com.batarilo.vinylcollection.data.model.JsonResponse
+import com.batarilo.vinylcollection.data.model.ListType
 import com.batarilo.vinylcollection.data.model.Record
+import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.data.retrofit.RecordApiService
 import com.batarilo.vinylcollection.data.room.RecordDao
 import com.batarilo.vinylcollection.data.room.cache.DataState
@@ -17,7 +19,7 @@ class SearchRecordsApi(
     fun execute(
         query:String,
         isNetworkAvailable:Boolean
-    ): Flow<DataState<List<Record>>> = flow{
+    ): Flow<DataState<List<RecordInList>>> = flow{
         try {
             emit(DataState.loading())
 
@@ -30,11 +32,16 @@ class SearchRecordsApi(
 
                 val records = getRecordFromNetwork(query)
                 //insert into cache
-                recordDao.addRecords(records.results)
+
+                val recordsInList = records.results.map { RecordInList(0, it, ListType.CACHE) }
+                //insert into cache
+                recordDao.addRecordsInList(recordsInList)
+                println("WHat is inserted into cache $recordsInList")
+
             }
             //query the cache
             val cacheResult = if(query.isBlank()){
-                recordDao.readAllData()
+                getRecordFromCache("")
             }
             else{
                 getRecordFromCache(query)
@@ -55,7 +62,7 @@ class SearchRecordsApi(
             RecordApiService.TYPE_RELEASE
         )
     }
-    private suspend fun getRecordFromCache(query: String):List<Record>{
+    private suspend fun getRecordFromCache(query: String): List<RecordInList> {
         return recordDao.searchRecords(query)
     }
 }

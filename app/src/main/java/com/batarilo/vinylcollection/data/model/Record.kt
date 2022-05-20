@@ -46,4 +46,4 @@ data class RecordInList(
 
 )
 
-enum class ListType {COLLECTION, WISHLIST, HISTORY}
+enum class ListType {COLLECTION, WISHLIST, HISTORY, CACHE}
