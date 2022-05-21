@@ -12,10 +12,7 @@ class InfoViewModel @Inject constructor(
 )
     : ViewModel() {
 
-    suspend fun addRecordToHistory(record: Record){
 
-
-    }
 
 
 

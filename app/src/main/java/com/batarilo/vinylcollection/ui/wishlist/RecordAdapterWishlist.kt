@@ -19,7 +19,7 @@ class RecordAdapterWishlist(
 
     private val diffCallback = object : DiffUtil.ItemCallback<RecordInList>() {
         override fun areItemsTheSame(oldItem: RecordInList, newItem: RecordInList): Boolean {
-            return oldItem.record.id == newItem.record.id
+            return oldItem.record.id== newItem.record.id
         }
 
         override fun areContentsTheSame(oldItem: RecordInList, newItem: RecordInList): Boolean {

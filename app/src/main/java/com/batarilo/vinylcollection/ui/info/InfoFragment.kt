@@ -29,7 +29,8 @@ class InfoFragment : Fragment() {
 
 
             lifecycleScope.launchWhenCreated {
-                record?.let { viewModel.addRecordToHistory(it) }
+
+                //TODO add to history
             }
         }
 

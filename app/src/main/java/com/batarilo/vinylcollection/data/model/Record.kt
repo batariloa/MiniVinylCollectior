@@ -4,11 +4,17 @@ import androidx.room.*
 import com.batarilo.vinylcollection.data.room.RecordConverters
 import java.io.Serializable
 
-@Entity(tableName = "record_table", primaryKeys = ["id"])
+@Entity(tableName = "record_table",
+    foreignKeys = [ForeignKey(
+        entity = RecordData::class,
+        parentColumns = ["id_data"],
+        childColumns = ["id_data"]
+    )])
 data class Record (
 
-
-    val id: Int?,
+    @PrimaryKey
+    val id: Long,
+    var id_data:Long?,
 
     @TypeConverters(RecordConverters::class)
     val format: List<String>?,
@@ -18,6 +24,7 @@ data class Record (
     val label: List<String>?,
 
     var note:String?, //added note
+
 
 
     val catno: String?,
@@ -39,32 +46,23 @@ data class RecordInList(
 
     @Relation(
         parentColumn = "id",
-        entityColumn = "id_record_listed",
+        entityColumn = "id_data",
         entity = RecordData::class
     )
-    val recordData: RecordData
+    val recordData: RecordData?
 
 
 )
 
-class RecordHolder{
-    @Entity(primaryKeys = ["day", "recipe"],
-        foreignKeys = [ForeignKey(entity = Record::class, parentColumns = ["id"], childColumns = ["record"], onDelete = ForeignKey.CASCADE),
-            ForeignKey(entity = RecordData::class, parentColumns = ["id"], childColumns = ["data"], onDelete = ForeignKey.CASCADE)])
-    class AssignedRecord {
-        var record: Int = 0
-        var data: Int = 0
-    }
 
-}
 
 @Entity(tableName = "record_data",
-    indices = [Index(value = ["id_record_listed","belongsTo"], unique = true)],
-    primaryKeys = ["id"]
+    indices = [Index(value = ["id_data","belongsTo"], unique = true)],
 )
 data class RecordData(
 
-    var id: Int,
+    @PrimaryKey(autoGenerate = true)
+    var id_data: Long,
 
     val belongsTo: ListType
 )

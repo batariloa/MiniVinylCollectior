@@ -49,7 +49,7 @@ class SearchViewModel @Inject constructor(
             loading.value = dataState.loading
 
             dataState.data?.let { list ->
-                recordAdapterSearch.records=  list.map { list -> list.record }
+                recordAdapterSearch.records = list.map { list -> list.record }
                 println("LISTA REZULTATA $list")
             }
             dataState.error?.let { error ->

@@ -35,7 +35,7 @@ class SearchRecordsApi(
 
                 val recordsInList = records.results.map { RecordInList(it, RecordData(0, ListType.CACHE)) }
                 //insert into cache
-                recordDao.insertRecordWithData(recordsInList)
+                recordDao.insertAll(recordsInList)
                 println("WHat is inserted into cache $recordsInList")
 
             }
@@ -43,9 +43,9 @@ class SearchRecordsApi(
             val cacheResult = if(query.isBlank()){
                 getRecordFromCache("")
             }
-            else{
-                getRecordFromCache(query)
-            }
+            else
+                getRecordFromCache("")
+
             //emit list from the cache
             emit(DataState.success(cacheResult))
 
@@ -63,6 +63,7 @@ class SearchRecordsApi(
         )
     }
     private suspend fun getRecordFromCache(query: String): List<RecordInList> {
+      println("REZULTAT ZA SAD JE "+ recordDao.searchRecords(query).toString())
         return recordDao.readAllData()
     }
 }

@@ -36,7 +36,6 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
         setupRecyclerView()
         viewModel.newSearch("")
 
-
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 
         src.setOnClickListener { src.isIconified = false }

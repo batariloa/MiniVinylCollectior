@@ -38,7 +38,7 @@ class RecordAdapterCollection(
 
 
         return RecordViewHolderSearch(
-            RecordRowCollectionBinding.inflate(
+            com.batarilo.vinylcollection.databinding.RecordRowCollectionBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
