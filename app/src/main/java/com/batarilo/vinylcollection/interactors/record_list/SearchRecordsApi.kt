@@ -2,7 +2,7 @@ package com.batarilo.vinylcollection.interactors.record_list
 
 import com.batarilo.vinylcollection.data.model.JsonResponse
 import com.batarilo.vinylcollection.data.model.ListType
-import com.batarilo.vinylcollection.data.model.Record
+import com.batarilo.vinylcollection.data.model.RecordData
 import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.data.retrofit.RecordApiService
 import com.batarilo.vinylcollection.data.room.RecordDao
@@ -33,9 +33,9 @@ class SearchRecordsApi(
                 val records = getRecordFromNetwork(query)
                 //insert into cache
 
-                val recordsInList = records.results.map { RecordInList(0, it, ListType.CACHE) }
+                val recordsInList = records.results.map { RecordInList(it, RecordData(0, ListType.CACHE)) }
                 //insert into cache
-                recordDao.addRecordsInList(recordsInList)
+                recordDao.insertRecordWithData(recordsInList)
                 println("WHat is inserted into cache $recordsInList")
 
             }
@@ -63,6 +63,6 @@ class SearchRecordsApi(
         )
     }
     private suspend fun getRecordFromCache(query: String): List<RecordInList> {
-        return recordDao.searchRecords(query)
+        return recordDao.readAllData()
     }
 }

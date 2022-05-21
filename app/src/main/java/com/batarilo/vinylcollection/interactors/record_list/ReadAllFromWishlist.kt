@@ -11,7 +11,7 @@ class ReadAllFromWishlist(private val recordDao: RecordDao) {
 
     suspend fun execute(): List<RecordInList> {
 
-    return recordDao.readWishList()
+    return listOf()
 
 
     }

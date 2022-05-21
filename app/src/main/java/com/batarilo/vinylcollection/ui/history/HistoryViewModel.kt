@@ -31,7 +31,6 @@ class HistoryViewModel @Inject constructor(
 
     fun addToCollection(record: RecordInList){
         viewModelScope.launch(Dispatchers.IO) {
-            recordRepository.deleteRecordInList(record)
         }
     }
 

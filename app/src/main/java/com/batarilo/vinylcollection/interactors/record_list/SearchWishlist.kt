@@ -12,7 +12,7 @@ import java.lang.Exception
 class SearchWishlist(private val recordDao: RecordDao)
 {
     suspend fun execute(query:String): List<RecordInList> {
-       return recordDao.searchWishlist(query)
+       return listOf()
 
 
     }

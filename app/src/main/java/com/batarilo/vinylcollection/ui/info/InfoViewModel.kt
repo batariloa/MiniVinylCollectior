@@ -14,7 +14,6 @@ class InfoViewModel @Inject constructor(
 
     suspend fun addRecordToHistory(record: Record){
 
-        recordRepository.addRecordToHistory(record)
 
     }
 

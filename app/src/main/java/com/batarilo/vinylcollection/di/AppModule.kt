@@ -82,6 +82,10 @@ class AppModule {
         return ReadAllFromWishlist(recordDao)
     }
 
+    @Provides
+    fun provideAddToWishlist(recordDao: RecordDao): AddToWishList {
+        return AddToWishList(recordDao)
+    }
 
 
 }

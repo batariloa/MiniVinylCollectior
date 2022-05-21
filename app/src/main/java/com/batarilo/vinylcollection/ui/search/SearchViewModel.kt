@@ -1,11 +1,12 @@
 package com.batarilo.vinylcollection.ui.search
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.batarilo.vinylcollection.data.model.Record
+import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.data.room.RecordRepository
+import com.batarilo.vinylcollection.interactors.record_list.AddToWishList
 import com.batarilo.vinylcollection.interactors.record_list.SearchRecordsApi
 import com.batarilo.vinylcollection.ui.search.recycle.RecordAdapterSearch
 import com.batarilo.vinylcollection.util.ConnectivityManager
@@ -20,6 +21,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val recordRepository: RecordRepository,
     private val searchRecordsApi: SearchRecordsApi,
+    private val addToWishList: AddToWishList,
     private val connectivityManager: ConnectivityManager
 )
     : ViewModel() {
@@ -33,13 +35,11 @@ class SearchViewModel @Inject constructor(
 
     fun addRecordToCollection(record:Record){
         viewModelScope.launch(Dispatchers.IO) {
-            recordRepository.addRecordToCollection(record)
         }
     }
 
     fun addRecordToWishlist(record: Record){
         viewModelScope.launch(Dispatchers.IO) {
-            recordRepository.addRecordToWishlist(record)
         }
     }
 
@@ -56,6 +56,13 @@ class SearchViewModel @Inject constructor(
                 Log.d("TAG", "Here is the error: $error")
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun addToWishList(record: Record){
+
+        viewModelScope.launch(Dispatchers.IO){
+            addToWishList.execute(record)
+        }
     }
 
 

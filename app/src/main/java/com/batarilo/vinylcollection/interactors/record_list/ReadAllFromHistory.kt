@@ -12,7 +12,7 @@ import java.lang.Exception
 class ReadAllFromHistory(val recordDao: RecordDao) {
     suspend fun execute(): List<RecordInList> {
 
-     return recordDao.readHistory()
+     return listOf()
 
     }
 

@@ -36,7 +36,7 @@ class NoteDialog(context: Context, val item:RecordInList, val recordRepository: 
         findViewById<ImageButton>(R.id.btn_accept).setOnClickListener {
             item.record.note = findViewById<EditText>(R.id.et_note).text.toString()
             mainActivityScope.launch {
-                recordRepository.updateRecord(item)
+
             }
             println("UPDATED NOTE IS $item")
             dismiss()
@@ -49,7 +49,7 @@ class NoteDialog(context: Context, val item:RecordInList, val recordRepository: 
         findViewById<ImageButton>(R.id.btn_delete).setOnClickListener{
             item.record.note = null
             mainActivityScope.launch {
-                recordRepository.updateRecord(item)
+
             }
 
             dismiss()

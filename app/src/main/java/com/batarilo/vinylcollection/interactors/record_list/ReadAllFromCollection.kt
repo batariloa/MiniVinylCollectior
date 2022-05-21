@@ -7,7 +7,7 @@ import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollectio
 class ReadAllFromCollection(val recordDao: RecordDao) {
     suspend fun execute(): List<RecordInList> {
 
-       return recordDao.readCollection()
+        return listOf()
 
 
     }
