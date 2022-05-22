@@ -64,6 +64,6 @@ class SearchRecordsApi(
     }
     private suspend fun getRecordFromCache(query: String): List<RecordInList> {
       println("REZULTAT ZA SAD JE "+ recordDao.searchRecords(query).toString())
-        return recordDao.readAllData()
+        return recordDao.searchRecords(query)
     }
 }
