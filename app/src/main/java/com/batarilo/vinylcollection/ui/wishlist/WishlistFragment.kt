@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
+import com.batarilo.vinylcollection.ui.HomeActivity
 import com.batarilo.vinylcollection.ui.collection.MyCollectionViewModel
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
@@ -34,6 +35,9 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
         viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
         setupRecyclerView()
         loadWishList()
+
+        if(activity is HomeActivity)
+            (activity as HomeActivity)?.setTitleTop("Wishlist")
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 
@@ -71,7 +75,7 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
         viewModel.setRecordNote(viewCurrent.context, position).apply {
             show()
             setOnDismissListener {
-                setupRecyclerView()
+                loadWishList()
             }
         }
     }

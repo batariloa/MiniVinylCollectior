@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
+import com.batarilo.vinylcollection.ui.HomeActivity
 import com.batarilo.vinylcollection.ui.search.recycle.RecordAdapterSearch
 import com.batarilo.vinylcollection.ui.info.InfoFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +37,9 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
         setupRecyclerView()
         viewModel.newSearch("")
 
+
+
+
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 
         src.setOnClickListener { src.isIconified = false }
@@ -54,7 +58,6 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
             }
 
         })
-
 
         return viewCurrent
     }
@@ -111,6 +114,8 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
                 arguments = Bundle().apply {
 
                 }
+                if(activity is HomeActivity)
+                    (activity as HomeActivity)?.setTitleTop("Search")
             }
     }
 }

@@ -63,8 +63,9 @@ class RecordAdapterWishlist(
                 .placeholder(R.drawable.empty_record)
                 .into(imageRecord)
 
+
             if(item.record.note!=null){
-                rowButtons.btnAddNote.setImageResource(R.drawable.ic_baseline_sticky_note)
+                rowButtons.btnAddNote.setImageResource(R.drawable.ic_baseline_sticky_note_set)
             }
 
 

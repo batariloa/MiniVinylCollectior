@@ -2,6 +2,7 @@ package com.batarilo.vinylcollection.ui
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -101,6 +102,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
+     fun setTitleTop(s: String) {
+        findViewById<TextView>(R.id.toolbar_title).text = s
+    }
+
 
 
 

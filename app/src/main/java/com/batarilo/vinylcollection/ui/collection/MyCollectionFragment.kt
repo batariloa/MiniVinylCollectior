@@ -11,6 +11,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
+import com.batarilo.vinylcollection.ui.HomeActivity
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import com.batarilo.vinylcollection.ui.info.InfoFragment
@@ -32,6 +33,10 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
         viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
         setupRecyclerView()
         loadCollection()
+
+        if(activity is HomeActivity)
+            (activity as HomeActivity)?.setTitleTop("Collection")
+
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 
         src.setOnClickListener { src.isIconified = false }
@@ -84,7 +89,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
         viewModel.setRecordNote(viewCurrent.context, position).apply {
             show()
             setOnDismissListener{
-                setupRecyclerView()
+                loadCollection()
             }
         }
 

@@ -68,7 +68,6 @@ class RecordAdapterCollection(
 
             if(item.record.note!=null){
                 rowButtons.btnAddNoteCollection.setImageResource(R.drawable.ic_baseline_sticky_note_set)
-
             }
         }
 

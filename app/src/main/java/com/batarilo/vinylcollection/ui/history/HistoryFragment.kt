@@ -11,8 +11,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
+import com.batarilo.vinylcollection.ui.HomeActivity
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
-import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import com.batarilo.vinylcollection.ui.info.InfoFragment
 
 
@@ -30,7 +30,10 @@ class HistoryFragment : Fragment(), RecordAdapterCollection.OnRecordListenerColl
         // Inflate the layout for this fragment
         viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
         setupRecyclerView()
-        loadCollection()
+        loadHistory()
+
+        if(activity is HomeActivity)
+            (activity as HomeActivity)?.setTitleTop("History")
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 
@@ -48,16 +51,16 @@ class HistoryFragment : Fragment(), RecordAdapterCollection.OnRecordListenerColl
             override fun onQueryTextChange(p0: String?): Boolean {
                 return true
             }
-
         })
         return viewCurrent
     }
 
 
-    private fun loadCollection(){
+    private fun loadHistory(){
         viewModel.readAllFromHistory()
         setupRecyclerView()
     }
+
 
 
     private fun setupRecyclerView() = viewCurrent.findViewById<RecyclerView>(R.id.rv_record)?.apply {
@@ -73,7 +76,6 @@ class HistoryFragment : Fragment(), RecordAdapterCollection.OnRecordListenerColl
         Navigation.findNavController(viewCurrent)
             .navigate(R.id.infoFragment, bundle)
 
-
     }
 
     override fun onRemoveClicked(position: Int) {
@@ -84,10 +86,9 @@ class HistoryFragment : Fragment(), RecordAdapterCollection.OnRecordListenerColl
         viewModel.setRecordNote(viewCurrent.context, position).apply {
             show()
             setOnDismissListener{
-                setupRecyclerView()
-            }
+                loadHistory()
+             }
         }
-
     }
 
 
@@ -95,10 +96,9 @@ class HistoryFragment : Fragment(), RecordAdapterCollection.OnRecordListenerColl
     companion object {
 
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance() =
             HistoryFragment().apply {
                 arguments = Bundle().apply {
-
                 }
             }
     }

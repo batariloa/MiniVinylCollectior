@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.data.model.Record
+import com.batarilo.vinylcollection.ui.HomeActivity
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,6 +31,9 @@ class InfoFragment : Fragment() {
             record?.let { it1 -> viewModel.addToHistory(it1) }
 
         }
+
+        if(activity is HomeActivity)
+            (activity as HomeActivity)?.setTitleTop("Details")
 
     }
 

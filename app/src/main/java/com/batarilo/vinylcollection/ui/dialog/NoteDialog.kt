@@ -14,8 +14,8 @@ import kotlinx.coroutines.*
 
 
 class NoteDialog
-    (context: Context, val item:RecordInList, val setRecordNote: SetRecordNote)  : Dialog(context) {
-
+    (context: Context, val item:RecordInList, val setRecordNote: SetRecordNote)
+    : Dialog(context) {
 
     init {
         setCancelable(true)

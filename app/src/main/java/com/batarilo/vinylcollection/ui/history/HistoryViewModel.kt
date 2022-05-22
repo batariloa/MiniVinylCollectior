@@ -47,8 +47,10 @@ class HistoryViewModel @Inject constructor(
     fun searchHistory(query:String){
 
         viewModelScope.launch(Dispatchers.IO){
-            recordAdapter.records = searchHistoryRecords.execute(query)        }
+            recordAdapter.records = searchHistoryRecords.execute(query)
+        }
     }
+
     fun setRecordNote(context: Context, position:Int): NoteDialog {
         return NoteDialog(context, recordAdapter.records[position],setRecordNote)
     }
