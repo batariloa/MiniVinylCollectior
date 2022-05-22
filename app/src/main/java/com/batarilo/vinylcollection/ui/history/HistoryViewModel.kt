@@ -1,17 +1,15 @@
 package com.batarilo.vinylcollection.ui.history
 
-import android.util.Log
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batarilo.vinylcollection.data.model.Record
-import com.batarilo.vinylcollection.data.model.RecordInList
-import com.batarilo.vinylcollection.data.room.RecordDao
-import com.batarilo.vinylcollection.data.room.RecordRepository
+import com.batarilo.vinylcollection.interactors.record_list.AddToCollection
 import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromHistory
 import com.batarilo.vinylcollection.interactors.record_list.SearchHistoryRecords
+import com.batarilo.vinylcollection.interactors.record_list.notes.SetRecordNote
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
+import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -23,24 +21,27 @@ import javax.inject.Inject
 class HistoryViewModel @Inject constructor(
     private val readAllFromHistory: ReadAllFromHistory,
     private val searchHistoryRecords: SearchHistoryRecords,
-    val recordDao: RecordDao,
-    val recordRepository: RecordRepository
+    private val addToCollection: AddToCollection,
+    private val setRecordNote: SetRecordNote
 )
     : ViewModel(){
 
 
-    fun addToCollection(record: RecordInList){
+    fun addToCollection(record: Record){
         viewModelScope.launch(Dispatchers.IO) {
+            addToCollection.execute(record)
         }
     }
 
     lateinit var recordAdapter: RecordAdapterCollection
 
     fun readAllFromHistory(){
-    viewModelScope.launch(Dispatchers.IO){
-        recordAdapter.records = readAllFromHistory.execute()
+    readAllFromHistory.execute().onEach { dataState->
+      dataState.data?.let { list ->
+          recordAdapter.records = list
+      }
+  }.launchIn(viewModelScope)
 
-    }
     }
 
     fun searchHistory(query:String){
@@ -48,5 +49,9 @@ class HistoryViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO){
             recordAdapter.records = searchHistoryRecords.execute(query)        }
     }
+    fun setRecordNote(context: Context, position:Int): NoteDialog {
+        return NoteDialog(context, recordAdapter.records[position],setRecordNote)
+    }
+
 
 }

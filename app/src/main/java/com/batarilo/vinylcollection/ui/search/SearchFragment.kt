@@ -91,6 +91,8 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
 
 
         val clickedRecord = viewModel.recordAdapterSearch.records[position]
+        println("CLICK COLLECT $clickedRecord")
+
         viewModel.addRecordToCollection(clickedRecord)
 
     }

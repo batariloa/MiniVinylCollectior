@@ -12,7 +12,10 @@ import java.io.Serializable
     )])
 data class Record (
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val record_id:Long,
+
+
     val id: Long,
     var id_data:Long?,
 
@@ -40,7 +43,6 @@ data class Record (
 
 
 data class RecordInList(
-
     @Embedded
     val record: Record,
 
@@ -50,21 +52,13 @@ data class RecordInList(
         entity = RecordData::class
     )
     val recordData: RecordData?
-
-
 )
-
-
 
 @Entity(tableName = "record_data",
-    indices = [Index(value = ["id_data","belongsTo"], unique = true)],
 )
 data class RecordData(
-
     @PrimaryKey(autoGenerate = true)
     var id_data: Long,
-
-    val belongsTo: ListType
-)
+    val belongsTo: ListType)
 
 enum class ListType {COLLECTION, WISHLIST, HISTORY, CACHE}

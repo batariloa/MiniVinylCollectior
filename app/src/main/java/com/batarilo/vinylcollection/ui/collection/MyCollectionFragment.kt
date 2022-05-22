@@ -32,7 +32,6 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
         viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
         setupRecyclerView()
         loadCollection()
-
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 
         src.setOnClickListener { src.isIconified = false }
@@ -51,8 +50,6 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
             }
 
         })
-
-
         return viewCurrent
     }
 
@@ -84,7 +81,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
      }
 
     override fun onAddToNotesClicked(position: Int) {
-        NoteDialog(viewCurrent.context, viewModel.recordAdapter.records[position], viewModel.recordRepository).apply {
+        viewModel.setRecordNote(viewCurrent.context, position).apply {
             show()
             setOnDismissListener{
                 setupRecyclerView()

@@ -10,10 +10,8 @@ import kotlinx.coroutines.flow.flow
 import java.lang.Exception
 
 class ReadAllFromHistory(val recordDao: RecordDao) {
-    suspend fun execute(): List<RecordInList> {
-
-     return listOf()
-
+    fun execute(): Flow<DataState<List<RecordInList>>> = flow{
+        emit(DataState(recordDao.readAllFromHistory()))
     }
 
 }

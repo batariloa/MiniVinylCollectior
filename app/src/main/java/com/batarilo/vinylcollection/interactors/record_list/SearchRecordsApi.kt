@@ -41,10 +41,10 @@ class SearchRecordsApi(
             }
             //query the cache
             val cacheResult = if(query.isBlank()){
-                getRecordFromCache("")
+                getRecordFromCache(query)
             }
             else
-                getRecordFromCache("")
+                getRecordFromCache(query)
 
             //emit list from the cache
             emit(DataState.success(cacheResult))

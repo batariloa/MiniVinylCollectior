@@ -27,11 +27,8 @@ class InfoFragment : Fragment() {
            if(arguments?.getSerializable(RECORD_PARAM) is Record)
                record = arguments?.getSerializable(RECORD_PARAM) as Record
 
+            record?.let { it1 -> viewModel.addToHistory(it1) }
 
-            lifecycleScope.launchWhenCreated {
-
-                //TODO add to history
-            }
         }
 
     }
@@ -46,8 +43,9 @@ class InfoFragment : Fragment() {
         viewCurrent.findViewById<TextView>(R.id.tv_title_info).text = record?.title
         viewCurrent.findViewById<TextView>(R.id.tv_year_info).text = record?.year
         viewCurrent.findViewById<TextView>(R.id.tv_country_info).text = record?.country
-        viewCurrent.findViewById<TextView>(R.id.tv_genre_info).text = record?.genre.toString().substring(1, record?.genre.toString().length-1)
-        viewCurrent.findViewById<TextView>(R.id.tv_label_info).text = record?.label.toString().substring(1, record?.genre.toString().length-1)
+        viewCurrent.findViewById<TextView>(R.id.tv_genre_info).text =
+            record?.genre.toString().substring(1, record?.genre.toString().length-1)
+        viewCurrent.findViewById<TextView>(R.id.tv_label_info).text = record?.label.toString()?.substring(1, record?.label.toString().length-1)
 
 
     }

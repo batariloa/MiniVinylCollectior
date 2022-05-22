@@ -12,10 +12,10 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
 
     println("INSERT ALL JE $recordsInList")
     recordsInList.forEach{
-        insertRecordId(it)
+        insertRecord(it)
     }
 }
-    suspend fun insertRecordId(recordInList: RecordInList){
+    suspend fun insertRecord(recordInList: RecordInList){
 
 
         var idData = recordInList.recordData?.let { addRecordData(it) }
@@ -36,11 +36,44 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun addRecords(list:List<Record>):LongArray
 
+    @Transaction
+    @Query("SELECT * FROM record_table JOIN record_data ON record_table.id_data=record_data.id_data " +
+            "WHERE record_data.belongsTo='WISHLIST'")
+    abstract suspend fun readAllFromWishlist():List<RecordInList>
+
+    @Transaction
+    @Query("SELECT * FROM record_table JOIN record_data ON record_table.id_data=record_data.id_data " +
+            "WHERE record_data.belongsTo='COLLECTION'")
+    abstract suspend fun readAllFromCollection():List<RecordInList>
+
+    @Query("SELECT * FROM record_table JOIN record_data ON record_table.id_data=record_data.id_data " +
+            "WHERE record_data.belongsTo='HISTORY'")
+    abstract suspend fun readAllFromHistory():List<RecordInList>
+
     @Query("SELECT * FROM record_table JOIN record_data ON record_table.id_data=record_data.id_data")
    abstract suspend fun readAllData():List<RecordInList>
 
     @Query("SELECT * FROM record_table JOIN record_data" +
-            " ON record_table.id_data=record_data.id_data WHERE title LIKE '%' || :query || '%'")
+            " ON record_table.id_data=record_data.id_data WHERE title LIKE '%' || :query || '%'" +
+            "AND record_data.belongsTo='CACHE'")
     abstract suspend fun searchRecords(query:String):List<RecordInList>
+
+    @Query("SELECT * FROM record_table JOIN record_data" +
+            " ON record_table.id_data=record_data.id_data WHERE title LIKE '%' || :query || '%'" +
+            "AND record_data.belongsTo='COLLECTION'")
+    abstract suspend fun searchCollection(query:String):List<RecordInList>
+
+    @Query("SELECT * FROM record_table JOIN record_data" +
+            " ON record_table.id_data=record_data.id_data WHERE title LIKE '%' || :query || '%'" +
+            "AND record_data.belongsTo='WISHLIST'")
+    abstract suspend fun searchWishlist(query:String):List<RecordInList>
+
+    @Query("SELECT * FROM record_table JOIN record_data" +
+            " ON record_table.id_data=record_data.id_data WHERE title LIKE '%' || :query || '%'" +
+            "AND record_data.belongsTo='HISTORY'")
+    abstract suspend fun searchHistory(query:String):List<RecordInList>
+
+    @Update
+    abstract suspend fun updateRecord(record: Record)
 
 }

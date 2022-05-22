@@ -6,8 +6,8 @@ import com.batarilo.vinylcollection.data.model.RecordData
 import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.data.room.RecordDao
 
-class AddToWishList(val recordDao: RecordDao) {
+class AddToHistory(private val recordDao: RecordDao) {
     suspend fun execute(record: Record){
-        recordDao.insertRecord(RecordInList(record, RecordData(0, ListType.WISHLIST)))
+        recordDao.insertRecord(RecordInList(record, RecordData(0, ListType.HISTORY)))
     }
 }

@@ -7,8 +7,8 @@ class SearchHistoryRecords(private val recordDao: RecordDao) {
 
 
     suspend fun execute(query:String): List<RecordInList> {
-//TODO
-        return listOf()
+
+        return recordDao.searchRecords(query)
     }
 
 }

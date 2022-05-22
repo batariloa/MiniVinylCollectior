@@ -77,11 +77,11 @@ class HistoryFragment : Fragment(), RecordAdapterCollection.OnRecordListenerColl
     }
 
     override fun onRemoveClicked(position: Int) {
-        viewModel.addToCollection(viewModel.recordAdapter.records[position])
+        viewModel.addToCollection(viewModel.recordAdapter.records[position].record)
      }
 
     override fun onAddToNotesClicked(position: Int) {
-        NoteDialog(viewCurrent.context, viewModel.recordAdapter.records[position], viewModel.recordRepository).apply {
+        viewModel.setRecordNote(viewCurrent.context, position).apply {
             show()
             setOnDismissListener{
                 setupRecyclerView()

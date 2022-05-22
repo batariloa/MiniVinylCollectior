@@ -1,5 +1,6 @@
 package com.batarilo.vinylcollection.ui.wishlist
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -67,9 +68,9 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
      }
 
     override fun onAddToNotesClicked(position: Int) {
-        NoteDialog(viewCurrent.context, viewModel.recordAdapter.records[position], viewModel.recordRepository).apply {
+        viewModel.setRecordNote(viewCurrent.context, position).apply {
             show()
-            setOnDismissListener{
+            setOnDismissListener {
                 setupRecyclerView()
             }
         }
@@ -90,4 +91,6 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
         layoutManager = LinearLayoutManager(activity)
 
     }
+
+
 }
