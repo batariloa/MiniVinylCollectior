@@ -1,6 +1,7 @@
 package com.batarilo.vinylcollection.data.model
 
 import androidx.room.*
+import androidx.room.ForeignKey.CASCADE
 import com.batarilo.vinylcollection.data.room.RecordConverters
 import java.io.Serializable
 
@@ -8,7 +9,8 @@ import java.io.Serializable
     foreignKeys = [ForeignKey(
         entity = RecordData::class,
         parentColumns = ["id_data"],
-        childColumns = ["id_data"]
+        childColumns = ["id_data"],
+        onDelete = CASCADE
     )])
 data class Record (
 

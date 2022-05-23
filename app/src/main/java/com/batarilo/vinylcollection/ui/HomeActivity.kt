@@ -3,7 +3,6 @@ package com.batarilo.vinylcollection.ui
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -96,6 +95,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_history -> {
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.historyFragment)
+            }
+            R.id.nav_settings->{
+                Navigation.findNavController(this, R.id.fragment)
+                    .navigate(R.id.settingsFragment)
             }
         }
         item.isChecked = true

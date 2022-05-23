@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_searchFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/wishlistFragment"
@@ -98,4 +101,8 @@
             android:id="@+id/action_historyFragment_to_infoFragment"
             app:destination="@id/infoFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.batarilo.vinylcollection.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

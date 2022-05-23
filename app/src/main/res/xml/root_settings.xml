@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Cache"
+        android:icon="@drawable/ic_cache">
+
+        <Preference
+            android:key="delete_cache"
+            android:id = "@+id/preference_delete"
+            android:title="Delete cache">
+
+
+        </Preference>
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="cache"
+            android:title="Caching"
+            android:summary="Disabling cache may cause performance issues."/>
+    </PreferenceCategory>
+</PreferenceScreen>

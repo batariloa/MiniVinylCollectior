@@ -7,7 +7,7 @@ import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.interactors.record_list.AddToCollection
 import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromHistory
 import com.batarilo.vinylcollection.interactors.record_list.SearchHistoryRecords
-import com.batarilo.vinylcollection.interactors.record_list.notes.SetRecordNote
+import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -79,7 +79,10 @@ dependencies {
     //for testing retrofit.
     testImplementation("com.squareup.okhttp3:mockwebserver:4.7.2")
 
+    //navigation
     implementation 'androidx.navigation:navigation-fragment:2.4.2'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     def nav_version = "2.4.2"
 
@@ -122,6 +125,9 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
+
+//Preference
+    implementation 'androidx.preference:preference:1.2.0'
 
 
 // Room database

@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromWishlist
 import com.batarilo.vinylcollection.interactors.record_list.SearchWishlist
-import com.batarilo.vinylcollection.interactors.record_list.notes.SetRecordNote
+import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

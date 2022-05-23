@@ -25,7 +25,7 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
     }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-  abstract suspend fun addRecord(record: Record)
+    abstract suspend fun addRecord(record: Record)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun addRecordData(recordData: RecordData): Long
@@ -75,5 +75,9 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
 
     @Update
     abstract suspend fun updateRecord(record: Record)
+
+    @Transaction
+    @Query("DELETE FROM record_data WHERE belongsTo = 'CACHE'" )
+    abstract suspend fun deleteCache()
 
 }

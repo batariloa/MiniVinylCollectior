@@ -1,4 +1,4 @@
-package com.batarilo.vinylcollection.interactors.record_list.notes
+package com.batarilo.vinylcollection.interactors.notes
 
 import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.data.room.RecordDao

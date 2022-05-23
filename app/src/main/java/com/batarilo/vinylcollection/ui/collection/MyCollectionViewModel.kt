@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromCollection
 import com.batarilo.vinylcollection.interactors.record_list.SearchCollectionRecords
-import com.batarilo.vinylcollection.interactors.record_list.notes.SetRecordNote
+import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel

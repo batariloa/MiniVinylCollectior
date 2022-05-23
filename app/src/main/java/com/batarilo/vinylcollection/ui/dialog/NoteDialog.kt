@@ -9,7 +9,7 @@ import android.widget.ImageButton
 import android.widget.RelativeLayout
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.data.model.RecordInList
-import com.batarilo.vinylcollection.interactors.record_list.notes.SetRecordNote
+import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
 import kotlinx.coroutines.*
 
 

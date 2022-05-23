@@ -44,6 +44,7 @@
         <entry key="app/src/main/res/layout/toolbar_main.xml" value="0.2546875" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.31354166666666666" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="app/src/main/res/xml/root_settings.xml" value="0.1" />
       </map>
     </option>
   </component>

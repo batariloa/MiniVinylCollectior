@@ -1,5 +1,7 @@
 package com.batarilo.vinylcollection.interactors.record_list
 
+import android.content.Context
+import androidx.preference.PreferenceManager
 import com.batarilo.vinylcollection.data.model.JsonResponse
 import com.batarilo.vinylcollection.data.model.ListType
 import com.batarilo.vinylcollection.data.model.RecordData
@@ -14,6 +16,7 @@ import kotlinx.coroutines.flow.flow
 class SearchRecordsApi(
     private val recordDao: RecordDao,
     private val recordApiService: RecordApiService,
+    private val context: Context
 
 ){
     fun execute(
@@ -28,31 +31,57 @@ class SearchRecordsApi(
                 throw Exception("Search FAILED!")}
 
 
+            val sp = PreferenceManager.getDefaultSharedPreferences(context)
+            val cacheOn = sp.getBoolean("cache", true)
+
+
+
             if(isNetworkAvailable) {
 
                 val records = getRecordFromNetwork(query)
-                //insert into cache
 
-                val recordsInList = records.results.map { RecordInList(it, RecordData(0, ListType.CACHE)) }
-                //insert into cache
-                recordDao.insertAll(recordsInList)
-                println("WHat is inserted into cache $recordsInList")
+                //if cache is off
+                if (!cacheOn) {
+                    val recordsDirect = records.results.map { item ->
+                        RecordInList(
+                            item,
+                            RecordData(0, ListType.CACHE)
+                        )
+                    }
+                    emit(DataState.success(recordsDirect))
+                }
 
+                //if cache is on
+                if (cacheOn) {
+                    //insert into cache
+                    val recordsInList =
+                        records.results.map { RecordInList(it, RecordData(0, ListType.CACHE)) }
+
+                    //insert into cache
+                    recordDao.insertAll(recordsInList)
+                    println("WHat is inserted into cache $recordsInList")
+
+
+                    //query the cache
+                    val cacheResult = if (query.isBlank()) {
+                        getRecordFromCache(query)
+                    } else
+                        getRecordFromCache(query)
+
+                    //emit list from cache
+                    emit(DataState.success(cacheResult))
+                }
             }
-            //query the cache
-            val cacheResult = if(query.isBlank()){
-                getRecordFromCache(query)
-            }
-            else
-                getRecordFromCache(query)
 
-            //emit list from the cache
-            emit(DataState.success(cacheResult))
 
         }catch (e:Exception){
             println("ERROR IN SEARCH: $e")
             emit(DataState.error(e.message?:"Unknown error"))
         }
+    }
+
+    private suspend fun cacheOn(){
+
     }
     private suspend fun getRecordFromNetwork(query:String): JsonResponse {
         return recordApiService.searchDiscogResponse(

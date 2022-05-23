@@ -5,8 +5,9 @@ import com.batarilo.vinylcollection.data.retrofit.RecordApiService
 import com.batarilo.vinylcollection.data.retrofit.RetrofitInstance
 import com.batarilo.vinylcollection.data.room.RecordDao
 import com.batarilo.vinylcollection.data.room.RecordDatabase
+import com.batarilo.vinylcollection.interactors.cache.DeleteCache
 import com.batarilo.vinylcollection.interactors.record_list.*
-import com.batarilo.vinylcollection.interactors.record_list.notes.SetRecordNote
+import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,8 +50,8 @@ class AppModule {
     }
 
     @Provides
-    fun provideSearchRecordUseCase(recordDao: RecordDao, recordApiService: RecordApiService): SearchRecordsApi {
-        return SearchRecordsApi(recordDao,recordApiService)
+    fun provideSearchRecordUseCase(@ApplicationContext context: Context, recordDao: RecordDao, recordApiService: RecordApiService): SearchRecordsApi {
+        return SearchRecordsApi(recordDao,recordApiService,context)
     }
     @Provides
     fun provdideReadAllFromCollectionUseCase(recordDao: RecordDao): ReadAllFromCollection {
@@ -99,6 +100,11 @@ class AppModule {
     @Provides
     fun provideAddToWishlist(recordDao: RecordDao): AddToWishList {
         return AddToWishList(recordDao)
+    }
+
+    @Provides
+    fun provideDeleteCache(recordDao: RecordDao): DeleteCache {
+        return DeleteCache(recordDao)
     }
 
 }
