@@ -59,6 +59,7 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
 
         })
 
+
         return viewCurrent
     }
 
@@ -106,16 +107,5 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
         viewModel.addRecordToWishlist(clickedRecord)
     }
 
-    companion object {
 
-        @JvmStatic
-        fun newInstance() =
-            SearchFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-                if(activity is HomeActivity)
-                    (activity as HomeActivity)?.setTitleTop("Search")
-            }
-    }
 }

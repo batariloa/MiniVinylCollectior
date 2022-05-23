@@ -34,9 +34,6 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
         setupRecyclerView()
         loadCollection()
 
-        if(activity is HomeActivity)
-            (activity as HomeActivity)?.setTitleTop("Collection")
-
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 
         src.setOnClickListener { src.isIconified = false }

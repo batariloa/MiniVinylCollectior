@@ -36,8 +36,6 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
         setupRecyclerView()
         loadWishList()
 
-        if(activity is HomeActivity)
-            (activity as HomeActivity)?.setTitleTop("Wishlist")
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 

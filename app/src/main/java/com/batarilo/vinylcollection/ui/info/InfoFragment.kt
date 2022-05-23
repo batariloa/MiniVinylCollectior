@@ -32,9 +32,6 @@ class InfoFragment : Fragment() {
 
         }
 
-        if(activity is HomeActivity)
-            (activity as HomeActivity)?.setTitleTop("Details")
-
     }
 
     private fun initializeView(){

@@ -83,22 +83,31 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_home -> {
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.searchFragment)
+                setTitleTop("Home")
             }
             R.id.nav_my_collection -> {
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.myCollectionFragment)
+                setTitleTop("My Collection")
+
             }
             R.id.nav_wishlist -> {
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.wishlistFragment)
+                setTitleTop("Wishlist")
+
             }
             R.id.nav_history -> {
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.historyFragment)
+                setTitleTop("History")
+
             }
             R.id.nav_settings->{
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.settingsFragment)
+                setTitleTop("Settings")
+
             }
         }
         item.isChecked = true

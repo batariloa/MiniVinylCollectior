@@ -17,14 +17,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.root_settings, rootKey)
 
         val myPref = findPreference("delete_cache") as Preference?
-        myPref?.setOnPreferenceClickListener(object: Preference.OnPreferenceClickListener{
-            override fun onPreferenceClick(preference: Preference): Boolean {
-
+        myPref?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             openDialog()
-             return true
-            }
-
-        })
+            true
+        }
     }
 
     fun openDialog(){
