@@ -3,6 +3,11 @@
 
     <PreferenceCategory android:title="Cache"
         android:icon="@drawable/ic_cache">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="cache"
+            android:title="Caching"
+            android:summary="Disabling cache may cause performance issues."/>
 
         <Preference
             android:key="delete_cache"
@@ -11,10 +16,6 @@
 
 
         </Preference>
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="cache"
-            android:title="Caching"
-            android:summary="Disabling cache may cause performance issues."/>
+
     </PreferenceCategory>
 </PreferenceScreen>

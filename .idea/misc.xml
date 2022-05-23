@@ -12,9 +12,11 @@
         <entry key="app/src/main/res/drawable/ic_baseline_library_add_50.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/ic_baseline_new_releases_24.xml" value="0.145" />
+        <entry key="app/src/main/res/drawable/ic_baseline_playlist_add_24.xml" value="0.1315" />
         <entry key="app/src/main/res/drawable/ic_baseline_remove_circle_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_star_border_35.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/ic_baseline_stars_40.xml" value="0.1665" />
+        <entry key="app/src/main/res/drawable/ic_baseline_sticky_note.xml" value="0.1315" />
         <entry key="app/src/main/res/drawable/ic_baseline_sticky_note_2_24.xml" value="0.1295" />
         <entry key="app/src/main/res/drawable/ic_baseline_sticky_note_set.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/shape_linear.xml" value="0.1125" />
@@ -44,7 +46,7 @@
         <entry key="app/src/main/res/layout/toolbar_main.xml" value="0.2546875" />
         <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.31354166666666666" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
-        <entry key="app/src/main/res/xml/root_settings.xml" value="0.1" />
+        <entry key="app/src/main/res/xml/root_settings.xml" value="0.25" />
       </map>
     </option>
   </component>
