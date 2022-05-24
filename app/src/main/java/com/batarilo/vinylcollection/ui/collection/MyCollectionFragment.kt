@@ -73,7 +73,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
     override fun onRecordClicked(position: Int) {
         val bundle = Bundle().also {
             it.putSerializable(InfoFragment.RECORD_PARAM,
-                viewModel.recordAdapter.records[position].record)
+                viewModel.recordAdapter.getItemId(position))
         }
         Navigation.findNavController(viewCurrent)
             .navigate(R.id.infoFragment, bundle)
@@ -83,9 +83,6 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
 
     override fun onRemoveClicked(position: Int) {
         viewModel.deleteRecord(position)
-
-
-
      }
 
 

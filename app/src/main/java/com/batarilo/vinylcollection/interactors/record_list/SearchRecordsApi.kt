@@ -1,7 +1,7 @@
 package com.batarilo.vinylcollection.interactors.record_list
 
 import android.content.Context
-import androidx.preference.PreferenceManager
+import android.preference.PreferenceManager
 import com.batarilo.vinylcollection.data.model.JsonResponse
 import com.batarilo.vinylcollection.data.model.ListType
 import com.batarilo.vinylcollection.data.model.RecordData
@@ -42,6 +42,7 @@ class SearchRecordsApi(
 
                 //if cache is off
                 if (!cacheOn) {
+
                     val recordsDirect = records.results.map { item ->
                         RecordInList(
                             item,
@@ -74,6 +75,8 @@ class SearchRecordsApi(
                     emit(DataState.success(cacheResult))
                 }
             }
+            if(!isNetworkAvailable)
+                emit(DataState.success(getRecordFromCache(query)))
 
 
         }catch (e:Exception){

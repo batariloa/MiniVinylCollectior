@@ -6,6 +6,7 @@ import com.batarilo.vinylcollection.data.room.RecordDao
 class RemoveRecord(private val recordDao: RecordDao) {
 
     suspend fun execute(recordInList: RecordInList){
-        recordInList.recordData?.let { recordDao.deleteRecordInList(it) }
+        println("REMOVE RECORD ${recordInList.recordData}")
+        recordInList.recordData?.let { recordDao.deleteRecord(recordInList.recordData) }
     }
 }

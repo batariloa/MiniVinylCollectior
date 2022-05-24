@@ -34,30 +34,28 @@ class RecordAdapterCollection(
 
 
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolderSearch {
 
-
         return RecordViewHolderSearch(
-                RecordRowCollectionBinding.inflate(
+            RecordRowCollectionBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             ),
             onRecordListener
         )
-
     }
-
 
 
     override fun onBindViewHolder(holderSearch: RecordViewHolderSearch, position: Int) {
 
         holderSearch.binding.apply {
             val item = records[position]
-            
-       rowTextViews.tvTitle.text = item.record.title
-        rowTextViews.tvLabel.text = item.record.year
-        rowTextViews.tvFrom.text = item.record.country
+
+            rowTextViews.tvTitle.text = item.record.title
+            rowTextViews.tvLabel.text = item.record.year
+            rowTextViews.tvFrom.text = item.record.country
 
             Glide.with(holderSearch.itemView.context)
                 .load(item.record.thumb)
@@ -116,5 +114,4 @@ class RecordAdapterCollection(
 
 
 }
-
 

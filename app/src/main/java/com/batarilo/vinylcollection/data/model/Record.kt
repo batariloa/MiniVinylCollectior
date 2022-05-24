@@ -13,6 +13,8 @@ data class Record (
     val id: Int,
 
 
+    val id_spoj:Int,
+
     @TypeConverters(RecordConverters::class)
     val format: List<String>?,
     @TypeConverters(RecordConverters::class)
@@ -37,6 +39,8 @@ data class Record (
 
 
 data class RecordInList(
+
+
     @Embedded
     val record: Record,
 
@@ -53,9 +57,8 @@ data class RecordInList(
     foreignKeys = [ForeignKey(
         entity = Record::class,
         parentColumns = ["id"],
-        childColumns = ["id_record"],
-
-    )]
+        childColumns = ["id_record"],),
+    ],indices = [Index(value = ["id_record","belongsTo"], unique = true)]
 )
 data class RecordData(
     @PrimaryKey(autoGenerate = true)

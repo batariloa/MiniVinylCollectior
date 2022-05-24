@@ -7,6 +7,7 @@ import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromWishlist
 import com.batarilo.vinylcollection.interactors.record_list.SearchWishlist
 import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
+import com.batarilo.vinylcollection.interactors.record_list.RemoveRecord
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,27 +20,20 @@ import javax.inject.Inject
 class WishlistViewModel @Inject constructor(
     private val readAllFromWishlist: ReadAllFromWishlist,
     private val searchWishlist: SearchWishlist,
-    private val setRecordNote: SetRecordNote
+    private val setRecordNote: SetRecordNote,
+    private val removeRecord: RemoveRecord
 )
     : ViewModel() {
 
 
     lateinit var recordAdapter:RecordAdapterWishlist
 
-
-    fun removeRecord(record: RecordInList){
-            viewModelScope.launch(Dispatchers.IO) {
-            }
-        }
-
-
     fun readAllFromWishlist(){
         readAllFromWishlist.execute().onEach { dataState->
             dataState.data?.let { list ->
-                recordAdapter.records = list
+                recordAdapter.records = list.toMutableList()
             }
         }.launchIn(viewModelScope)
-
     }
 
 
@@ -53,5 +47,17 @@ class WishlistViewModel @Inject constructor(
         return NoteDialog(context, recordAdapter.records[position].record,setRecordNote)
     }
 
+    fun deleteRecord(position: Int){
+
+        println("DELETE ITEM "+ recordAdapter.records[position])
+        viewModelScope.launch(Dispatchers.IO){
+            removeRecord.execute(recordAdapter.records[position])
+
+        }
+
+        val recordCut =ArrayList (recordAdapter.records)
+        recordCut.removeAt(position)
+        recordAdapter.records = recordCut
+    }
 
 }

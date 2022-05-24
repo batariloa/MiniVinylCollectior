@@ -33,8 +33,10 @@ class MyCollectionViewModel @Inject constructor(
     fun readAllFromCollection(){
             readAllFromCollection.execute().onEach { dataState->
                 dataState.data?.let { list ->
-                    println("OVAJ RECORD JE LIST $list")
-                    recordAdapter.records = list
+                    recordAdapter.records = list.toMutableList()
+                    list.forEach{
+                        println("TIP JE "+ it.recordData?.belongsTo)
+                    }
             }
             }.launchIn(viewModelScope)
     }
@@ -43,7 +45,7 @@ class MyCollectionViewModel @Inject constructor(
 
         viewModelScope.launch(Dispatchers.IO) {
           val records = searchCollectionRecords.execute(query)
-            recordAdapter.records = records
+            recordAdapter.records = records.toMutableList()
         }
 
     }
@@ -60,9 +62,9 @@ class MyCollectionViewModel @Inject constructor(
             removeRecord.execute(recordAdapter.records[position])
 
         }
-        recordAdapter.records= recordAdapter.records.drop(position)
 
-        recordAdapter.notifyItemRemoved(position)
-
+        val recordCut =ArrayList (recordAdapter.records)
+        recordCut.removeAt(position)
+        recordAdapter.records = recordCut
     }
 }
