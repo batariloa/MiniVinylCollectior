@@ -58,7 +58,6 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
 
     private fun loadCollection(){
        viewModel.readAllFromCollection()
-        setupRecyclerView()
     }
 
 

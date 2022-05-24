@@ -35,7 +35,7 @@ class MyCollectionViewModel @Inject constructor(
                 dataState.data?.let { list ->
                     recordAdapter.records = list.toMutableList()
                     list.forEach{
-                        println("TIP JE "+ it.recordData?.belongsTo)
+                        println("TIP JE "+ it.recordData?.belongsTo + " IME " + it.record.title)
                     }
             }
             }.launchIn(viewModelScope)

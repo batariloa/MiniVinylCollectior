@@ -9,6 +9,9 @@ import kotlinx.coroutines.flow.flow
 
 class ReadAllFromCollection(val recordDao: RecordDao) {
     fun execute(): Flow<DataState<List<RecordInList>>> = flow{
+        println("READ ALL FROM COLLECTION USE CASE" + recordDao.readAllFromCollection())
         emit(DataState(recordDao.readAllFromCollection()))
+
     }
+
 }

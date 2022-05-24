@@ -44,11 +44,7 @@ data class RecordInList(
     @Embedded
     val record: Record,
 
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "id_record",
-        entity = RecordData::class
-    )
+   @Embedded
     val recordData: RecordData?
 )
 
@@ -62,7 +58,7 @@ data class RecordInList(
 )
 data class RecordData(
     @PrimaryKey(autoGenerate = true)
-    var id:Int,
+    var id_data:Int,
     var id_record: Int,
     val belongsTo: ListType)
 

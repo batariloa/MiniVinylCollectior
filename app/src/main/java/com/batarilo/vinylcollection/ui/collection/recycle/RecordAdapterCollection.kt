@@ -17,6 +17,7 @@ class RecordAdapterCollection(
 ) : Adapter<RecordAdapterCollection.RecordViewHolderSearch>() {
 
 
+
     private val diffCallback = object : DiffUtil.ItemCallback<RecordInList>() {
         override fun areItemsTheSame(oldItem: RecordInList, newItem: RecordInList): Boolean {
             return oldItem.record.id== newItem.record.id
@@ -48,6 +49,7 @@ class RecordAdapterCollection(
     }
 
 
+
     override fun onBindViewHolder(holderSearch: RecordViewHolderSearch, position: Int) {
 
         holderSearch.binding.apply {
@@ -71,7 +73,6 @@ class RecordAdapterCollection(
 
 
     }
-
 
     override fun getItemCount(): Int {
         return records.size
