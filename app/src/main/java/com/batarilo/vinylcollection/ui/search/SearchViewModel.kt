@@ -40,7 +40,7 @@ class SearchViewModel @Inject constructor(
 
     fun addRecordToWishlist(record: Record){
         println("ADD TO WISHLIST $record")
-        viewModelScope.launch(Dispatchers.IO) {
+;        viewModelScope.launch(Dispatchers.IO) {
             addToWishList.execute(record)
         }
     }
@@ -52,7 +52,7 @@ class SearchViewModel @Inject constructor(
 
             dataState.data?.let { list ->
                 recordAdapterSearch.records = list.map { list -> list.record }
-                println("LISTA REZULTATA $list")
+                println("LISTA REZULTATA " + recordAdapterSearch.records)
             }
             dataState.error?.let { error ->
                 Log.d("TAG", "Here is the error: $error")

@@ -9,7 +9,7 @@ import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.data.model.RecordData
 import com.batarilo.vinylcollection.data.model.RecordInList
 
-@Database(entities = [Record::class, RecordData::class], version = 42, exportSchema = false)
+@Database(entities = [Record::class, RecordData::class], version = 62, exportSchema = false)
 @TypeConverters(RecordConverters::class)
 abstract class RecordDatabase
     : RoomDatabase(){

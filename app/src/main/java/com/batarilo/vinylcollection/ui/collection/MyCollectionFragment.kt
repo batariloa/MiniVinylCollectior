@@ -68,6 +68,8 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
         layoutManager = LinearLayoutManager(activity)
 
     }
+
+
     override fun onRecordClicked(position: Int) {
         val bundle = Bundle().also {
             it.putSerializable(InfoFragment.RECORD_PARAM,
@@ -80,7 +82,12 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
     }
 
     override fun onRemoveClicked(position: Int) {
+        viewModel.deleteRecord(position)
+
+
+
      }
+
 
     override fun onAddToNotesClicked(position: Int) {
         viewModel.setRecordNote(viewCurrent.context, position).apply {
@@ -93,17 +100,6 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
     }
 
 
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MyCollectionFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
-    }
 
 
 }

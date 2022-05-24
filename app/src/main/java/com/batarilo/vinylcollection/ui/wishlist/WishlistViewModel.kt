@@ -50,7 +50,7 @@ class WishlistViewModel @Inject constructor(
         }
     }
     fun setRecordNote(context: Context, position:Int): NoteDialog {
-        return NoteDialog(context, recordAdapter.records[position],setRecordNote)
+        return NoteDialog(context, recordAdapter.records[position].record,setRecordNote)
     }
 
 

@@ -107,4 +107,9 @@ class AppModule {
         return DeleteCache(recordDao)
     }
 
+    @Provides
+    fun provideRemoveRecord(recordDao: RecordDao): RemoveRecord {
+        return RemoveRecord(recordDao)
+    }
+
 }

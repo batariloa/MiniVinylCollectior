@@ -3,9 +3,11 @@ package com.batarilo.vinylcollection.ui.collection
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromCollection
 import com.batarilo.vinylcollection.interactors.record_list.SearchCollectionRecords
 import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
+import com.batarilo.vinylcollection.interactors.record_list.RemoveRecord
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +21,8 @@ import javax.inject.Inject
 class MyCollectionViewModel @Inject constructor(
     private val searchCollectionRecords: SearchCollectionRecords,
     private val readAllFromCollection: ReadAllFromCollection,
-    private val setRecordNote: SetRecordNote
+    private val setRecordNote: SetRecordNote,
+    private val removeRecord: RemoveRecord
 )
     : ViewModel(){
 
@@ -30,6 +33,7 @@ class MyCollectionViewModel @Inject constructor(
     fun readAllFromCollection(){
             readAllFromCollection.execute().onEach { dataState->
                 dataState.data?.let { list ->
+                    println("OVAJ RECORD JE LIST $list")
                     recordAdapter.records = list
             }
             }.launchIn(viewModelScope)
@@ -44,8 +48,21 @@ class MyCollectionViewModel @Inject constructor(
 
     }
     fun setRecordNote(context: Context, position:Int): NoteDialog {
-       return NoteDialog(context, recordAdapter.records[position],setRecordNote)
+        println("IZ VIEWA RECORD JE " + recordAdapter.records[position].record)
+       return NoteDialog(context, recordAdapter.records[position].record,setRecordNote)
     }
 
 
+    fun deleteRecord(position: Int){
+
+        println("DELETE ITEM "+ recordAdapter.records[position])
+        viewModelScope.launch(Dispatchers.IO){
+            removeRecord.execute(recordAdapter.records[position])
+
+        }
+        recordAdapter.records= recordAdapter.records.drop(position)
+
+        recordAdapter.notifyItemRemoved(position)
+
+    }
 }

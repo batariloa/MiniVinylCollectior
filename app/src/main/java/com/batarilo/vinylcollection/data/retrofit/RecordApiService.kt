@@ -25,7 +25,7 @@ interface RecordApiService {
 
 
     companion object{
-        const val USER_AGENT_HEADER = "User-Agent: FooBarApp/3.0"
+        const val USER_AGENT_HEADER = "User-Agent: VincoApp/1.0"
         const val CONTENT_TYPE_HEADER = "Accept: application/json"
         const val AUTH_KEY = "aDHPMLIyOyNPkvTkCyPY"
         const val AUTH_SECRET = "RoSLDJLGyNMZXazEsuIskUmVeALHLlZE"

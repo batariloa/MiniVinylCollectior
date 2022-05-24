@@ -28,10 +28,11 @@ class InfoFragment : Fragment() {
            if(arguments?.getSerializable(RECORD_PARAM) is Record)
                record = arguments?.getSerializable(RECORD_PARAM) as Record
 
-            record?.let { it1 -> viewModel.addToHistory(it1) }
+
 
         }
 
+        record?.let { it1 -> viewModel.addToHistory(it1) }
     }
 
     private fun initializeView(){

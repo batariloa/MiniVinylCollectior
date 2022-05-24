@@ -45,9 +45,11 @@ class SearchRecordsApi(
                     val recordsDirect = records.results.map { item ->
                         RecordInList(
                             item,
-                            RecordData(0, ListType.CACHE)
+                            RecordData(0, item.id, ListType.CACHE)
                         )
+
                     }
+                    println("CACHE OFF $recordsDirect")
                     emit(DataState.success(recordsDirect))
                 }
 
@@ -55,7 +57,7 @@ class SearchRecordsApi(
                 if (cacheOn) {
                     //insert into cache
                     val recordsInList =
-                        records.results.map { RecordInList(it, RecordData(0, ListType.CACHE)) }
+                        records.results.map { RecordInList(it, RecordData(0, it.id,ListType.CACHE)) }
 
                     //insert into cache
                     recordDao.insertAll(recordsInList)
@@ -80,9 +82,7 @@ class SearchRecordsApi(
         }
     }
 
-    private suspend fun cacheOn(){
 
-    }
     private suspend fun getRecordFromNetwork(query:String): JsonResponse {
         return recordApiService.searchDiscogResponse(
             RecordApiService.AUTH_KEY,

@@ -8,13 +8,13 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.RelativeLayout
 import com.batarilo.vinylcollection.R
+import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
 import kotlinx.coroutines.*
 
 
-class NoteDialog
-    (context: Context, val item:RecordInList, val setRecordNote: SetRecordNote)
+class NoteDialog(context: Context, val item: Record, val setRecordNote: SetRecordNote)
     : Dialog(context) {
 
     init {
@@ -30,13 +30,13 @@ class NoteDialog
         window?.setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
 
-        if(item.record.note!=null)
-            findViewById<EditText>(R.id.et_note).setText(item.record.note)
+        if(item.note!=null)
+            findViewById<EditText>(R.id.et_note).setText(item.note)
 
         findViewById<ImageButton>(R.id.btn_accept).setOnClickListener {
            val noteCurrent = findViewById<EditText>(R.id.et_note).text.toString()
             mainActivityScope.launch {
-                setRecordNote.execute(item.record,noteCurrent)
+                setRecordNote.execute(item,noteCurrent)
             }
             println("UPDATED NOTE IS $item")
             dismiss()
@@ -49,7 +49,7 @@ class NoteDialog
         findViewById<ImageButton>(R.id.btn_delete).setOnClickListener{
             mainActivityScope.launch {
 
-                setRecordNote.execute(item.record, null)
+                setRecordNote.execute(item, null)
 
             }
             dismiss()

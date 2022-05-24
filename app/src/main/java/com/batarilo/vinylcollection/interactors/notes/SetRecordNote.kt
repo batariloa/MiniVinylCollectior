@@ -6,6 +6,7 @@ import com.batarilo.vinylcollection.data.room.RecordDao
 class SetRecordNote(private val recordDao: RecordDao) {
     suspend fun execute(record:Record, note: String?){
         record.note = note
+        println("Updating record $record")
         recordDao.updateRecord(record)
     }
 }

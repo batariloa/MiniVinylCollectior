@@ -5,21 +5,13 @@ import androidx.room.ForeignKey.CASCADE
 import com.batarilo.vinylcollection.data.room.RecordConverters
 import java.io.Serializable
 
-@Entity(tableName = "record_table",
-    foreignKeys = [ForeignKey(
-        entity = RecordData::class,
-        parentColumns = ["id_data"],
-        childColumns = ["id_data"],
-        onDelete = CASCADE
-    )])
+@Entity(tableName = "record_table",)
 data class Record (
 
-    @PrimaryKey(autoGenerate = true)
-    val record_id:Long,
 
+    @PrimaryKey(autoGenerate = false)
+    val id: Int,
 
-    val id: Long,
-    var id_data:Long?,
 
     @TypeConverters(RecordConverters::class)
     val format: List<String>?,
@@ -50,17 +42,25 @@ data class RecordInList(
 
     @Relation(
         parentColumn = "id",
-        entityColumn = "id_data",
+        entityColumn = "id_record",
         entity = RecordData::class
     )
     val recordData: RecordData?
 )
 
 @Entity(tableName = "record_data",
+
+    foreignKeys = [ForeignKey(
+        entity = Record::class,
+        parentColumns = ["id"],
+        childColumns = ["id_record"],
+
+    )]
 )
 data class RecordData(
     @PrimaryKey(autoGenerate = true)
-    var id_data: Long,
+    var id:Int,
+    var id_record: Int,
     val belongsTo: ListType)
 
 enum class ListType {COLLECTION, WISHLIST, HISTORY, CACHE}

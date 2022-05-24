@@ -8,6 +8,6 @@ import com.batarilo.vinylcollection.data.room.RecordDao
 
 class AddToHistory(private val recordDao: RecordDao) {
     suspend fun execute(record: Record){
-        recordDao.insertRecord(RecordInList(record, RecordData(0, ListType.HISTORY)))
+        recordDao.insertRecord(RecordInList(record, RecordData(0, record.id, ListType.HISTORY)))
     }
 }
