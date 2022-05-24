@@ -46,7 +46,7 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
     @Transaction
     @Query("SELECT *, record_table.id as id, record_data.belongsTo as belongsTo FROM record_table  JOIN record_data " +
             " ON (record_table.id=record_data.id_record) " +
-            "AND belongsTo='COLLECTION'")
+            "WHERE belongsTo='COLLECTION'")
     abstract suspend fun readAllFromCollection():List<RecordInList>
 
     @Query("SELECT *, record_table.id as id,  record_data.belongsTo as belongsTo FROM record_table JOIN record_data" +
