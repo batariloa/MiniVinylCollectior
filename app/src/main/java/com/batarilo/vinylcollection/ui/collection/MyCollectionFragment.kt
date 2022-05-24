@@ -72,7 +72,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
     override fun onRecordClicked(position: Int) {
         val bundle = Bundle().also {
             it.putSerializable(InfoFragment.RECORD_PARAM,
-                viewModel.recordAdapter.getItemId(position))
+                viewModel.recordAdapter.records[position].record)
         }
         Navigation.findNavController(viewCurrent)
             .navigate(R.id.infoFragment, bundle)
