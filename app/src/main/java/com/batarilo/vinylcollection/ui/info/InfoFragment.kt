@@ -47,7 +47,10 @@ class InfoFragment : Fragment() {
         viewCurrent.findViewById<TextView>(R.id.tv_country_info).text = record?.country
         viewCurrent.findViewById<TextView>(R.id.tv_genre_info).text =
             record?.genre.toString().substring(1, record?.genre.toString().length-1)
-        viewCurrent.findViewById<TextView>(R.id.tv_label_info).text = record?.label.toString()?.substring(1, record?.label.toString().length-1)
+        viewCurrent.findViewById<TextView>(R.id.tv_label_info).text =
+            record?.label.toString()?.substring(1, record?.label.toString().length-1)
+        viewCurrent.findViewById<TextView>(R.id.tv_formats).text =
+            record?.format.toString().substring(1,record?.format.toString().length-1)
 
 
     }

@@ -52,7 +52,7 @@ class SearchViewModel @Inject constructor(
 
             dataState.data?.let { list ->
                 recordAdapterSearch.records = list.map { list -> list.record }
-                println("LISTA REZULTATA " + recordAdapterSearch.records)
+                recordAdapterSearch.notifyDataSetChanged()
             }
             dataState.error?.let { error ->
                 Log.d("TAG", "Here is the error: $error")

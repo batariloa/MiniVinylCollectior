@@ -33,31 +33,27 @@ class MyCollectionViewModel @Inject constructor(
     fun readAllFromCollection(){
             readAllFromCollection.execute().onEach { dataState->
                 dataState.data?.let { list ->
-                    recordAdapter.records = list.toMutableList()
-                    list.forEach{
-                        println("TIP JE "+ it.recordData?.belongsTo + " IME " + it.record.title)
-                    }
+                    recordAdapter.records = list
             }
             }.launchIn(viewModelScope)
     }
 
     fun searchCollection(query:String){
 
-        viewModelScope.launch(Dispatchers.IO) {
-          val records = searchCollectionRecords.execute(query)
-            recordAdapter.records = records.toMutableList()
-        }
-
+        searchCollectionRecords.execute(query).onEach { dataState->
+            dataState.data?.let { list ->
+                recordAdapter.records = list
+                recordAdapter.notifyDataSetChanged()
+            }
+        }.launchIn(viewModelScope)
     }
     fun setRecordNote(context: Context, position:Int): NoteDialog {
-        println("IZ VIEWA RECORD JE " + recordAdapter.records[position].record)
        return NoteDialog(context, recordAdapter.records[position].record,setRecordNote)
     }
 
 
     fun deleteRecord(position: Int){
 
-        println("DELETE ITEM "+ recordAdapter.records[position])
         viewModelScope.launch(Dispatchers.IO){
             removeRecord.execute(recordAdapter.records[position])
 

@@ -31,7 +31,7 @@ class WishlistViewModel @Inject constructor(
     fun readAllFromWishlist(){
         readAllFromWishlist.execute().onEach { dataState->
             dataState.data?.let { list ->
-                recordAdapter.records = list.toMutableList()
+                recordAdapter.records = list
             }
         }.launchIn(viewModelScope)
     }
@@ -39,9 +39,11 @@ class WishlistViewModel @Inject constructor(
 
     fun searchWishlist(query:String){
 
-        viewModelScope.launch(Dispatchers.IO){
-         recordAdapter.records = searchWishlist.execute(query)
-        }
+        searchWishlist.execute(query).onEach { dataState->
+            dataState.data?.let { list ->
+                recordAdapter.records = list
+            }
+        }.launchIn(viewModelScope)
     }
     fun setRecordNote(context: Context, position:Int): NoteDialog {
         return NoteDialog(context, recordAdapter.records[position].record,setRecordNote)
@@ -49,7 +51,6 @@ class WishlistViewModel @Inject constructor(
 
     fun deleteRecord(position: Int){
 
-        println("DELETE ITEM "+ recordAdapter.records[position])
         viewModelScope.launch(Dispatchers.IO){
             removeRecord.execute(recordAdapter.records[position])
 

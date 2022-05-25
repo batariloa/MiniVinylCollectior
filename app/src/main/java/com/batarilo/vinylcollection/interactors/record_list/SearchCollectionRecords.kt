@@ -11,8 +11,7 @@ import java.lang.Exception
 
 class SearchCollectionRecords(private val recordDao: RecordDao) {
 
-    suspend fun execute(query:String): List<RecordInList> {
-       return recordDao.searchCollection(query)
-
+    fun execute(query:String): Flow<DataState<List<RecordInList>>> = flow{
+        emit(DataState(recordDao.searchCollection(query)))
     }
 }

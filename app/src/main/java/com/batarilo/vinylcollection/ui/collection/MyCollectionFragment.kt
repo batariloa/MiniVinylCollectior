@@ -42,7 +42,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 if (p0 != null) {
                     viewModel.searchCollection(p0)
-                    setupRecyclerView()
+
 
                 }
                 return false
@@ -90,6 +90,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
             show()
             setOnDismissListener{
                 loadCollection()
+                viewModel.recordAdapter.notifyItemChanged(position)
             }
         }
 

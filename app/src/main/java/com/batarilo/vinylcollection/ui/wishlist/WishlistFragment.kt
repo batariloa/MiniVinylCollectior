@@ -74,18 +74,18 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
             show()
             setOnDismissListener {
                 loadWishList()
+                viewModel.recordAdapter.notifyItemChanged(position)
             }
         }
     }
     private fun loadWishList(){
         viewModel.readAllFromWishlist()
-        setupRecyclerView()
     }
 
     private fun searchWishlist(query:String){
         viewModel.searchWishlist(query)
-        setupRecyclerView()
-    }
+        viewModel.recordAdapter.notifyDataSetChanged()
+        }
 
     private fun setupRecyclerView() = viewCurrent.findViewById<RecyclerView>(R.id.rv_record)?.apply {
         viewModel.recordAdapter = RecordAdapterWishlist(this@WishlistFragment)
