@@ -26,14 +26,6 @@ class AppModule {
         return app as VinylApp
     }
 
-
-    @Provides
-    fun provideString():String{
-        return "blbl"
-    }
-
-
-
     @Provides
     fun provideRecordDatabase(@ApplicationContext app:Context): RecordDatabase {
         return RecordDatabase.getDatabase(app)
@@ -111,5 +103,16 @@ class AppModule {
     fun provideRemoveRecord(recordDao: RecordDao): RemoveRecord {
         return RemoveRecord(recordDao)
     }
+
+    @Provides
+    fun provideExistsInCollection(recordDao:RecordDao): RecordExistsInCollection {
+        return RecordExistsInCollection(recordDao)
+    }
+
+    @Provides
+    fun provideExistsInWishlist(recordDao:RecordDao): RecordExistsInWishlist {
+        return RecordExistsInWishlist(recordDao)
+    }
+
 
 }

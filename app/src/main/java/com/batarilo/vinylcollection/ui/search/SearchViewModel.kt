@@ -4,9 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.batarilo.vinylcollection.data.model.Record
-import com.batarilo.vinylcollection.interactors.record_list.AddToCollection
-import com.batarilo.vinylcollection.interactors.record_list.AddToWishList
-import com.batarilo.vinylcollection.interactors.record_list.SearchRecordsApi
+import com.batarilo.vinylcollection.interactors.record_list.*
 import com.batarilo.vinylcollection.ui.search.recycle.RecordAdapterSearch
 import com.batarilo.vinylcollection.util.ConnectivityManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +19,9 @@ class SearchViewModel @Inject constructor(
     private val searchRecordsApi: SearchRecordsApi,
     private val addToWishList: AddToWishList,
     private val addToCollection: AddToCollection,
-    private val connectivityManager: ConnectivityManager
+    private val connectivityManager: ConnectivityManager,
+    val existsInCollection: RecordExistsInCollection,
+    val existsInWishlist: RecordExistsInWishlist
 )
     : ViewModel() {
 
@@ -31,18 +31,19 @@ class SearchViewModel @Inject constructor(
     lateinit var recordAdapterSearch: RecordAdapterSearch
 
 
-    fun addRecordToCollection(record:Record){
+    fun addRecordToCollection(position:Int){
         viewModelScope.launch(Dispatchers.IO) {
 
-            addToCollection.execute(record)
+            addToCollection.execute(recordAdapterSearch.records[position])
         }
+        recordAdapterSearch.notifyItemChanged(position)
     }
 
-    fun addRecordToWishlist(record: Record){
-        println("ADD TO WISHLIST $record")
+    fun addRecordToWishlist(position: Int){
 ;        viewModelScope.launch(Dispatchers.IO) {
-            addToWishList.execute(record)
+            addToWishList.execute(recordAdapterSearch.records[position])
         }
+        recordAdapterSearch.notifyItemChanged(position)
     }
 
      fun newSearch(query:String){
@@ -59,6 +60,7 @@ class SearchViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
+
 
 
 

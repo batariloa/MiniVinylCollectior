@@ -11,6 +11,5 @@ class AddToCollection(private val recordDao: RecordDao) {
 
         recordDao.insertRecord(RecordInList(record, RecordData(0, record.id, ListType.COLLECTION)))
 
-
     }
 }

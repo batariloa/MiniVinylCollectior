@@ -29,6 +29,8 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         // Inflate the layout for this fragment
         viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
         setupRecyclerView()

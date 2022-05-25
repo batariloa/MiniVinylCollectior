@@ -92,4 +92,10 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
 
     @Query("DELETE FROM record_data WHERE id_record=:recordId AND belongsTo='COLLECTION'")
     abstract suspend fun deleteRecordCollection(recordId:Int)
+
+    @Query("SELECT EXISTS(SELECT 1 FROM record_data WHERE id_record=:id AND belongsTo='COLLECTION')")
+    abstract suspend fun recordIdExistsInCollection(id:Int):Boolean
+
+    @Query("SELECT EXISTS(SELECT 1 FROM record_data WHERE id_record=:id AND belongsTo='WISHLIST')")
+    abstract suspend fun recordIdExistsInWishlist(id:Int):Boolean
 }

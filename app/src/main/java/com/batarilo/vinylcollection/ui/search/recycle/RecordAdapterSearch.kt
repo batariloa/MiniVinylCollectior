@@ -2,6 +2,7 @@ package com.batarilo.vinylcollection.ui.search.recycle
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -9,10 +10,21 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.databinding.RecordRowSearchBinding
+import com.batarilo.vinylcollection.interactors.record_list.RecordExistsInCollection
+import com.batarilo.vinylcollection.interactors.record_list.RecordExistsInWishlist
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 
 class RecordAdapterSearch(
-    private val onRecordListenerSearch: OnRecordListenerSearch
+    private val onRecordListenerSearch: OnRecordListenerSearch,
+    private val recordExistsInCollection: RecordExistsInCollection,
+    private val recordExistsInWishlist: RecordExistsInWishlist
+
 ) : Adapter<RecordAdapterSearch.RecordViewHolder>() {
 
 
@@ -47,13 +59,11 @@ class RecordAdapterSearch(
                 parent,
                 false
             ),
-            onRecordListenerSearch,
-            clickedCollection,
-            clickedWishList,
-            this
+            onRecordListenerSearch
         )
 
     }
+
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
 
@@ -69,19 +79,10 @@ class RecordAdapterSearch(
                     .placeholder(R.drawable.empty_record)
                     .into(imageRecord)
 
-            if(clickedCollection.contains(position))
-                rowButtons.btnAddToCollection.setImageResource(R.drawable.ic_baseline_playlist_add_check_24)
-            else
-                rowButtons.btnAddToCollection.setImageResource(R.drawable.ic_baseline_playlist_add_24)
 
-            if(clickedWishList.contains(position))
-                rowButtons.btnAddToWishlist.setImageResource(R.drawable.ic_star_filled)
-            else
-                rowButtons.btnAddToWishlist.setImageResource(R.drawable.ic_baseline_star_border_35)
-
-
-
-
+            //checks if item is in in collection or wishlist
+            recordInCollectionExists(item,holder)
+            recordInWishlistExists(item,holder)
 
         }
     }
@@ -89,18 +90,38 @@ class RecordAdapterSearch(
     override fun getItemCount(): Int {
         return records.size
     }
-    fun updateItems(updatedItems: List<Record>) {
-        records = updatedItems
-        notifyDataSetChanged()
+
+    private fun recordInCollectionExists(record: Record, holder: RecordViewHolder){
+
+       recordExistsInCollection.execute(record.id).onEach { dataState->
+            dataState.data?.let { result ->
+
+                holder.binding.apply {
+                    if (result)
+                        rowButtons.btnAddToCollection.setImageResource(R.drawable.ic_baseline_playlist_add_check_24)
+                    else {
+                        rowButtons.btnAddToCollection.setImageResource(R.drawable.ic_baseline_playlist_add_24)
+                     } } } }.launchIn(scope = CoroutineScope(Dispatchers.IO))
+
     }
+
+
+    private fun recordInWishlistExists(record: Record, holder: RecordViewHolder){
+
+        recordExistsInWishlist.execute(record.id).onEach { dataState->
+            dataState.data?.let { result ->
+
+                holder.binding.apply {
+                    if (result)
+                        rowButtons.btnAddToWishlist.setImageResource(R.drawable.ic_star_filled)
+                    else {
+                        rowButtons.btnAddToWishlist.setImageResource(R.drawable.ic_baseline_star_border_35)
+                    } } } }.launchIn(scope = CoroutineScope(Dispatchers.IO)) }
 
 
     class RecordViewHolder(
         val binding: RecordRowSearchBinding,
         private val onRecordListenerSearch: OnRecordListenerSearch,
-        private val clickedCollection: MutableSet<Int>,
-        private val clickedWishlist: MutableSet<Int>,
-        private val recordAdapterSearch: RecordAdapterSearch
     ) : RecyclerView.ViewHolder(binding.root) {
 
 
@@ -110,14 +131,12 @@ class RecordAdapterSearch(
             }
             binding.rowButtons.btnAddToCollection.setOnClickListener{
                 onRecordListenerSearch.onCollectedClicked(bindingAdapterPosition)
-                clickedCollection.add(bindingAdapterPosition)
-                recordAdapterSearch.notifyDataSetChanged()
+
 
             }
             binding.rowButtons.btnAddToWishlist.setOnClickListener{
                 onRecordListenerSearch.onAddToWishListClicked(bindingAdapterPosition)
-                clickedWishlist.add(bindingAdapterPosition)
-                recordAdapterSearch.notifyDataSetChanged()
+
 
 
             }

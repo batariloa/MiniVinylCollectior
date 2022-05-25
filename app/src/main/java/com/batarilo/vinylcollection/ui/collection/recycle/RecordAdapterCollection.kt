@@ -36,7 +36,10 @@ class RecordAdapterCollection(
 
 
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolderSearch {
+
+        println("VIEWHOLDER IS $parent")
 
         return RecordViewHolderSearch(
             RecordRowCollectionBinding.inflate(

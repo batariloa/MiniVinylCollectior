@@ -48,7 +48,7 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 if (p0 != null) {
                     viewModel.newSearch(p0)
-                    
+
 
                 }
                 return false
@@ -71,7 +71,10 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     }
 
     private fun setupRecyclerView() = viewCurrent.findViewById<RecyclerView>(R.id.rv_record)?.apply {
-        viewModel.recordAdapterSearch = RecordAdapterSearch(this@SearchFragment)
+        viewModel.recordAdapterSearch = RecordAdapterSearch(
+            this@SearchFragment,
+        viewModel.existsInCollection,
+        viewModel.existsInWishlist)
         adapter = viewModel.recordAdapterSearch
         layoutManager = LinearLayoutManager(activity)
 
@@ -92,19 +95,11 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     }
 
     override fun onCollectedClicked(position: Int) {
-
-
-        val clickedRecord = viewModel.recordAdapterSearch.records[position]
-
-
-        viewModel.addRecordToCollection(clickedRecord)
-
+        viewModel.addRecordToCollection(position)
     }
 
     override fun onAddToWishListClicked(position: Int) {
-
-        val clickedRecord = viewModel.recordAdapterSearch.records[position]
-        viewModel.addRecordToWishlist(clickedRecord)
+        viewModel.addRecordToWishlist(position)
     }
 
 

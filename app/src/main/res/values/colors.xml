@@ -8,7 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="bgGray">#FFFFFFFF</color>
     <color name="bgGrayLight">#FFFFFFFF</color>
-
+    <color name="bgGrayNote">#D3D3D3</color>
     <color name="bgWhite">#FFFFFFFF</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

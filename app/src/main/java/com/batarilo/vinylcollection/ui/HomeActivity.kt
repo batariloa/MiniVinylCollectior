@@ -50,6 +50,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView= findViewById(R.id.nav_view)
@@ -78,6 +79,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
 
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.nav_home -> {
@@ -87,7 +89,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_my_collection -> {
                 Navigation.findNavController(this, R.id.fragment)
-                    .navigate(R.id.myCollectionFragment)
+                    .popBackStack(R.id.myCollectionFragment,false)
                 setTitleTop("My Collection")
 
             }

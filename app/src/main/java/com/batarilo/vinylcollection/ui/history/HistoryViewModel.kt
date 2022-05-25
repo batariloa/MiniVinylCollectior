@@ -38,7 +38,7 @@ class HistoryViewModel @Inject constructor(
     fun readAllFromHistory(){
     readAllFromHistory.execute().onEach { dataState->
       dataState.data?.let { list ->
-          recordAdapter.records = list.toMutableList()
+          recordAdapter.records = list
       }
   }.launchIn(viewModelScope)
 
@@ -47,7 +47,7 @@ class HistoryViewModel @Inject constructor(
     fun searchHistory(query:String){
 
         viewModelScope.launch(Dispatchers.IO){
-            recordAdapter.records = searchHistoryRecords.execute(query).toMutableList()
+            recordAdapter.records = searchHistoryRecords.execute(query)
         }
     }
 
