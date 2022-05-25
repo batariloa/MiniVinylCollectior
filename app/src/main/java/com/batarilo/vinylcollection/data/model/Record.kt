@@ -24,8 +24,6 @@ data class Record (
 
     var note:String?, //added note
 
-
-
     val catno: String?,
     val country: String?,
     val cover_image: String?,

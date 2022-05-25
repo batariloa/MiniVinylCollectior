@@ -69,6 +69,8 @@ class RecordAdapterCollection(
             if(item.record.note!=null){
                 rowButtons.btnAddNoteCollection.setImageResource(R.drawable.ic_baseline_sticky_note_set)
             }
+
+
         }
 
 
@@ -87,13 +89,13 @@ class RecordAdapterCollection(
 
         init {
             binding.root.setOnClickListener{
-                onRecordListener.onRecordClicked(adapterPosition)
+                onRecordListener.onRecordClicked(bindingAdapterPosition)
             }
             binding.rowButtons.btnRemoveFromCollection.setOnClickListener{
-                onRecordListener.onRemoveClicked(adapterPosition)
+                onRecordListener.onRemoveClicked(bindingAdapterPosition)
             }
             binding.rowButtons.btnAddNoteCollection.setOnClickListener{
-                onRecordListener.onAddToNotesClicked(adapterPosition)
+                onRecordListener.onAddToNotesClicked(bindingAdapterPosition)
             }
 
 

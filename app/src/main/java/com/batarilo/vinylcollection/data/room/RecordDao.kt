@@ -16,7 +16,7 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
 }
     suspend fun insertRecord(recordInList: RecordInList){
 
-        var idRecord = addRecord(recordInList.record)
+        var idRecord = addRecordReplace(recordInList.record)
         recordInList.recordData?.id_record = idRecord.toInt()
         recordInList.recordData?.let { addRecordData(it) }
         println("Insert record with data: ${recordInList.record.id}")
@@ -25,7 +25,10 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
     }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun addRecord(record: Record): Long
+    abstract suspend fun addRecordReplace(record: Record): Long
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    abstract suspend fun addRecordIgnore(record: Record): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun addRecordData(recordData: RecordData): Long
@@ -80,7 +83,7 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
     abstract suspend fun updateRecord(record: Record)
 
     @Transaction
-    @Query("DELETE FROM record_data WHERE belongsTo = 'CACHE'" )
+    @Query("DELETE FROM record_data WHERE belongsTo = 'CACHE' " )
     abstract suspend fun deleteCache()
 
     @Delete
