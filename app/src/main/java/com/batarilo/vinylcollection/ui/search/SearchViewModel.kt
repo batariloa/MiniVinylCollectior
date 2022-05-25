@@ -51,8 +51,8 @@ class SearchViewModel @Inject constructor(
         searchRecordsApi.execute(query, connectivityManager.isNetworkAvailable.value).onEach { dataState ->
             loading.value = dataState.loading
 
-            dataState.data?.let { list ->
-                recordAdapterSearch.records = list.map { list -> list.record }
+            dataState.data?.let { result ->
+                recordAdapterSearch.records = result.map { list -> list.record }
                 recordAdapterSearch.notifyDataSetChanged()
             }
             dataState.error?.let { error ->

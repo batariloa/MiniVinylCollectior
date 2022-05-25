@@ -45,7 +45,6 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
             "WHERE record_data.belongsTo='WISHLIST'")
     abstract suspend fun readAllFromWishlist():List<RecordInList>
 
-
     @Transaction
     @Query("SELECT *, record_table.id as id FROM record_table INNER JOIN record_data  " +
             "ON record_table.id=record_data.id_record WHERE record_data.belongsTo = 'COLLECTION' ;")

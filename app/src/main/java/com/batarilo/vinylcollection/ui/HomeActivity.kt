@@ -89,7 +89,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_my_collection -> {
                 Navigation.findNavController(this, R.id.fragment)
-                    .popBackStack(R.id.myCollectionFragment,false)
+                    .navigate(R.id.myCollectionFragment)
                 setTitleTop("My Collection")
 
             }
