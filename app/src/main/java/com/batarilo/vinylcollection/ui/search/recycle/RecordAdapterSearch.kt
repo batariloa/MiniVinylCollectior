@@ -1,8 +1,8 @@
 package com.batarilo.vinylcollection.ui.search.recycle
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,12 +13,10 @@ import com.batarilo.vinylcollection.databinding.RecordRowSearchBinding
 import com.batarilo.vinylcollection.interactors.record_list.RecordExistsInCollection
 import com.batarilo.vinylcollection.interactors.record_list.RecordExistsInWishlist
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 
 class RecordAdapterSearch(
     private val onRecordListenerSearch: OnRecordListenerSearch,
@@ -38,8 +36,6 @@ class RecordAdapterSearch(
         }
     }
 
-    private var clickedCollection = mutableSetOf<Int>()
-    private var clickedWishList = mutableSetOf<Int>()
 
     private val differ = AsyncListDiffer(this, diffCallback)
     var records: List<Record>
@@ -65,20 +61,19 @@ class RecordAdapterSearch(
     }
 
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
 
         holder.binding.apply {
             val item = records[position]
              rowTextViews.tvTitle.text = item.title
-            rowTextViews.tvLabel.text = item.year + " " + item.country
+            rowTextViews.tvLabel.text = "${item.year} ${item.country}"
             rowTextViews.tvFrom.text = item.genre.toString().substring(1,item.genre.toString().length-1 )
 
-
-                Glide.with(holder.itemView.context)
-                    .load(item.thumb)
-                    .placeholder(R.drawable.empty_record)
-                    .into(imageRecord)
-
+            Glide.with(holder.itemView.context)
+                .load(item.thumb)
+                .placeholder(R.drawable.empty_record)
+                .into(imageRecord)
 
             //checks if item is in in collection or wishlist
             recordInCollectionExists(item,holder)

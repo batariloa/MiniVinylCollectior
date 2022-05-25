@@ -7,17 +7,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.data.model.Record
-import com.batarilo.vinylcollection.ui.HomeActivity
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class InfoFragment : Fragment() {
-    lateinit var viewCurrent:View
+    private lateinit var viewCurrent:View
     private var record:Record? = null
     private val viewModel: InfoViewModel by viewModels()
 
@@ -48,7 +46,7 @@ class InfoFragment : Fragment() {
         viewCurrent.findViewById<TextView>(R.id.tv_genre_info).text =
             record?.genre.toString().substring(1, record?.genre.toString().length-1)
         viewCurrent.findViewById<TextView>(R.id.tv_label_info).text =
-            record?.label.toString()?.substring(1, record?.label.toString().length-1)
+            record?.label.toString().substring(1, record?.label.toString().length-1)
         viewCurrent.findViewById<TextView>(R.id.tv_formats).text =
             record?.format.toString().substring(1,record?.format.toString().length-1)
 

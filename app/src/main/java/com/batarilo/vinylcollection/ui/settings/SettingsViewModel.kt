@@ -13,9 +13,7 @@ class SettingsViewModel
     @Inject constructor(private val deleteCache: DeleteCache)
     : ViewModel() {
 
-
     fun deleteCache(){
-
         viewModelScope.launch(Dispatchers.IO){
             deleteCache.execute()
         }

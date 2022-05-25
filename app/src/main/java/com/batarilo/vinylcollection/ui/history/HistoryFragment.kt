@@ -20,20 +20,20 @@ class HistoryFragment : Fragment(), RecordAdapterCollection.OnRecordListenerColl
 
 
 
-    lateinit var viewCurrent:View
+    private lateinit var viewCurrent:View
     val viewModel: HistoryViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
         setupRecyclerView()
         loadHistory()
 
         if(activity is HomeActivity)
-            (activity as HomeActivity)?.setTitleTop("History")
+            (activity as HomeActivity).setTitleTop("History")
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 

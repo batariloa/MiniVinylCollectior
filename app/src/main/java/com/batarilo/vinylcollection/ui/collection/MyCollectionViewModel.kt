@@ -1,13 +1,13 @@
 package com.batarilo.vinylcollection.ui.collection
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.batarilo.vinylcollection.data.model.RecordInList
-import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromCollection
-import com.batarilo.vinylcollection.interactors.record_list.SearchCollectionRecords
 import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
+import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromCollection
 import com.batarilo.vinylcollection.interactors.record_list.RemoveRecord
+import com.batarilo.vinylcollection.interactors.record_list.SearchCollectionRecords
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,6 +38,7 @@ class MyCollectionViewModel @Inject constructor(
             }.launchIn(viewModelScope)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun searchCollection(query:String){
 
         searchCollectionRecords.execute(query).onEach { dataState->

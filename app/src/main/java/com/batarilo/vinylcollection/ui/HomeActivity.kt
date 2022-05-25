@@ -38,10 +38,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 
-    lateinit var navController:NavController
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var navigationView: NavigationView
-    lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navController:NavController
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navigationView: NavigationView
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

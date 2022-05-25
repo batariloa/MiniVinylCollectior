@@ -9,9 +9,11 @@ import android.widget.ImageButton
 import android.widget.RelativeLayout
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.data.model.Record
-import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 
 class NoteDialog(context: Context, val item: Record, val setRecordNote: SetRecordNote)
@@ -27,7 +29,7 @@ class NoteDialog(context: Context, val item: Record, val setRecordNote: SetRecor
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.note_dialog)
-        window?.setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        window?.setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
 
 
         if(item.note!=null)
@@ -48,9 +50,7 @@ class NoteDialog(context: Context, val item: Record, val setRecordNote: SetRecor
 
         findViewById<ImageButton>(R.id.btn_delete).setOnClickListener{
             mainActivityScope.launch {
-
                 setRecordNote.execute(item, null)
-
             }
             dismiss()
         }

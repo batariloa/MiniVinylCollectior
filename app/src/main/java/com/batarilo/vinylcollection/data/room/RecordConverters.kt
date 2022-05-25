@@ -3,7 +3,6 @@ package com.batarilo.vinylcollection.data.room
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.sql.Date
 
 
 class RecordConverters {
@@ -18,15 +17,6 @@ class RecordConverters {
         return Gson().toJson(listOfString)
     }
 
-    @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
-        return if (value == null) null else Date(value)
-    }
-
-    @TypeConverter
-    fun dateToTimestamp(date: Date?): Long? {
-        return date?.time
-    }
 
 
 

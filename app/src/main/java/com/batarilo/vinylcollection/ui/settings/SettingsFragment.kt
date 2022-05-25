@@ -1,7 +1,6 @@
 package com.batarilo.vinylcollection.ui.settings
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.activityViewModels
 import androidx.preference.Preference
@@ -23,7 +22,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    fun openDialog(){
+    private fun openDialog(){
 
         AlertDialog.Builder(context)
             .setTitle("Delete cache")

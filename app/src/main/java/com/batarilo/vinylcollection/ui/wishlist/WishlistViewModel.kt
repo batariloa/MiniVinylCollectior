@@ -3,11 +3,10 @@ package com.batarilo.vinylcollection.ui.wishlist
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.batarilo.vinylcollection.data.model.RecordInList
-import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromWishlist
-import com.batarilo.vinylcollection.interactors.record_list.SearchWishlist
 import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
+import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromWishlist
 import com.batarilo.vinylcollection.interactors.record_list.RemoveRecord
+import com.batarilo.vinylcollection.interactors.record_list.SearchWishlist
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -30,9 +29,7 @@ class WishlistViewModel @Inject constructor(
 
     fun readAllFromWishlist(){
         readAllFromWishlist.execute().onEach { dataState->
-            dataState.data?.let { list ->
-                recordAdapter.records = list
-            }
+            dataState.data?.let { list -> recordAdapter.records = list }
         }.launchIn(viewModelScope)
     }
 
@@ -40,23 +37,20 @@ class WishlistViewModel @Inject constructor(
     fun searchWishlist(query:String){
 
         searchWishlist.execute(query).onEach { dataState->
-            dataState.data?.let { list ->
-                recordAdapter.records = list
-            }
+            dataState.data?.let { list -> recordAdapter.records = list }
         }.launchIn(viewModelScope)
     }
+
     fun setRecordNote(context: Context, position:Int): NoteDialog {
         return NoteDialog(context, recordAdapter.records[position].record,setRecordNote)
     }
 
     fun deleteRecord(position: Int){
-
         viewModelScope.launch(Dispatchers.IO){
             removeRecord.execute(recordAdapter.records[position])
-
         }
 
-        val recordCut =ArrayList (recordAdapter.records)
+        val recordCut = ArrayList (recordAdapter.records)
         recordCut.removeAt(position)
         recordAdapter.records = recordCut
     }

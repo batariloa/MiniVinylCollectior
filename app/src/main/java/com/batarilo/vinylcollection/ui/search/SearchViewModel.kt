@@ -1,9 +1,10 @@
 package com.batarilo.vinylcollection.ui.search
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.*
-import com.batarilo.vinylcollection.data.model.Record
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.batarilo.vinylcollection.interactors.record_list.*
 import com.batarilo.vinylcollection.ui.search.recycle.RecordAdapterSearch
 import com.batarilo.vinylcollection.util.ConnectivityManager
@@ -40,12 +41,12 @@ class SearchViewModel @Inject constructor(
     }
 
     fun addRecordToWishlist(position: Int){
-;        viewModelScope.launch(Dispatchers.IO) {
-            addToWishList.execute(recordAdapterSearch.records[position])
-        }
+        viewModelScope.launch(Dispatchers.IO) {
+            addToWishList.execute(recordAdapterSearch.records[position]) }
         recordAdapterSearch.notifyItemChanged(position)
     }
 
+     @SuppressLint("NotifyDataSetChanged")
      fun newSearch(query:String){
 
         searchRecordsApi.execute(query, connectivityManager.isNetworkAvailable.value).onEach { dataState ->

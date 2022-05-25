@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.batarilo.vinylcollection.R
-import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.databinding.RecordRowCollectionBinding
 import com.bumptech.glide.Glide

@@ -11,9 +11,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
-import com.batarilo.vinylcollection.ui.HomeActivity
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
-import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import com.batarilo.vinylcollection.ui.info.InfoFragment
 
 
@@ -28,7 +26,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
 
         // Inflate the layout for this fragment
