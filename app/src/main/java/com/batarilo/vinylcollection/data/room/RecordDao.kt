@@ -16,7 +16,7 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
 }
     suspend fun insertRecord(recordInList: RecordInList){
 
-        var idRecord = addRecordReplace(recordInList.record)
+        val idRecord = addRecordReplace(recordInList.record)
         recordInList.recordData?.id_record = idRecord.toInt()
         recordInList.recordData?.let { addRecordData(it) }
         println("Insert record with data: ${recordInList.record.id}")
@@ -42,17 +42,18 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
     @Transaction
     @Query("SELECT *, record_table.id as id FROM record_table JOIN record_data " +
             " ON record_table.id=record_data.id_record  " +
-            "WHERE record_data.belongsTo='WISHLIST'")
+            "WHERE record_data.belongsTo='WISHLIST' ORDER BY record_data.id_data DESC")
     abstract suspend fun readAllFromWishlist():List<RecordInList>
 
     @Transaction
     @Query("SELECT *, record_table.id as id FROM record_table INNER JOIN record_data  " +
-            "ON record_table.id=record_data.id_record WHERE record_data.belongsTo = 'COLLECTION' ;")
+            "ON record_table.id=record_data.id_record WHERE record_data.belongsTo = 'COLLECTION' " +
+            "ORDER BY record_data.id_data DESC;")
     abstract suspend fun readAllFromCollection():List<RecordInList>
 
     @Query("SELECT *, record_table.id as id,  record_data.belongsTo as belongsTo FROM record_table JOIN record_data" +
             " ON record_table.id=record_data.id_record " +
-            "AND belongsTo='HISTORY'")
+            "AND belongsTo='HISTORY' ORDER BY record_data.id_data DESC")
     abstract suspend fun readAllFromHistory():List<RecordInList>
 
     @Query("SELECT *, record_table.id as id,record_data.belongsTo as belongsTo  FROM record_table JOIN record_data" +
@@ -66,17 +67,18 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
 
     @Query("SELECT *, record_table.id as id, record_data.belongsTo as belongsTo FROM record_table JOIN record_data" +
             " ON record_table.id=record_data.id_record WHERE title LIKE '%' || :query || '%'" +
-            "AND belongsTo='COLLECTION'")
+            "AND belongsTo='COLLECTION' ORDER BY record_data.id_data DESC")
     abstract suspend fun searchCollection(query:String):List<RecordInList>
 
     @Query("SELECT *, record_table.id as id FROM record_table JOIN record_data " +
             " ON record_table.id=record_data.id_record  " +
-            "WHERE record_data.belongsTo='WISHLIST' AND record_table.title LIKE '%' || :query || '%'")
+            "WHERE record_data.belongsTo='WISHLIST' AND record_table.title LIKE '%' || :query || '%'" +
+            "ORDER BY record_data.id_data DESC")
     abstract suspend fun searchWishlist(query:String):List<RecordInList>
 
     @Query("SELECT *, record_table.id as id, record_data.belongsTo as belongsTo  FROM record_table JOIN record_data" +
             " ON record_table.id=record_data.id_record WHERE title LIKE '%' || :query || '%'" +
-            "AND belongsTo=='HISTORY'")
+            "AND belongsTo='HISTORY' ORDER BY record_data.id_data DESC")
     abstract suspend fun searchHistory(query:String):List<RecordInList>
 
     @Update

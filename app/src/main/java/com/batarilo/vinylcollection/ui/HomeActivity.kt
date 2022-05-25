@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.batarilo.vinylcollection.R
+import com.batarilo.vinylcollection.util.ConnectivityManager
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -22,9 +23,8 @@ import javax.inject.Inject
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
 
     //Observing network connection in activity
-
     @Inject
-    lateinit var connectivityManager: com.batarilo.vinylcollection.util.ConnectivityManager
+    lateinit var connectivityManager: ConnectivityManager
 
 
     override fun onStart() {
@@ -76,8 +76,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setupActionBarWithNavController(navController,appBarConfiguration)
     }
-
-
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
