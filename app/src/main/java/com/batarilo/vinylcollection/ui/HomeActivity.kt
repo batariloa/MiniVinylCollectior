@@ -3,11 +3,8 @@ package com.batarilo.vinylcollection.ui
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -23,6 +20,7 @@ import com.batarilo.vinylcollection.util.ConnectivityManager
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
@@ -46,6 +44,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var actionbar: ActionBarDrawerToggle
+    private lateinit var toolbar :androidx.appcompat.widget.Toolbar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,34 +56,64 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
 
-
-        setSupportActionBar(findViewById(R.id.toolbar))
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-
+        toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView= findViewById(R.id.nav_view)
 
-            initNavigation()
+
+
+
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_folder_open_24)
+
+
+
+        initNavigation()
 
 
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController= findNavController(R.id.fragment)
+
+
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
 
     }
 
     private fun initNavigation(){
         navController = Navigation.findNavController(this, R.id.fragment)
+
+
         NavigationUI.setupActionBarWithNavController(this,navController, drawerLayout)
         NavigationUI.setupWithNavController(navigationView, navController)
+
         navigationView.setNavigationItemSelectedListener(this)
 
-        appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
+        appBarConfiguration = AppBarConfiguration.Builder(
+            navController.graph
+        ).setDrawerLayout(drawerLayout)
+            .build()
+
+
 
         setupActionBarWithNavController(navController,appBarConfiguration)
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when(destination.id){
+               R.id.searchFragment->  { supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_icon)
+               setTitleTop("Home")}
+                R.id.historyFragment-> setTitleTop("History")
+                R.id.myCollectionFragment -> setTitleTop("My Collection")
+                R.id.settingsFragment-> setTitleTop("Settings")
+                R.id.infoFragment-> setTitleTop("Details")
+
+            }
+
+        }
+
     }
 
 
@@ -92,30 +122,25 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_home -> {
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.searchFragment)
-                setTitleTop("Home")
             }
             R.id.nav_my_collection -> {
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.myCollectionFragment)
-                setTitleTop("My Collection")
 
             }
             R.id.nav_wishlist -> {
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.wishlistFragment)
-                setTitleTop("Wishlist")
+
 
             }
             R.id.nav_history -> {
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.historyFragment)
-                setTitleTop("History")
-
             }
             R.id.nav_settings->{
                 Navigation.findNavController(this, R.id.fragment)
                     .navigate(R.id.settingsFragment)
-                setTitleTop("Settings")
 
             }
         }

@@ -9,6 +9,8 @@
     <color name="bgGray">#FFFFFFFF</color>
     <color name="bgGrayLight">#FFFFFFFF</color>
     <color name="bgGrayNote">#D3D3D3</color>
+    <color name="lighterGray">#20716E6E</color>
     <color name="bgWhite">#FFFFFFFF</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="darkerGray">#717171</color>
 </resources>

@@ -1,17 +1,24 @@
 package com.batarilo.vinylcollection.ui.search
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.util.Log
+import android.view.View
 import androidx.compose.runtime.mutableStateOf
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.di.VinylApp
 import com.batarilo.vinylcollection.interactors.record_list.*
 import com.batarilo.vinylcollection.ui.search.recycle.RecordAdapterSearch
 import com.batarilo.vinylcollection.util.ConnectivityManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -24,8 +31,10 @@ class SearchViewModel @Inject constructor(
     private val addToWishList: AddToWishList,
     private val addToCollection: AddToCollection,
     private val connectivityManager: ConnectivityManager,
-    val existsInCollection: RecordExistsInCollection,
-    val existsInWishlist: RecordExistsInWishlist,
+    val recordExistsInCollection: RecordExistsInCollection,
+    val recordExistsInWishlist: RecordExistsInWishlist,
+    private val removeFromWishlist: RemoveFromWishlist,
+    private val removeFromCollection: RemoveFromCollection,
     val context:VinylApp
 )
     : ViewModel() {
@@ -37,17 +46,52 @@ class SearchViewModel @Inject constructor(
 
 
     fun addRecordToCollection(position:Int){
-        viewModelScope.launch(Dispatchers.IO) {
+        val item = recordAdapterSearch.records[position]
 
-            addToCollection.execute(recordAdapterSearch.records[position])
-        }
-        recordAdapterSearch.notifyItemChanged(position)
+        recordExistsInCollection.execute(item.record.id).onEach { dataState ->
+
+            dataState.data?.let { result ->
+                if (result){
+                    println("VEC POSTOJI")
+                    removeFromCollection.execute(item.record.id)
+                }
+                else
+                    addToCollection.execute(item.record)
+            }
+
+        }.launchIn(viewModelScope)
+            .invokeOnCompletion { recordAdapterSearch.notifyItemChanged(position) }
     }
 
     fun addRecordToWishlist(position: Int){
-        viewModelScope.launch(Dispatchers.IO) {
-            addToWishList.execute(recordAdapterSearch.records[position]) }
-        recordAdapterSearch.notifyItemChanged(position)
+        val item = recordAdapterSearch.records[position]
+
+        recordExistsInWishlist.execute(item.record.id).onEach { dataState ->
+
+               dataState.data?.let { result ->
+                   if (result){
+                       println("VEC POSTOJI")
+                       removeFromWishlist.execute(item.record.id)
+                   }
+                   else
+                       addToWishList.execute(item.record)
+               }
+
+        }.launchIn(viewModelScope)
+            .invokeOnCompletion { recordAdapterSearch.notifyItemChanged(position) }
+    }
+
+    fun setupRecyclerView(view: View,
+                                  onRecordListenerSearch: RecordAdapterSearch.OnRecordListenerSearch,
+                                  activity: FragmentActivity
+    ) = view.findViewById<RecyclerView>(R.id.rv_record)?.apply {
+        recordAdapterSearch = RecordAdapterSearch(
+            onRecordListenerSearch,
+            recordExistsInCollection,
+           recordExistsInWishlist)
+        adapter = recordAdapterSearch
+        layoutManager = LinearLayoutManager(activity)
+
     }
 
      @SuppressLint("NotifyDataSetChanged")
@@ -62,7 +106,7 @@ class SearchViewModel @Inject constructor(
             loading.value = dataState.loading
 
             dataState.data?.let { result ->
-                recordAdapterSearch.records = result.map { list -> list.record }
+                recordAdapterSearch.records = result
                 recordAdapterSearch.notifyDataSetChanged()
             }
             dataState.error?.let { error ->

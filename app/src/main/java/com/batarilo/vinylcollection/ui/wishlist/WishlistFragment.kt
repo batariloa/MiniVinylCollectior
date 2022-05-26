@@ -12,6 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
+import com.batarilo.vinylcollection.ui.HomeActivity
 import com.batarilo.vinylcollection.ui.info.InfoFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,6 +32,10 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
         setupRecyclerView()
         loadWishList()
 
+
+        if(activity is HomeActivity){
+            (activity as HomeActivity).setTitleTop("Wishlist")
+        }
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 
@@ -55,6 +60,7 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
         val bundle = Bundle().also {
             it.putSerializable(InfoFragment.RECORD_PARAM, viewModel.recordAdapter.records[position].record)
         }
+
         Navigation.findNavController(viewCurrent)
             .navigate(R.id.infoFragment, bundle)
 

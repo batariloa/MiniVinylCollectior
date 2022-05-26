@@ -32,8 +32,7 @@ class HistoryFragment : Fragment(), RecordAdapterCollection.OnRecordListenerColl
         setupRecyclerView()
         loadHistory()
 
-        if(activity is HomeActivity)
-            (activity as HomeActivity).setTitleTop("History")
+
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 

@@ -17,10 +17,14 @@
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:src="@drawable/empty_record"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:elevation="12dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearance="@style/roundedCorners" />
+        app:shapeAppearance="@style/roundedCornersBig" />
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -39,18 +43,25 @@
             android:layout_marginTop="0dp"
             android:layout_marginBottom="5dp"
             android:ellipsize="end"
-            android:fontFamily="@font/dense_regular"
+            android:fontFamily="@font/sourceseirf_semibold"
             android:maxLines="2"
             android:padding="20dp"
             android:text="title"
-            android:textSize="30dp" />
-
+            android:textSize="20dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_alignParentLeft="true"
+            android:background="@color/lighterGray" />
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:stretchColumns="0,1">
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:stretchColumns="*"  >
+
 
             <TableRow
                 android:layout_width="match_parent"
@@ -61,9 +72,10 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/dense_regular"
                     android:text="YEAR"
-                    android:textSize="26dp" />
+                    android:fontFamily="@font/sourceseirf_semibold"
+                    android:textSize="17sp"
+                    />
 
                 <TextView
 
@@ -72,28 +84,41 @@
                     android:layout_height="wrap_content"
                     android:layout_column="0"
                     android:layout_gravity="center"
-                    android:text="year" />
+                    android:text="year"
+                    android:maxWidth="170dp"
+
+                    android:textSize="15sp"
+                    android:fontFamily="@font/sourcesanspro_regular"
+                    />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+
                 android:layout_marginTop="15dp">
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/dense_regular"
+                    android:layout_column="0"
+
                     android:text="COUNTRY"
-                    android:textSize="26dp" />
+                    android:fontFamily="@font/sourceseirf_semibold"
+                    android:textSize="17sp"
+                    />
 
                 <TextView
                     android:id="@+id/tv_country_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
+                    android:maxWidth="170dp"
+                    android:textAlignment="center"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/sourcesanspro_regular"
                     android:layout_gravity="center"
                     android:text="country" />
 
@@ -102,31 +127,71 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="15dp">
 
                 <TextView
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/dense_regular"
 
                     android:text="FORMATS"
-                    android:textSize="26dp" />
+                    android:fontFamily="@font/sourceseirf_semibold"
+                    android:textSize="17sp"
+                    />
 
                 <TextView
                     android:id="@+id/tv_formats"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:lines="2"
-                    android:ellipsize="end"
-                    android:paddingStart="20dp"
                     android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:textAlignment="center"
+                    android:maxLines="2"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/sourcesanspro_regular"
+                    android:maxWidth="170dp"
                     android:text="format" />
             </TableRow>
 
-        </TableLayout>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp">
 
+                <TextView
+                    android:id="@+id/tv_genre_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sourceseirf_semibold"
+                    android:textSize="17sp"
+                    android:text="GENRE"
+                  />
+
+                <TextView
+                    android:id="@+id/tv_genre_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="170dp"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/sourcesanspro_regular"
+
+                    android:maxLines="2"
+                    android:text="genre" />
+            </TableRow>
+        </TableLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentLeft="true"
+            android:background="@color/lighterGray" />
     </LinearLayout>
 
 
@@ -136,11 +201,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        android:fontFamily="@font/dense_regular"
+        android:fontFamily="@font/sourceseirf_semibold"
+        android:textSize="17sp"
 
         android:gravity="center"
         android:text="LABELS"
-        android:textSize="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -153,6 +218,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:padding="20dp"
+        android:textSize="15sp"
+        android:fontFamily="@font/sourcesanspro_regular"
         android:text="label"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -160,32 +227,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/dense_regular"
-        android:gravity="center"
-        android:text="GENRES"
-        android:textSize="26dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_label_info" />
-
-    <TextView
-        android:id="@+id/tv_genre_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:padding="20dp"
-        android:text="Genre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <include
         android:id="@+id/info_buttons"
@@ -199,7 +240,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_genre_info"
+
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_info"
         app:layout_constraintVertical_bias="0.0">
 
     </include>

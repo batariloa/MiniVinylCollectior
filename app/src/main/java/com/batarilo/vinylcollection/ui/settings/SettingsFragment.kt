@@ -20,6 +20,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             openDialog()
             true
         }
+
     }
 
     private fun openDialog(){

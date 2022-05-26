@@ -114,5 +114,14 @@ class AppModule {
         return RecordExistsInWishlist(recordDao)
     }
 
+    @Provides
+    fun provideDeleteRecordFromWishlist(recordDao: RecordDao): RemoveFromWishlist {
+        return RemoveFromWishlist(recordDao)
+    }
+    @Provides
+    fun provideDeleteRecordFromCollection(recordDao: RecordDao): RemoveFromCollection {
+        return RemoveFromCollection(recordDao)
+    }
+
 
 }

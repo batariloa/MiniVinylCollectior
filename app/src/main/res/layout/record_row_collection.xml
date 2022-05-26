@@ -3,14 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="7dp"
-    android:backgroundTint="@color/white"
-    android:background="@drawable/shape_linear"
+    style="@style/StyleLinearOuter"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="107dp"
         android:layout_weight="1"
         android:orientation="horizontal"
         android:background="@color/bgWhite">
@@ -19,7 +17,7 @@
             app:shapeAppearance="@style/roundedCorners"
             android:padding="5dp"
             android:background="@color/bgWhite"
-
+            android:layout_gravity="center"
             android:id="@+id/image_record"
             android:layout_width="110dp"
             android:layout_height="wrap_content"

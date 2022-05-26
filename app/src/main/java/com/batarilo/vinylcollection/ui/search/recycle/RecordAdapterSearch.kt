@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.data.model.Record
+import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.databinding.RecordRowSearchBinding
 import com.batarilo.vinylcollection.interactors.record_list.RecordExistsInCollection
 import com.batarilo.vinylcollection.interactors.record_list.RecordExistsInWishlist
@@ -26,19 +27,19 @@ class RecordAdapterSearch(
 ) : Adapter<RecordAdapterSearch.RecordViewHolder>() {
 
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Record>() {
-        override fun areItemsTheSame(oldItem: Record, newItem: Record): Boolean {
-            return oldItem.id == newItem.id
+    private val diffCallback = object : DiffUtil.ItemCallback<RecordInList>() {
+        override fun areItemsTheSame(oldItem: RecordInList, newItem: RecordInList): Boolean {
+            return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Record, newItem: Record): Boolean {
+        override fun areContentsTheSame(oldItem: RecordInList, newItem: RecordInList): Boolean {
             return oldItem == newItem
         }
     }
 
 
     private val differ = AsyncListDiffer(this, diffCallback)
-    var records: List<Record>
+    var records: List<RecordInList>
         get() = differ.currentList
         set(value) { differ.submitList(value) }
 
@@ -46,16 +47,16 @@ class RecordAdapterSearch(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
 
-
-
-
         return RecordViewHolder(
                 RecordRowSearchBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
+                false,
+
             ),
-            onRecordListenerSearch
+
+            onRecordListenerSearch,
+
         )
 
     }
@@ -66,18 +67,18 @@ class RecordAdapterSearch(
 
         holder.binding.apply {
             val item = records[position]
-             rowTextViews.tvTitle.text = item.title
-            rowTextViews.tvLabel.text = "${item.year} ${item.country}"
-            rowTextViews.tvFrom.text = item.genre.toString().substring(1,item.genre.toString().length-1 )
+             rowTextViews.tvTitle.text = item.record.title
+            rowTextViews.tvLabel.text = "${item.record.year} ${item.record.country}"
+            rowTextViews.tvFrom.text = item.record.genre.toString().substring(1,item.record.genre.toString().length-1 )
 
             Glide.with(holder.itemView.context)
-                .load(item.thumb)
+                .load(item.record.thumb)
                 .placeholder(R.drawable.empty_record)
                 .into(imageRecord)
 
             //checks if item is in in collection or wishlist
-            recordInCollectionExists(item,holder)
-            recordInWishlistExists(item,holder)
+            recordInCollectionExists(item.record,holder)
+            recordInWishlistExists(item.record,holder)
 
         }
     }
@@ -92,9 +93,11 @@ class RecordAdapterSearch(
             dataState.data?.let { result ->
 
                 holder.binding.apply {
-                    if (result)
+                    if (result){
                         rowButtons.btnAddToCollection.setImageResource(R.drawable.ic_baseline_playlist_add_check_24)
-                    else {
+
+                    }
+                        else {
                         rowButtons.btnAddToCollection.setImageResource(R.drawable.ic_baseline_playlist_add_24)
                      } } } }.launchIn(scope = CoroutineScope(Dispatchers.IO))
 

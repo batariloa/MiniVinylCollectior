@@ -30,8 +30,10 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
         savedInstanceState: Bundle?
     ): View {
         viewCurrent  = inflater.inflate(R.layout.fragment_search, container, false)
-        setupRecyclerView()
+        activity?.let { viewModel.setupRecyclerView(viewCurrent, this@SearchFragment, it) }
         viewModel.newSearch("su")
+
+
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 
@@ -54,21 +56,13 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setupRecyclerView() = viewCurrent.findViewById<RecyclerView>(R.id.rv_record)?.apply {
-        viewModel.recordAdapterSearch = RecordAdapterSearch(
-            this@SearchFragment,
-        viewModel.existsInCollection,
-        viewModel.existsInWishlist)
-        adapter = viewModel.recordAdapterSearch
-        layoutManager = LinearLayoutManager(activity)
 
-    }
 
 
     override fun onRecordClicked(position: Int) {
 
         val bundle = Bundle().also {
-           it.putSerializable(InfoFragment.RECORD_PARAM,viewModel.recordAdapterSearch.records[position])
+           it.putSerializable(InfoFragment.RECORD_PARAM,viewModel.recordAdapterSearch.records[position].record)
         }
         Navigation.findNavController(viewCurrent)
             .navigate(R.id.infoFragment, bundle)
@@ -79,6 +73,7 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     }
 
     override fun onAddToWishListClicked(position: Int) {
+        println("STAMPA SE OVO")
         viewModel.addRecordToWishlist(position)
     }
 
