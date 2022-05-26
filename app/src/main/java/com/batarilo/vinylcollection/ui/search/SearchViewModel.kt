@@ -1,10 +1,13 @@
 package com.batarilo.vinylcollection.ui.search
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.preference.PreferenceManager
+import com.batarilo.vinylcollection.di.VinylApp
 import com.batarilo.vinylcollection.interactors.record_list.*
 import com.batarilo.vinylcollection.ui.search.recycle.RecordAdapterSearch
 import com.batarilo.vinylcollection.util.ConnectivityManager
@@ -22,7 +25,8 @@ class SearchViewModel @Inject constructor(
     private val addToCollection: AddToCollection,
     private val connectivityManager: ConnectivityManager,
     val existsInCollection: RecordExistsInCollection,
-    val existsInWishlist: RecordExistsInWishlist
+    val existsInWishlist: RecordExistsInWishlist,
+    val context:VinylApp
 )
     : ViewModel() {
 
@@ -49,7 +53,12 @@ class SearchViewModel @Inject constructor(
      @SuppressLint("NotifyDataSetChanged")
      fun newSearch(query:String){
 
-        searchRecordsApi.execute(query, connectivityManager.isNetworkAvailable.value).onEach { dataState ->
+        val cacheOn = PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean("cache",false)
+
+
+         searchRecordsApi.execute(query, connectivityManager.isNetworkAvailable.value, cacheOn)
+             .onEach { dataState ->
             loading.value = dataState.loading
 
             dataState.data?.let { result ->

@@ -3,6 +3,7 @@ package com.batarilo.vinylcollection.interactors.record_list
 import com.batarilo.vinylcollection.data.DatabaseFake
 import com.batarilo.vinylcollection.data.RecordDaoFake
 import com.batarilo.vinylcollection.data.model.Record
+import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.data.retrofit.RecordApiService
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.flow.toList
@@ -83,7 +84,7 @@ class SearchRecordsTest {
             //confirm that cache is empty
             assert(recordDaoFake.readAllData().isEmpty())
 
-            val flowItems = searchRecordsApi.execute("", true).toList()
+            val flowItems = searchRecordsApi.execute("", true, cacheOn = true).toList()
 
 
             println("HERES ALL THE DATA " + recordDaoFake.readAllData())
@@ -99,7 +100,7 @@ class SearchRecordsTest {
             assert(records?.size?:0>0)
 
             //confirm they are Record objects
-            assert(records?.get(0) is Record)
+            assert(records?.get(0) is RecordInList)
 
             //ensure loading is false now
             assert(!flowItems[1].loading)
@@ -114,7 +115,10 @@ class SearchRecordsTest {
                 .setBody("{}")
         )
 
-        val flowItems = searchRecordsApi.execute(dummyQuery,true).toList()
+        val flowItems = searchRecordsApi.execute(dummyQuery,
+            isNetworkAvailable = true,
+            cacheOn = true
+        ).toList()
         assert(flowItems[0].loading)
         assert(flowItems[1].error!=null)
 

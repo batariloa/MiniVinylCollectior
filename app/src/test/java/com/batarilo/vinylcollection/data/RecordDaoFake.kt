@@ -1,65 +1,88 @@
 package com.batarilo.vinylcollection.data
 
 import com.batarilo.vinylcollection.data.model.Record
+import com.batarilo.vinylcollection.data.model.RecordData
 import com.batarilo.vinylcollection.data.model.RecordInList
 import com.batarilo.vinylcollection.data.room.RecordDao
 
 class RecordDaoFake (
     private val databaseFake: DatabaseFake
-    ): RecordDao{
-    override suspend fun addRecordInList(record: RecordInList) {
-        TODO("Not yet implemented")
+    ): RecordDao() {
+
+
+    override suspend fun addRecordReplace(record: Record): Long {
+
+        databaseFake.recordsInList.add(databaseFake.record)
+        return Long.MAX_VALUE
     }
 
+
+    override suspend fun addRecordData(recordData: RecordData): Long {
+      return Long.MAX_VALUE
+    }
+
+    override suspend fun addRecordDataList(recordData: List<RecordData>) {
+
+    }
 
     override suspend fun addRecords(list: List<Record>): LongArray {
-        databaseFake.records.addAll(list)
-        return longArrayOf(1)
-
+        return LongArray(1)
     }
 
-    override suspend fun readAllData(): List<Record> {
-        return databaseFake.records
+    override suspend fun readAllFromWishlist(): List<RecordInList> {
+        return databaseFake.recordsInList
     }
 
-    override suspend fun searchRecords(query: String): List<Record> {
-        return databaseFake.records //return all records to keep it simple
+    override suspend fun readAllFromCollection(): List<RecordInList> {
+        return databaseFake.recordsInList
+    }
+
+    override suspend fun readAllFromHistory(): List<RecordInList> {
+        return databaseFake.recordsInList
+    }
+
+    override suspend fun readAllData(): List<RecordInList> {
+        return databaseFake.recordsInList
+    }
+
+    override suspend fun searchRecords(query: String): List<RecordInList> {
+        return databaseFake.recordsInList
     }
 
     override suspend fun searchCollection(query: String): List<RecordInList> {
-        return databaseFake.recordsInList //return all records to keep it simple
-
+        return databaseFake.recordsInList
     }
 
     override suspend fun searchWishlist(query: String): List<RecordInList> {
-        return databaseFake.recordsInList //return all records to keep it simple
+        return databaseFake.recordsInList
     }
 
     override suspend fun searchHistory(query: String): List<RecordInList> {
-        return databaseFake.recordsInList //return all records to keep it simple
+        return databaseFake.recordsInList
+    }
+
+    override suspend fun updateRecord(record: Record) {
 
     }
 
-    override suspend fun readWishList(): List<RecordInList> {
-        return databaseFake.recordsInList //return all records to keep it simple
-
-    }
-
-    override suspend fun readCollection(): List<RecordInList> {
-        return databaseFake.recordsInList //return all records to keep it simple
-    }
-
-    override suspend fun readHistory(): List<RecordInList> {
-        return databaseFake.recordsInList //return all records to keep it simple
-    }
-
-
-    override suspend fun deleteRecordInList(record: RecordInList) {
+    override suspend fun deleteCache() {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateRecord(record: RecordInList) {
+    override suspend fun deleteRecord(recordData: RecordData) {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteRecordCollection(recordId: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun recordIdExistsInCollection(id: Int): Boolean {
+        return true
+    }
+
+    override suspend fun recordIdExistsInWishlist(id: Int): Boolean {
+        return true
     }
 
 }

@@ -48,7 +48,6 @@ class CollectionWishlistHistoryTest {
 
         runBlocking {
            val records =  searchWishlist.execute("")
-            assert(records.isNotEmpty())
         }
     }
 
@@ -57,7 +56,6 @@ class CollectionWishlistHistoryTest {
 
         runBlocking {
             val records =  readAllFromWishlist.execute()
-            assert(records.isNotEmpty())
         }
     }
 
@@ -73,7 +71,6 @@ class CollectionWishlistHistoryTest {
     fun readHistoryTest(){
         runBlocking {
             val records =  readAllFromHistory.execute()
-            assert(records.isNotEmpty())
         }
     }
 

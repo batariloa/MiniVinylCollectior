@@ -43,7 +43,7 @@ class AppModule {
 
     @Provides
     fun provideSearchRecordUseCase(@ApplicationContext context: Context, recordDao: RecordDao, recordApiService: RecordApiService): SearchRecordsApi {
-        return SearchRecordsApi(recordDao,recordApiService,context)
+        return SearchRecordsApi(recordDao,recordApiService)
     }
     @Provides
     fun provdideReadAllFromCollectionUseCase(recordDao: RecordDao): ReadAllFromCollection {

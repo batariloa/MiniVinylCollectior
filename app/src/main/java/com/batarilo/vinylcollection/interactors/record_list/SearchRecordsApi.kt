@@ -16,12 +16,12 @@ import kotlinx.coroutines.flow.flow
 class SearchRecordsApi(
     private val recordDao: RecordDao,
     private val recordApiService: RecordApiService,
-    private val context: Context
 
 ){
     fun execute(
         query:String,
-        isNetworkAvailable:Boolean
+        isNetworkAvailable:Boolean,
+        cacheOn:Boolean
     ): Flow<DataState<List<RecordInList>>> = flow{
         try {
             emit(DataState.loading())
@@ -30,9 +30,6 @@ class SearchRecordsApi(
             if(query=="errorForce"){
                 throw Exception("Search FAILED!")}
 
-
-            val sp = PreferenceManager.getDefaultSharedPreferences(context)
-            val cacheOn = sp.getBoolean("cache", true)
 
 
 

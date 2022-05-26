@@ -27,9 +27,6 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun addRecordReplace(record: Record): Long
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract suspend fun addRecordIgnore(record: Record): Long
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun addRecordData(recordData: RecordData): Long
 
