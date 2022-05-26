@@ -8,6 +8,7 @@ import com.batarilo.vinylcollection.interactors.record_list.AddToCollection
 import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromHistory
 import com.batarilo.vinylcollection.interactors.record_list.SearchHistoryRecords
 import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
+import com.batarilo.vinylcollection.interactors.record_list.RemoveRecord
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +23,8 @@ class HistoryViewModel @Inject constructor(
     private val readAllFromHistory: ReadAllFromHistory,
     private val searchHistoryRecords: SearchHistoryRecords,
     private val addToCollection: AddToCollection,
-    private val setRecordNote: SetRecordNote
+    private val setRecordNote: SetRecordNote,
+    private val removeRecord: RemoveRecord
 )
     : ViewModel(){
 
@@ -53,6 +55,19 @@ class HistoryViewModel @Inject constructor(
 
     fun setRecordNote(context: Context, position:Int): NoteDialog {
         return NoteDialog(context, recordAdapter.records[position].record,setRecordNote)
+    }
+
+
+    fun deleteRecord(position: Int){
+
+        viewModelScope.launch(Dispatchers.IO){
+            removeRecord.execute(recordAdapter.records[position])
+
+        }
+
+        val recordCut =ArrayList (recordAdapter.records)
+        recordCut.removeAt(position)
+        recordAdapter.records = recordCut
     }
 
 

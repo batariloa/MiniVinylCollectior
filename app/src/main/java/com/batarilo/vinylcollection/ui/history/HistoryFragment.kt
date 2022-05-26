@@ -70,7 +70,8 @@ class HistoryFragment : Fragment(), RecordAdapterCollection.OnRecordListenerColl
     }
     override fun onRecordClicked(position: Int) {
         val bundle = Bundle().also {
-            it.putSerializable(InfoFragment.RECORD_PARAM,viewModel.recordAdapter.records[position].record)
+            it.putSerializable(InfoFragment.RECORD_PARAM,
+                viewModel.recordAdapter.records[position].record)
         }
         Navigation.findNavController(viewCurrent)
             .navigate(R.id.infoFragment, bundle)
@@ -78,14 +79,15 @@ class HistoryFragment : Fragment(), RecordAdapterCollection.OnRecordListenerColl
     }
 
     override fun onRemoveClicked(position: Int) {
-        viewModel.addToCollection(viewModel.recordAdapter.records[position].record)
+        viewModel.deleteRecord(position)
      }
 
     override fun onAddToNotesClicked(position: Int) {
         viewModel.setRecordNote(viewCurrent.context, position).apply {
             show()
             setOnDismissListener{
-                loadHistory()
+
+                viewModel.recordAdapter.notifyItemChanged(position)
              }
         }
     }

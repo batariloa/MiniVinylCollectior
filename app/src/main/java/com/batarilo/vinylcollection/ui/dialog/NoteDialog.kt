@@ -35,10 +35,15 @@ class NoteDialog(context: Context, val item: Record, val setRecordNote: SetRecor
         if(item.note!=null)
             findViewById<EditText>(R.id.et_note).setText(item.note)
 
+
         findViewById<ImageButton>(R.id.btn_accept).setOnClickListener {
            val noteCurrent = findViewById<EditText>(R.id.et_note).text.toString()
             mainActivityScope.launch {
-                setRecordNote.execute(item,noteCurrent)
+                if(noteCurrent=="")
+                    setRecordNote.execute(item,null)
+
+                if(noteCurrent!="")
+                    setRecordNote.execute(item,noteCurrent)
             }
             println("UPDATED NOTE IS $item")
             dismiss()
