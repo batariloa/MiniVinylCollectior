@@ -1,12 +1,10 @@
 package com.batarilo.vinylcollection.interactors.record_list
 
-import android.content.Context
-import android.preference.PreferenceManager
 import com.batarilo.vinylcollection.data.model.JsonResponse
 import com.batarilo.vinylcollection.data.model.ListType
 import com.batarilo.vinylcollection.data.model.RecordData
 import com.batarilo.vinylcollection.data.model.RecordInList
-import com.batarilo.vinylcollection.data.retrofit.RecordApiService
+import com.batarilo.vinylcollection.data.retrofit.DiscogApiService
 import com.batarilo.vinylcollection.data.room.RecordDao
 import com.batarilo.vinylcollection.data.room.cache.DataState
 import kotlinx.coroutines.flow.Flow
@@ -15,9 +13,8 @@ import kotlinx.coroutines.flow.flow
 
 class SearchRecordsApi(
     private val recordDao: RecordDao,
-    private val recordApiService: RecordApiService,
-
-){
+    private val discogApiService: DiscogApiService,
+    ){
     fun execute(
         query:String,
         isNetworkAvailable:Boolean,
@@ -30,16 +27,10 @@ class SearchRecordsApi(
             if(query=="errorForce"){
                 throw Exception("Search FAILED!")}
 
-
-
-
             if(isNetworkAvailable) {
-
                 val records = getRecordFromNetwork(query)
-
                 //if cache is off
                 if (!cacheOn) {
-
                     val recordsDirect = records.results.map { item ->
                         RecordInList(
                             item,
@@ -84,11 +75,11 @@ class SearchRecordsApi(
 
 
     private suspend fun getRecordFromNetwork(query:String): JsonResponse {
-        return recordApiService.searchDiscogResponse(
-            RecordApiService.AUTH_KEY,
-            RecordApiService.AUTH_SECRET,
+        return discogApiService.searchDiscogResponse(
+            DiscogApiService.AUTH_KEY,
+            DiscogApiService.AUTH_SECRET,
             query,
-            RecordApiService.TYPE_RELEASE
+            DiscogApiService.TYPE_RELEASE
         )
     }
     private suspend fun getRecordFromCache(query: String): List<RecordInList> {

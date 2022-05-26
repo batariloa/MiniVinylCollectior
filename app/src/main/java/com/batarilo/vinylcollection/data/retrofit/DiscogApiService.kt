@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-interface RecordApiService {
+interface DiscogApiService {
 
 
 
@@ -20,9 +20,6 @@ interface RecordApiService {
         @Query("release_title") searchTerm:String,
         @Query("type") type:String
     ): JsonResponse
-
-
-
 
 
     companion object{

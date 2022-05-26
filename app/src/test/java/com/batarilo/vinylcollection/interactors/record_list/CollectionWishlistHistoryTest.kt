@@ -1,14 +1,10 @@
 package com.batarilo.vinylcollection.interactors.record_list
 
-import com.batarilo.vinylcollection.UI.OnRecordListenerFake
 import com.batarilo.vinylcollection.data.DatabaseFake
 import com.batarilo.vinylcollection.data.RecordDaoFake
-import com.batarilo.vinylcollection.data.retrofit.RecordApiService
-import com.batarilo.vinylcollection.ui.wishlist.RecordAdapterWishlist
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.mock
 
 class CollectionWishlistHistoryTest {
 

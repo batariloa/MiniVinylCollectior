@@ -46,7 +46,7 @@ class ConnectionLiveData(context: Context) : LiveData<Boolean>() {
 
     private fun createNetworkCallback() = object : ConnectivityManager.NetworkCallback() {
 
-       //called when network is detected, not sure if it has internet yet
+       //called when network is detected, we're not sure if it actually has internet
         override fun onAvailable(network: Network) {
             Log.d(TAG, "onAvailable: $network")
             val networkCapabilities = cm.getNetworkCapabilities(network)

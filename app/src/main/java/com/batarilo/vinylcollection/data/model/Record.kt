@@ -11,8 +11,6 @@ data class Record (
 
     @PrimaryKey(autoGenerate = false)
     val id: Int,
-
-
     val id_spoj:Int,
 
     @TypeConverters(RecordConverters::class)
@@ -38,7 +36,6 @@ data class Record (
 
 data class RecordInList(
 
-
     @Embedded
     val record: Record,
 
@@ -61,3 +58,4 @@ data class RecordData(
     val belongsTo: ListType)
 
 enum class ListType {COLLECTION, WISHLIST, HISTORY, CACHE}
+
