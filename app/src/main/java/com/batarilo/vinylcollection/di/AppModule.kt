@@ -1,7 +1,7 @@
 package com.batarilo.vinylcollection.di
 
 import android.content.Context
-import com.batarilo.vinylcollection.data.retrofit.RecordApiService
+import com.batarilo.vinylcollection.data.retrofit.DiscogApiService
 import com.batarilo.vinylcollection.data.retrofit.RetrofitInstance
 import com.batarilo.vinylcollection.data.room.RecordDao
 import com.batarilo.vinylcollection.data.room.RecordDatabase
@@ -25,25 +25,22 @@ class AppModule {
     fun provideApplication(@ApplicationContext app: Context):VinylApp{
         return app as VinylApp
     }
-
     @Provides
     fun provideRecordDatabase(@ApplicationContext app:Context): RecordDatabase {
         return RecordDatabase.getDatabase(app)
     }
-
     @Provides
     @Singleton
     fun provideRecordDao(recordDatabase: RecordDatabase): RecordDao {
         return recordDatabase.recordDao()
     }
     @Provides
-    fun provideApi(): RecordApiService {
-        return RetrofitInstance.api
+    fun provideApi(): DiscogApiService {
+        return RetrofitInstance.API
     }
-
     @Provides
-    fun provideSearchRecordUseCase(@ApplicationContext context: Context, recordDao: RecordDao, recordApiService: RecordApiService): SearchRecordsApi {
-        return SearchRecordsApi(recordDao,recordApiService)
+    fun provideSearchRecordUseCase(recordDao: RecordDao, discogApiService: DiscogApiService): SearchRecordsApi {
+        return SearchRecordsApi(recordDao,discogApiService)
     }
     @Provides
     fun provdideReadAllFromCollectionUseCase(recordDao: RecordDao): ReadAllFromCollection {
@@ -54,12 +51,10 @@ class AppModule {
     fun provideReadAllFromHistoryUseCase(recordDao: RecordDao): ReadAllFromHistory {
         return ReadAllFromHistory(recordDao)
     }
-
     @Provides
     fun provideReadAllFromWishlistUseCase(recordDao: RecordDao): ReadAllFromWishlist {
         return ReadAllFromWishlist(recordDao)
     }
-
     @Provides
     fun provideSetRecordNote(recordDao: RecordDao): SetRecordNote {
         return SetRecordNote(recordDao)

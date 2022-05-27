@@ -2,9 +2,8 @@ package com.batarilo.vinylcollection.interactors.record_list
 
 import com.batarilo.vinylcollection.data.DatabaseFake
 import com.batarilo.vinylcollection.data.RecordDaoFake
-import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.data.model.RecordInList
-import com.batarilo.vinylcollection.data.retrofit.RecordApiService
+import com.batarilo.vinylcollection.data.retrofit.DiscogApiService
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
@@ -30,7 +29,7 @@ class SearchRecordsTest {
     private lateinit var searchRecordsApi:SearchRecordsApi
 
     //dependencies
-    private lateinit var recordService: RecordApiService
+    private lateinit var discogService: DiscogApiService
     private lateinit var databaseFake: DatabaseFake
     private lateinit var recordDaoFake: RecordDaoFake
 
@@ -42,11 +41,11 @@ class SearchRecordsTest {
 
         baseUrl = mockWebServer.url("/")
 
-        recordService = Retrofit.Builder()
+        discogService = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()
-            .create(RecordApiService::class.java)
+            .create(DiscogApiService::class.java)
 
         databaseFake = DatabaseFake()
         recordDaoFake = RecordDaoFake(databaseFake)
@@ -54,7 +53,7 @@ class SearchRecordsTest {
         //ready to instantiate system
         searchRecordsApi= SearchRecordsApi(
             recordDaoFake,
-            recordService
+            discogService
         )
     }
 

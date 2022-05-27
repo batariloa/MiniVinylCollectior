@@ -13,12 +13,12 @@ object RetrofitInstance {
         .readTimeout(10, TimeUnit.SECONDS)
         .writeTimeout(10, TimeUnit.SECONDS)
         .build()
-    val api: RecordApiService by lazy {
+    val API: DiscogApiService by lazy {
         Retrofit.Builder()
-            .baseUrl(RecordApiService.BASE_URL)
+            .baseUrl(DiscogApiService.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
-            .create(RecordApiService::class.java)
+            .create(DiscogApiService::class.java)
     }
 }

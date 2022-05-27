@@ -8,7 +8,7 @@ import javax.net.SocketFactory
 
 object DoesNetworkHaveInternet {
 
-    // Make sure to execute this on a background thread.
+    // Execute on back thread
     fun execute(socketFactory: SocketFactory): Boolean {
         return try{
             Log.d(TAG, "PINGING google.")

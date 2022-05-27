@@ -23,9 +23,7 @@ class RecordAdapterSearch(
     private val onRecordListenerSearch: OnRecordListenerSearch,
     private val recordExistsInCollection: RecordExistsInCollection,
     private val recordExistsInWishlist: RecordExistsInWishlist
-
 ) : Adapter<RecordAdapterSearch.RecordViewHolder>() {
-
 
     private val diffCallback = object : DiffUtil.ItemCallback<RecordInList>() {
         override fun areItemsTheSame(oldItem: RecordInList, newItem: RecordInList): Boolean {
@@ -91,22 +89,22 @@ class RecordAdapterSearch(
         return records.size
     }
 
-    private fun recordInCollectionExists(record: Record, holder: RecordViewHolder){
+    private fun recordInCollectionExists(record: Record, holder: RecordViewHolder) {
 
-       recordExistsInCollection.execute(record.id).onEach { dataState->
+        recordExistsInCollection.execute(record.id).onEach { dataState ->
             dataState.data?.let { result ->
 
                 holder.binding.apply {
-                    if (result){
+                    if (result) {
                         rowButtons.btnAddToCollection.setImageResource(R.drawable.ic_baseline_playlist_add_check_24)
 
-                    }
-                        else {
+                    } else {
                         rowButtons.btnAddToCollection.setImageResource(R.drawable.ic_baseline_playlist_add_24)
-                     } } } }.launchIn(scope = CoroutineScope(Dispatchers.IO))
-
+                    }
+                }
+            }
+        }.launchIn(scope = CoroutineScope(Dispatchers.IO))
     }
-
 
     private fun recordInWishlistExists(record: Record, holder: RecordViewHolder){
 

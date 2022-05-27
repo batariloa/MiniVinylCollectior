@@ -20,8 +20,6 @@ suspend fun insertAll(recordsInList:List<RecordInList>){
         recordInList.recordData?.id_record = idRecord.toInt()
         recordInList.recordData?.let { addRecordData(it) }
         println("Insert record with data: ${recordInList.record.id}")
-
-
     }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
