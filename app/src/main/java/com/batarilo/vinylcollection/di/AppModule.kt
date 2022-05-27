@@ -72,10 +72,6 @@ class AppModule {
     }
 
     @Provides
-    fun providesSearchHistory(recordDao: RecordDao): SearchHistoryRecords {
-        return SearchHistoryRecords(recordDao)
-    }
-    @Provides
     fun provideAddToCollection(recordDao: RecordDao): AddToCollection {
         return AddToCollection(recordDao)
     }

@@ -31,7 +31,7 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     ): View {
         viewCurrent  = inflater.inflate(R.layout.fragment_search, container, false)
         activity?.let { viewModel.setupRecyclerView(viewCurrent, this@SearchFragment, it) }
-        viewModel.newSearch("su")
+        viewModel.newSearch()
 
 
 
@@ -41,7 +41,8 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
 
         src.setOnQueryTextListener(object:SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                if (p0 != null) { viewModel.newSearch(p0) }
+                viewModel.query.value = p0
+                if (p0 != null) { viewModel.newSearch() }
                 return false
             }
             override fun onQueryTextChange(p0: String?): Boolean {

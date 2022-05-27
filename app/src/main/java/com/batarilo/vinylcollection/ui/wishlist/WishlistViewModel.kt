@@ -1,6 +1,7 @@
 package com.batarilo.vinylcollection.ui.wishlist
 
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
@@ -24,7 +25,7 @@ class WishlistViewModel @Inject constructor(
 )
     : ViewModel() {
 
-
+    val query : MutableLiveData<String> = MutableLiveData<String>("")
     lateinit var recordAdapter:RecordAdapterWishlist
 
     fun readAllFromWishlist(){
@@ -34,11 +35,14 @@ class WishlistViewModel @Inject constructor(
     }
 
 
-    fun searchWishlist(query:String){
+    fun searchWishlist(){
 
-        searchWishlist.execute(query).onEach { dataState->
-            dataState.data?.let { list -> recordAdapter.records = list }
-        }.launchIn(viewModelScope)
+        query.value?.let {
+            searchWishlist.execute(it).onEach { dataState->
+                dataState.data?.let { list -> recordAdapter.records = list }
+                recordAdapter.notifyDataSetChanged()
+            }.launchIn(viewModelScope)
+        }
     }
 
     fun setRecordNote(context: Context, position:Int): NoteDialog {

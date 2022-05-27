@@ -30,7 +30,7 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
         // Inflate the layout for this fragment
         viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
         setupRecyclerView()
-        loadWishList()
+        viewModel.searchWishlist()
 
 
         if(activity is HomeActivity){
@@ -44,7 +44,8 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
         src.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 if (p0 != null) {
-                   searchWishlist(p0)
+                    viewModel.query.value = p0
+                   viewModel.searchWishlist()
                 }
                 return false
             }
@@ -84,10 +85,6 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun searchWishlist(query:String){
-        viewModel.searchWishlist(query)
-        viewModel.recordAdapter.notifyDataSetChanged()
-        }
 
     private fun setupRecyclerView() = viewCurrent.findViewById<RecyclerView>(R.id.rv_record)?.apply {
         viewModel.recordAdapter = RecordAdapterWishlist(this@WishlistFragment)

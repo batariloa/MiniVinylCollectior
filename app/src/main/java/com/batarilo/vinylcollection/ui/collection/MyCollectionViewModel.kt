@@ -2,6 +2,7 @@ package com.batarilo.vinylcollection.ui.collection
 
 import android.annotation.SuppressLint
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
@@ -28,7 +29,7 @@ class MyCollectionViewModel @Inject constructor(
 
     lateinit var recordAdapter: RecordAdapterCollection
 
-
+    val query : MutableLiveData<String> = MutableLiveData<String>("")
 
     fun readAllFromCollection(){
             readAllFromCollection.execute().onEach { dataState->
@@ -39,14 +40,16 @@ class MyCollectionViewModel @Inject constructor(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun searchCollection(query:String){
+    fun searchCollection(){
 
-        searchCollectionRecords.execute(query).onEach { dataState->
-            dataState.data?.let { list ->
-                recordAdapter.records = list
-                recordAdapter.notifyDataSetChanged()
-            }
-        }.launchIn(viewModelScope)
+        query.value?.let {
+            searchCollectionRecords.execute(it).onEach { dataState->
+                dataState.data?.let { list ->
+                    recordAdapter.records = list
+                    recordAdapter.notifyDataSetChanged()
+                }
+            }.launchIn(viewModelScope)
+        }
     }
     fun setRecordNote(context: Context, position:Int): NoteDialog {
        return NoteDialog(context, recordAdapter.records[position].record,setRecordNote)

@@ -32,7 +32,8 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
         // Inflate the layout for this fragment
         viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
         setupRecyclerView()
-        loadCollection()
+        viewModel.searchCollection()
+
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 
@@ -40,10 +41,10 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
 
         src.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
+
                 if (p0 != null) {
-                    viewModel.searchCollection(p0)
-
-
+                    viewModel.query.value = p0
+                    viewModel.searchCollection()
                 }
                 return false
             }

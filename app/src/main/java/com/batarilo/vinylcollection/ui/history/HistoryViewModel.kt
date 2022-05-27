@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.batarilo.vinylcollection.data.model.Record
 import com.batarilo.vinylcollection.interactors.record_list.AddToCollection
 import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromHistory
-import com.batarilo.vinylcollection.interactors.record_list.SearchHistoryRecords
 import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
 import com.batarilo.vinylcollection.interactors.record_list.RemoveRecord
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
@@ -21,7 +20,6 @@ import javax.inject.Inject
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
     private val readAllFromHistory: ReadAllFromHistory,
-    private val searchHistoryRecords: SearchHistoryRecords,
     private val addToCollection: AddToCollection,
     private val setRecordNote: SetRecordNote,
     private val removeRecord: RemoveRecord
@@ -46,12 +44,6 @@ class HistoryViewModel @Inject constructor(
 
     }
 
-    fun searchHistory(query:String){
-
-        viewModelScope.launch(Dispatchers.IO){
-            recordAdapter.records = searchHistoryRecords.execute(query)
-        }
-    }
 
     fun setRecordNote(context: Context, position:Int): NoteDialog {
         return NoteDialog(context, recordAdapter.records[position].record,setRecordNote)

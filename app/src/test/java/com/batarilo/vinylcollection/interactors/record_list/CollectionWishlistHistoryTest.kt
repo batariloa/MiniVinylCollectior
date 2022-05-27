@@ -14,7 +14,6 @@ class CollectionWishlistHistoryTest {
     private lateinit var readAllFromWishlist: ReadAllFromWishlist
     private lateinit var searchCollectionRecords: SearchCollectionRecords
     private lateinit var readAllFromCollection: ReadAllFromCollection
-    private lateinit var searchHistory: SearchHistoryRecords
     private lateinit var readAllFromHistory: ReadAllFromHistory
 
     //dependencies
@@ -33,7 +32,6 @@ class CollectionWishlistHistoryTest {
         readAllFromWishlist = ReadAllFromWishlist(recordDaoFake)
         searchCollectionRecords= SearchCollectionRecords(recordDaoFake)
         readAllFromCollection = ReadAllFromCollection(recordDaoFake)
-        searchHistory = SearchHistoryRecords(recordDaoFake)
         readAllFromHistory = ReadAllFromHistory(recordDaoFake)
     }
     /**
@@ -55,13 +53,6 @@ class CollectionWishlistHistoryTest {
         }
     }
 
-    @Test
-    fun searchHistoryTest(){
-        runBlocking {
-            val records =  searchHistory.execute("")
-            assert(records.isNotEmpty())
-        }
-    }
 
     @Test
     fun readHistoryTest(){

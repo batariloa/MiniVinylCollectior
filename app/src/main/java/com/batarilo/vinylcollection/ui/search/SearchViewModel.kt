@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.View
 import androidx.compose.runtime.mutableStateOf
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
@@ -40,7 +42,7 @@ class SearchViewModel @Inject constructor(
 )
     : ViewModel() {
 
-
+    val query : MutableLiveData<String> = MutableLiveData<String>("")
     private val loading = mutableStateOf(false)
 
     lateinit var recordAdapterSearch: RecordAdapterSearch
@@ -100,24 +102,26 @@ class SearchViewModel @Inject constructor(
     }
 
      @SuppressLint("NotifyDataSetChanged")
-     fun newSearch(query:String){
+     fun newSearch(){
 
         val cacheOn = PreferenceManager.getDefaultSharedPreferences(context)
             .getBoolean("cache",false)
 
 
-         searchRecordsApi.execute(query, connectivityManager.isNetworkAvailable.value, cacheOn)
-             .onEach { dataState ->
-            loading.value = dataState.loading
+         query.value?.let {
+             searchRecordsApi.execute(it, connectivityManager.isNetworkAvailable.value, cacheOn)
+                 .onEach { dataState ->
+                 loading.value = dataState.loading
 
-            dataState.data?.let { result ->
-                recordAdapterSearch.records = result
-                recordAdapterSearch.notifyDataSetChanged()
-            }
-            dataState.error?.let { error ->
-                Log.d("TAG", "Here is the error: $error")
-            }
-        }.launchIn(viewModelScope)
+                 dataState.data?.let { result ->
+                     recordAdapterSearch.records = result
+                     recordAdapterSearch.notifyDataSetChanged()
+                 }
+                 dataState.error?.let { error ->
+                     Log.d("TAG", "Here is the error: $error")
+                 }
+             }.launchIn(viewModelScope)
+         }
     }
 
 
