@@ -57,10 +57,6 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
     }
 
 
-    private fun loadCollection(){
-       viewModel.readAllFromCollection()
-    }
-
 
     private fun setupRecyclerView() = viewCurrent.findViewById<RecyclerView>(R.id.rv_record)?.apply {
         viewModel.recordAdapter = RecordAdapterCollection(this@MyCollectionFragment)
@@ -90,8 +86,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
         viewModel.setRecordNote(viewCurrent.context, position).apply {
             show()
             setOnDismissListener{
-                loadCollection()
-                viewModel.recordAdapter.notifyItemChanged(position)
+                viewModel.searchCollection()
             }
         }
 

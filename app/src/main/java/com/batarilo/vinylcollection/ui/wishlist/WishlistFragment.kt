@@ -75,13 +75,9 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
         viewModel.setRecordNote(viewCurrent.context, position).apply {
             show()
             setOnDismissListener {
-                loadWishList()
-                viewModel.recordAdapter.notifyItemChanged(position)
+                viewModel.searchWishlist()
             }
         }
-    }
-    private fun loadWishList(){
-        viewModel.readAllFromWishlist()
     }
 
     @SuppressLint("NotifyDataSetChanged")
