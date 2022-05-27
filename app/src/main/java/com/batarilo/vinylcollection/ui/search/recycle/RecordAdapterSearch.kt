@@ -37,6 +37,10 @@ class RecordAdapterSearch(
         }
     }
 
+    override fun getItemId(position: Int): Long {
+        return records[position].record.id.toLong()
+    }
+
 
     private val differ = AsyncListDiffer(this, diffCallback)
     var records: List<RecordInList>

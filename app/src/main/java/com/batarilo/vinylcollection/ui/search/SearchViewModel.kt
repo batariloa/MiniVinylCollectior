@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.di.VinylApp
 import com.batarilo.vinylcollection.interactors.record_list.*
@@ -81,14 +82,18 @@ class SearchViewModel @Inject constructor(
             .invokeOnCompletion { recordAdapterSearch.notifyItemChanged(position) }
     }
 
-    fun setupRecyclerView(view: View,
-                                  onRecordListenerSearch: RecordAdapterSearch.OnRecordListenerSearch,
-                                  activity: FragmentActivity
+    fun setupRecyclerView(
+        view: View,
+        onRecordListenerSearch: RecordAdapterSearch.OnRecordListenerSearch,
+        activity: FragmentActivity
     ) = view.findViewById<RecyclerView>(R.id.rv_record)?.apply {
+        (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+
         recordAdapterSearch = RecordAdapterSearch(
             onRecordListenerSearch,
             recordExistsInCollection,
            recordExistsInWishlist)
+
         adapter = recordAdapterSearch
         layoutManager = LinearLayoutManager(activity)
 
