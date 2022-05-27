@@ -4,14 +4,15 @@
     <PreferenceCategory android:title="Cache"
         android:icon="@drawable/ic_cache">
         <SwitchPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="cache"
             android:title="Caching"
-            android:summary="Disabling cache may cause performance issues."/>
+            android:summary="Turning off the cache improves the search query but disables offline use."/>
 
         <Preference
             android:key="delete_cache"
             android:id = "@+id/preference_delete"
+            android:summary="Erase all cache data from the device."
             android:title="Delete cache">
 
 
