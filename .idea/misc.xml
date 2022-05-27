@@ -28,6 +28,8 @@
         <entry key="app/src/main/res/drawable/ic_baseline_sticky_note_2_24.xml" value="0.1295" />
         <entry key="app/src/main/res/drawable/ic_baseline_sticky_note_set.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_menu_icon.xml" value="0.2375" />
+        <entry key="app/src/main/res/drawable/ic_note_edit.xml" value="0.2715" />
+        <entry key="app/src/main/res/drawable/ic_note_set.xml" value="0.2715" />
         <entry key="app/src/main/res/drawable/ic_remove.xml" value="0.251" />
         <entry key="app/src/main/res/drawable/ic_star_filled.xml" value="0.251" />
         <entry key="app/src/main/res/drawable/shape_linear.xml" value="0.1125" />
