@@ -28,29 +28,11 @@ class HistoryFragment : Fragment(), RecordAdapterCollection.OnRecordListenerColl
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
+        viewCurrent = inflater.inflate(R.layout.fragment_history, container, false)
         setupRecyclerView()
         loadHistory()
 
 
-
-        val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
-
-        src.setOnClickListener { src.isIconified = false }
-
-        src.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                if (p0 != null) {
-                    viewModel.searchHistory(p0)
-                    setupRecyclerView()
-
-                }
-                return false
-            }
-            override fun onQueryTextChange(p0: String?): Boolean {
-                return true
-            }
-        })
         return viewCurrent
     }
 
