@@ -86,7 +86,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
         viewModel.setRecordNote(viewCurrent.context, position).apply {
             show()
             setOnDismissListener{
-                viewModel.searchCollection()
+                viewModel.recordAdapter.notifyItemChanged(position)
             }
         }
 

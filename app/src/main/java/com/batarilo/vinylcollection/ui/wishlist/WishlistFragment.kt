@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.ui.HomeActivity
+import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
 import com.batarilo.vinylcollection.ui.info.InfoFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -75,12 +76,11 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
         viewModel.setRecordNote(viewCurrent.context, position).apply {
             show()
             setOnDismissListener {
-                viewModel.searchWishlist()
+                viewModel.recordAdapter.notifyItemChanged(position)
             }
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
 
     private fun setupRecyclerView() = viewCurrent.findViewById<RecyclerView>(R.id.rv_record)?.apply {
         viewModel.recordAdapter = RecordAdapterWishlist(this@WishlistFragment)
@@ -88,6 +88,7 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
         layoutManager = LinearLayoutManager(activity)
 
     }
+
 
 
 }

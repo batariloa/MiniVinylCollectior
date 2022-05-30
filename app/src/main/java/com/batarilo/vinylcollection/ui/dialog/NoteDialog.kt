@@ -44,6 +44,7 @@ class NoteDialog(context: Context, val item: Record, val setRecordNote: SetRecor
 
                 if(noteCurrent!="")
                     setRecordNote.execute(item,noteCurrent)
+
             }
             println("UPDATED NOTE IS $item")
             dismiss()

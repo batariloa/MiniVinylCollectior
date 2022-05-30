@@ -18,7 +18,7 @@ class RecordAdapterWishlist(
 
     private val diffCallback = object : DiffUtil.ItemCallback<RecordInList>() {
         override fun areItemsTheSame(oldItem: RecordInList, newItem: RecordInList): Boolean {
-            return oldItem.record== newItem.record
+            return oldItem.record.id== newItem.record.id
         }
 
         override fun areContentsTheSame(oldItem: RecordInList, newItem: RecordInList): Boolean {
@@ -68,7 +68,8 @@ class RecordAdapterWishlist(
                 .into(imageRecord)
 
 
-            if(item.record.note!=null){
+
+            if(item.record.note!=null || item.record.note==""){
                 rowButtons.btnAddNote.setImageResource(R.drawable.ic_baseline_sticky_note_set)
             }
 

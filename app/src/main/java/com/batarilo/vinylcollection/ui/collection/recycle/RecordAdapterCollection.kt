@@ -38,7 +38,6 @@ class RecordAdapterCollection(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolderSearch {
 
-        println("VIEWHOLDER IS $parent")
 
         return RecordViewHolderSearch(
             RecordRowCollectionBinding.inflate(
@@ -74,7 +73,7 @@ class RecordAdapterCollection(
             println("IS IT NULL ${item.record}.")
 
 
-            if(item.record.note!=null){
+            if(item.record.note!=null || item.record.note==""){
                 rowButtons.btnAddNoteCollection.setImageResource(R.drawable.ic_baseline_sticky_note_set)
             }
 
