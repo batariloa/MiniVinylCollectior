@@ -32,14 +32,10 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
         viewCurrent  = inflater.inflate(R.layout.fragment_search, container, false)
         activity?.let { viewModel.setupRecyclerView(viewCurrent, this@SearchFragment, it) }
 
-        //delay for network manager to scan
-        Timer("SettingUp", false).schedule(300) {
-            viewModel.newSearch()
-        }
-
 
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
+
 
         src.setOnClickListener { src.isIconified = false }
 
