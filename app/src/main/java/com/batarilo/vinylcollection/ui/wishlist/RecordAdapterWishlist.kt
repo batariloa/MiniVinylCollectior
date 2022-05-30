@@ -53,12 +53,17 @@ class RecordAdapterWishlist(
 
         holderSearch.binding.apply {
             val item = records[position]
+
+            val year = if(item.record.year==null || item.record.year==""){
+                "Year N/A"
+            } else item.record.year
+
             textviews.tvTitle.text = item.record.title
-            textviews.tvLabel.text = item.record.year
+            textviews.tvLabel.text = "$year ${item.record.country}"
             textviews.tvFrom.text = item.record.country
 
             Glide.with(holderSearch.itemView.context)
-                .load(item.record.thumb)
+                .load(item.record.cover_image)
                 .placeholder(R.drawable.empty_record)
                 .into(imageRecord)
 

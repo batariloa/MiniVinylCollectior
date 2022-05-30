@@ -67,14 +67,20 @@ class RecordAdapterSearch(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
 
+
         holder.binding.apply {
             val item = records[position]
+
+           val year = if(item.record.year==null || item.record.year==""){
+                "Year N/A"
+            } else item.record.year
+
              rowTextViews.tvTitle.text = item.record.title
-            rowTextViews.tvLabel.text = "${item.record.year} ${item.record.country}"
+            rowTextViews.tvLabel.text = "$year ${item.record.country}"
             rowTextViews.tvFrom.text = item.record.genre.toString().substring(1,item.record.genre.toString().length-1 )
 
             Glide.with(holder.itemView.context)
-                .load(item.record.thumb)
+                .load(item.record.cover_image)
                 .placeholder(R.drawable.empty_record)
                 .into(imageRecord)
 
