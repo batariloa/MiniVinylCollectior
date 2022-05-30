@@ -17,6 +17,7 @@ constructor(
     private val connectionLiveData = ConnectionLiveData(application)
 
     // observe this in ui
+
     val isNetworkAvailable = mutableStateOf(false)
 
     fun registerConnectionObserver(lifecycleOwner: LifecycleOwner){

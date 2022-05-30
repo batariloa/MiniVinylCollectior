@@ -1,5 +1,6 @@
 package com.batarilo.vinylcollection.ui.search
 
+import kotlin.concurrent.schedule
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -10,12 +11,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.ui.info.InfoFragment
 import com.batarilo.vinylcollection.ui.search.recycle.RecordAdapterSearch
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -31,7 +31,11 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     ): View {
         viewCurrent  = inflater.inflate(R.layout.fragment_search, container, false)
         activity?.let { viewModel.setupRecyclerView(viewCurrent, this@SearchFragment, it) }
-        viewModel.newSearch()
+
+        //delay for network manager to scan
+        Timer("SettingUp", false).schedule(300) {
+            viewModel.newSearch()
+        }
 
 
 

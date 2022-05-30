@@ -108,12 +108,14 @@ class SearchViewModel @Inject constructor(
             .getBoolean("cache",false)
 
 
+
          query.value?.let {
              searchRecordsApi.execute(it, connectivityManager.isNetworkAvailable.value, cacheOn)
                  .onEach { dataState ->
                  loading.value = dataState.loading
 
                  dataState.data?.let { result ->
+                     println("RESULTS ARE $result")
                      recordAdapterSearch.records = result
                      recordAdapterSearch.notifyDataSetChanged()
                  }
