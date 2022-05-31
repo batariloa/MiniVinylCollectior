@@ -23,6 +23,8 @@ class SearchRecordsApi(
         try {
             emit(DataState.loading())
 
+
+            println("QUERY $query")
             //for testing
             if(query=="errorForce"){
                 throw Exception("Search FAILED!")}
@@ -79,7 +81,8 @@ class SearchRecordsApi(
             DiscogApiService.AUTH_KEY,
             DiscogApiService.AUTH_SECRET,
             query,
-            DiscogApiService.TYPE_RELEASE
+            DiscogApiService.TYPE_RELEASE,
+
         )
     }
     private suspend fun getRecordFromCache(query: String): List<RecordInList> {

@@ -17,8 +17,9 @@ interface DiscogApiService {
     suspend fun searchDiscogResponse(
         @Query("key") auth_key:String,
         @Query ("secret") auth_secret:String,
-        @Query("release_title") searchTerm:String,
-        @Query("type") type:String
+        @Query(value = "q", encoded = true) searchTerm:String,
+        @Query("type") type:String,
+
     ): JsonResponse
 
 
@@ -29,6 +30,7 @@ interface DiscogApiService {
         const val AUTH_SECRET = "RoSLDJLGyNMZXazEsuIskUmVeALHLlZE"
         const val BASE_URL = "https://api.discogs.com/"
         const val TYPE_RELEASE = "release"
+        const val SORT_ORDER = "asc"
         }
 
 }
