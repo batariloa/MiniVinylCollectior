@@ -85,4 +85,12 @@ class RecordDaoFake (
         return true
     }
 
+    override suspend fun deleteRecordFromWishlist(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteRecordFromCollection(id: Int) {
+        TODO("Not yet implemented")
+    }
+
 }
