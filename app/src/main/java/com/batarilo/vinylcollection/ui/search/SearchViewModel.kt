@@ -91,6 +91,7 @@ class SearchViewModel @Inject constructor(
     ) = view.findViewById<RecyclerView>(R.id.rv_record)?.apply {
         (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
+        if(!::recordAdapterSearch.isInitialized) // if not initialized
         recordAdapterSearch = RecordAdapterSearch(
             onRecordListenerSearch,
             recordExistsInCollection,

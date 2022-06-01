@@ -138,7 +138,6 @@ class RecordAdapterSearch(
             binding.rowButtons.btnAddToCollection.setOnClickListener{
                 onRecordListenerSearch.onCollectedClicked(bindingAdapterPosition)
 
-
             }
             binding.rowButtons.btnAddToWishlist.setOnClickListener{
                 onRecordListenerSearch.onAddToWishListClicked(bindingAdapterPosition)

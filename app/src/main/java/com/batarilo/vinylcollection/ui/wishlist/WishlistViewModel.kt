@@ -1,9 +1,14 @@
 package com.batarilo.vinylcollection.ui.wishlist
 
 import android.content.Context
+import android.view.View
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
 import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromWishlist
 import com.batarilo.vinylcollection.interactors.record_list.RemoveRecord
@@ -57,6 +62,21 @@ class WishlistViewModel @Inject constructor(
         val recordCut = ArrayList (recordAdapter.records)
         recordCut.removeAt(position)
         recordAdapter.records = recordCut
+    }
+
+    internal fun setupRecyclerView(view: View,
+                                   activity:FragmentActivity,
+                                   onRecordListenerWishlist: RecordAdapterWishlist.OnRecordListenerWishlist
+    ) = view.findViewById<RecyclerView>(R.id.rv_record)?.apply {
+        recordAdapter = RecordAdapterWishlist(onRecordListenerWishlist)
+
+        adapter =recordAdapter
+        layoutManager = LinearLayoutManager(activity)
+
+    }
+
+    internal fun restoreRecyclerView(view: View) = view.findViewById<RecyclerView>(R.id.rv_record)?.apply{
+        adapter =recordAdapter
     }
 
 }

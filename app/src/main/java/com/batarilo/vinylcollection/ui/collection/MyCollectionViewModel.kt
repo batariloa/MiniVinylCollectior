@@ -2,15 +2,21 @@ package com.batarilo.vinylcollection.ui.collection
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.view.View
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
 import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromCollection
 import com.batarilo.vinylcollection.interactors.record_list.RemoveRecord
 import com.batarilo.vinylcollection.interactors.record_list.SearchCollectionRecords
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
+import com.batarilo.vinylcollection.ui.wishlist.RecordAdapterWishlist
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -53,6 +59,16 @@ class MyCollectionViewModel @Inject constructor(
     }
     fun setRecordNote(context: Context, position:Int): NoteDialog {
        return NoteDialog(context, recordAdapter.records[position].record,setRecordNote)
+    }
+
+    internal fun setupRecyclerView(view: View,
+                                   activity: FragmentActivity,
+                                   onRecordListenerCollection: RecordAdapterCollection.OnRecordListenerCollection
+    ) = view.findViewById<RecyclerView>(R.id.rv_record)?.apply {
+        recordAdapter = RecordAdapterCollection(onRecordListenerCollection)
+        adapter =recordAdapter
+        layoutManager = LinearLayoutManager(activity)
+
     }
 
 

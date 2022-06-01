@@ -8,6 +8,7 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
@@ -31,9 +32,8 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
 
         // Inflate the layout for this fragment
         viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
-        setupRecyclerView()
+        activity?.let { viewModel.setupRecyclerView(viewCurrent, it, this@MyCollectionFragment) }
         viewModel.searchCollection()
-
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 
@@ -58,12 +58,6 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
 
 
 
-    private fun setupRecyclerView() = viewCurrent.findViewById<RecyclerView>(R.id.rv_record)?.apply {
-        viewModel.recordAdapter = RecordAdapterCollection(this@MyCollectionFragment)
-        adapter = viewModel.recordAdapter
-        layoutManager = LinearLayoutManager(activity)
-
-    }
 
 
     override fun onRecordClicked(position: Int) {
@@ -71,7 +65,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
             it.putSerializable(InfoFragment.RECORD_PARAM,
                 viewModel.recordAdapter.records[position].record)
         }
-        Navigation.findNavController(viewCurrent)
+       viewCurrent.findNavController()
             .navigate(R.id.infoFragment, bundle)
 
 
@@ -80,6 +74,7 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
     override fun onRemoveClicked(position: Int) {
         viewModel.deleteRecord(position)
      }
+
 
 
     override fun onAddToNotesClicked(position: Int) {

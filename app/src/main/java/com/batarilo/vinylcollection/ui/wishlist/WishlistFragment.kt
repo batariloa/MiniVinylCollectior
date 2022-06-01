@@ -30,13 +30,9 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
     ): View {
         // Inflate the layout for this fragment
         viewCurrent = inflater.inflate(R.layout.fragment_my_collection, container, false)
-        setupRecyclerView()
+        activity?.let { viewModel.setupRecyclerView(viewCurrent, it, this@WishlistFragment) }
         viewModel.searchWishlist()
 
-
-        if(activity is HomeActivity){
-            (activity as HomeActivity).setTitleTop("Wishlist")
-        }
 
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 
@@ -82,12 +78,7 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
     }
 
 
-    private fun setupRecyclerView() = viewCurrent.findViewById<RecyclerView>(R.id.rv_record)?.apply {
-        viewModel.recordAdapter = RecordAdapterWishlist(this@WishlistFragment)
-        adapter = viewModel.recordAdapter
-        layoutManager = LinearLayoutManager(activity)
 
-    }
 
 
 
