@@ -10,10 +10,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
+import com.batarilo.vinylcollection.di.VinylApp
 import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
 import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromCollection
 import com.batarilo.vinylcollection.interactors.record_list.RemoveRecord
 import com.batarilo.vinylcollection.interactors.record_list.SearchCollectionRecords
+import com.batarilo.vinylcollection.ui.HomeActivity
 import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import com.batarilo.vinylcollection.ui.wishlist.RecordAdapterWishlist
@@ -29,7 +31,7 @@ class MyCollectionViewModel @Inject constructor(
     private val searchCollectionRecords: SearchCollectionRecords,
     private val readAllFromCollection: ReadAllFromCollection,
     private val setRecordNote: SetRecordNote,
-    private val removeRecord: RemoveRecord
+    private val removeRecord: RemoveRecord,
 )
     : ViewModel(){
 
@@ -65,7 +67,10 @@ class MyCollectionViewModel @Inject constructor(
                                    activity: FragmentActivity,
                                    onRecordListenerCollection: RecordAdapterCollection.OnRecordListenerCollection
     ) = view.findViewById<RecyclerView>(R.id.rv_record)?.apply {
+
+        if(!::recordAdapter.isInitialized)
         recordAdapter = RecordAdapterCollection(onRecordListenerCollection)
+
         adapter =recordAdapter
         layoutManager = LinearLayoutManager(activity)
 
@@ -76,7 +81,6 @@ class MyCollectionViewModel @Inject constructor(
 
         viewModelScope.launch(Dispatchers.IO){
             removeRecord.execute(recordAdapter.records[position])
-
         }
 
         val recordCut =ArrayList (recordAdapter.records)

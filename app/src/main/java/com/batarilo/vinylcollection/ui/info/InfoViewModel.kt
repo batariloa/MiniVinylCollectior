@@ -39,6 +39,7 @@ class InfoViewModel @Inject constructor(
         }
 
 
+
      fun recordInCollectionExists(record: Record?, buttonCollection:ImageButton){
 
 

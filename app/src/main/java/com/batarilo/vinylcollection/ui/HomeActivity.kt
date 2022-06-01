@@ -54,14 +54,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         installSplashScreen()
         setContentView(R.layout.activity_main)
 
-
-
         toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView= findViewById(R.id.nav_view)
-
-
-
 
 
         setSupportActionBar(toolbar)
@@ -73,6 +68,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initNavigation()
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initNavigation()
     }
 
     override fun onSupportNavigateUp(): Boolean {

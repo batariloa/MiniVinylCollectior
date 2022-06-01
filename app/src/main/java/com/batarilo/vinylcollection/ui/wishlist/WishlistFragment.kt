@@ -1,6 +1,6 @@
 package com.batarilo.vinylcollection.ui.wishlist
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +9,8 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.batarilo.vinylcollection.R
 import com.batarilo.vinylcollection.ui.HomeActivity
-import com.batarilo.vinylcollection.ui.collection.recycle.RecordAdapterCollection
 import com.batarilo.vinylcollection.ui.info.InfoFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +19,7 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
 
     private lateinit var viewCurrent:View
     val viewModel: WishlistViewModel by activityViewModels()
+    lateinit var homeActivity : HomeActivity
 
 
     override fun onCreateView(
@@ -40,13 +38,14 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
 
         src.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                if (p0 != null) {
-                    viewModel.query.value = p0
-                   viewModel.searchWishlist()
-                }
+
                 return false
             }
             override fun onQueryTextChange(p0: String?): Boolean {
+                if (p0 != null) {
+                    viewModel.query.value = p0
+                    viewModel.searchWishlist()
+                }
                 return true
             }
 
@@ -54,13 +53,21 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
         return viewCurrent
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if(context is HomeActivity)
+            homeActivity = context
+    }
+
     override fun onRecordClicked(position: Int) {
         val bundle = Bundle().also {
             it.putSerializable(InfoFragment.RECORD_PARAM, viewModel.recordAdapter.records[position].record)
         }
 
-        Navigation.findNavController(viewCurrent)
-            .navigate(R.id.infoFragment, bundle)
+        homeActivity.let {
+            Navigation.findNavController(it,R.id.fragment)
+                .navigate(R.id.infoFragment, bundle)
+        }
 
     }
 

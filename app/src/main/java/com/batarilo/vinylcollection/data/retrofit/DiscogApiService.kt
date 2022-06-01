@@ -30,7 +30,6 @@ interface DiscogApiService {
         const val AUTH_SECRET = "RoSLDJLGyNMZXazEsuIskUmVeALHLlZE"
         const val BASE_URL = "https://api.discogs.com/"
         const val TYPE_RELEASE = "release"
-        const val SORT_ORDER = "asc"
         }
 
 }
