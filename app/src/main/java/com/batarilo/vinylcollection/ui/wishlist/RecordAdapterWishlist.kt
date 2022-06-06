@@ -1,5 +1,6 @@
 package com.batarilo.vinylcollection.ui.wishlist
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -49,6 +50,7 @@ class RecordAdapterWishlist(
 
 
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holderSearch: RecordViewHolder, position: Int) {
 
         holderSearch.binding.apply {

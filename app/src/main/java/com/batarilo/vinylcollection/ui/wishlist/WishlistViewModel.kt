@@ -13,7 +13,6 @@ import com.batarilo.vinylcollection.interactors.notes.SetRecordNote
 import com.batarilo.vinylcollection.interactors.record_list.ReadAllFromWishlist
 import com.batarilo.vinylcollection.interactors.record_list.RemoveRecord
 import com.batarilo.vinylcollection.interactors.record_list.SearchWishlist
-import com.batarilo.vinylcollection.ui.HomeActivity
 import com.batarilo.vinylcollection.ui.dialog.NoteDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -76,8 +75,6 @@ class WishlistViewModel @Inject constructor(
 
     }
 
-    internal fun restoreRecyclerView(view: View) = view.findViewById<RecyclerView>(R.id.rv_record)?.apply{
-        adapter =recordAdapter
-    }
+
 
 }

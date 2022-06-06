@@ -1,6 +1,5 @@
 package com.batarilo.vinylcollection.ui.settings
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batarilo.vinylcollection.di.VinylApp

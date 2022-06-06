@@ -1,13 +1,10 @@
 package com.batarilo.vinylcollection.ui.search
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
 import android.util.Log
 import android.view.View
 import androidx.compose.runtime.mutableStateOf
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,11 +18,8 @@ import com.batarilo.vinylcollection.interactors.record_list.*
 import com.batarilo.vinylcollection.ui.search.recycle.RecordAdapterSearch
 import com.batarilo.vinylcollection.util.ConnectivityManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,7 +28,7 @@ class SearchViewModel @Inject constructor(
     private val addToWishList: AddToWishList,
     private val addToCollection: AddToCollection,
     private val connectivityManager: ConnectivityManager,
-    val recordExistsInCollection: RecordExistsInCollection,
+    private val recordExistsInCollection: RecordExistsInCollection,
     val recordExistsInWishlist: RecordExistsInWishlist,
     private val removeFromWishlist: RemoveFromWishlist,
     private val removeFromCollection: RemoveFromCollection,
