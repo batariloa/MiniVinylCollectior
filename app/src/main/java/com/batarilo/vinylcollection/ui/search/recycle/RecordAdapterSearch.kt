@@ -132,7 +132,10 @@ class RecordAdapterSearch(
 
 
         init {
-            binding.root.setOnClickListener{
+            binding.imageRecord.setOnClickListener{
+                onRecordListenerSearch.onRecordClicked(bindingAdapterPosition)
+            }
+            binding.rowTextViews.rowTextLayout.setOnClickListener{
                 onRecordListenerSearch.onRecordClicked(bindingAdapterPosition)
             }
             binding.rowButtons.btnAddToCollection.setOnClickListener{

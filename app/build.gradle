@@ -26,8 +26,8 @@ android {
         applicationId "com.batarilo.vinylcollection"
         minSdk 21
         targetSdk 32
-        versionCode 6
-        versionName "1.3.5"
+        versionCode 10
+        versionName "1.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

@@ -95,7 +95,10 @@ class RecordAdapterCollection(
 
 
         init {
-            binding.root.setOnClickListener{
+            binding.imageRecord.setOnClickListener{
+                onRecordListener.onRecordClicked(bindingAdapterPosition)
+            }
+            binding.rowTextViews.rowTextLayout.setOnClickListener{
                 onRecordListener.onRecordClicked(bindingAdapterPosition)
             }
             binding.rowButtons.btnRemoveFromCollection.setOnClickListener{

@@ -92,7 +92,10 @@ class RecordAdapterWishlist(
 
 
         init {
-            binding.root.setOnClickListener{
+            binding.imageRecord.setOnClickListener{
+                onRecordListener.onRecordClicked(bindingAdapterPosition)
+            }
+            binding.textviews.rowTextLayout.setOnClickListener{
                 onRecordListener.onRecordClicked(bindingAdapterPosition)
             }
             binding.rowButtons.btnRemoveFromWishlist.setOnClickListener{

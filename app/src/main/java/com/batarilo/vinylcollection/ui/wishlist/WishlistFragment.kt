@@ -35,6 +35,8 @@ class WishlistFragment : Fragment(), RecordAdapterWishlist.OnRecordListenerWishl
         val src =viewCurrent.findViewById<SearchView>(R.id.sv_record)
 
         src.setOnClickListener { src.isIconified = false }
+        src.setQuery(viewModel.query.value, false)
+
 
         src.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {

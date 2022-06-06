@@ -45,6 +45,8 @@ class MyCollectionFragment : Fragment(), RecordAdapterCollection.OnRecordListene
 
         src.setOnClickListener { src.isIconified = false }
 
+        src.setQuery(viewModel.query.value, false)
+
         src.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
 
