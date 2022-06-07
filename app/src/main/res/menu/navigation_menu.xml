@@ -3,9 +3,9 @@
     tools:showIn="navigation_view">
 
     <item
-    android:icon="@drawable/ic_baseline_home_24"
+    android:icon="@drawable/ic_baseline_search_24"
     android:id="@+id/nav_home"
-    android:title="Home"></item>
+    android:title="Search online"></item>
 
     <item
         android:title="My collection"

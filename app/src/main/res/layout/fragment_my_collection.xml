@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:queryBackground="@color/bgWhite"
             android:iconifiedByDefault="false"
-            android:queryHint="Search records.." />
+            />
     </androidx.cardview.widget.CardView>
 
 

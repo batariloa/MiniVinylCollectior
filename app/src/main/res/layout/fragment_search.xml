@@ -21,11 +21,8 @@
             android:layout_height="wrap_content"
             android:queryBackground="@color/bgWhite"
             android:iconifiedByDefault="false"
-            android:queryHint="Search records.." />
+            android:queryHint="Search records online.." />
     </androidx.cardview.widget.CardView>
-
-
-
 
 
     <androidx.recyclerview.widget.RecyclerView

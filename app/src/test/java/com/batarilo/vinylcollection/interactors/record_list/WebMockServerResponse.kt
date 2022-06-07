@@ -1,8 +1,0 @@
-package com.batarilo.vinylcollection.interactors.record_list
-
-object WebMockServerResponse {
-
-
-    const val recordListResponse: String =
-        "{\"pagination\":{\"page\":1,\"pages\":1,\"per_page\":50,\"items\":1,\"urls\":{}},\"results\":[{\"country\":\"India\",\"year\":\"1912\",\"format\":[\"Shellac\",\"11\\\"\",\"78RPM\",\"SingleSided\"],\"label\":[\"Pathé\",\"Pathé\"],\"type\":\"release\",\"genre\":[\"Folk,World,&Country\",\"Stage&Screen\"],\"style\":[\"Hindustani\"],\"id\":18991516,\"barcode\":[\"72818RA\"],\"master_id\":0,\"master_url\":null,\"uri\":\"/%E0%A4%AC%E0%A4%B2%E0%A4%97%E0%A4%A7%E0%A4%B0%E0%A4%B5-Pandu-Nirpati-Janak-Saubhadra-%E0%A4%AA%E0%A4%A1-%E0%A4%A8%E0%A4%AA%E0%A4%A4-%E0%A4%9C%E0%A4%A8%E0%A4%95-%E0%A4%9C%E0%A4%AF-%E0%A4%B8%E0%A4%AD%E0%A4%A6%E0%A4%B0/release/18991516\",\"catno\":\"49205\",\"title\":\"बालगंधर्व*-PanduNirpatiJanak(Saubhadra)=पांडुनृपतिजनकजया(सौभद्र\u200B)\",\"thumb\":\"https://i.discogs.com/rt521Pq5euq-xtbJqP6LK_SdMx2lTRMn2uRZ9d4d52E/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE4OTkx/NTE2LTE2MjI2ODQ4/ODItOTA0Ny5qcGVn.jpeg\",\"cover_image\":\"https://i.discogs.com/f8csWQ1WrGo8sOj_DvHzGOeP-ZXxSvOrWMgcrzLhqCE/rs:fit/g:sm/q:90/h:650/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE4OTkx/NTE2LTE2MjI2ODQ4/ODItOTA0Ny5qcGVn.jpeg\",\"resource_url\":\"https://api.discogs.com/releases/18991516\",\"community\":{\"want\":2,\"have\":0},\"format_quantity\":1,\"formats\":[{\"name\":\"Shellac\",\"qty\":\"1\",\"descriptions\":[\"11\\\"\",\"78RPM\",\"SingleSided\"]}]}]}"
-}

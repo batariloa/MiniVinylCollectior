@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/myCollectionFragment"
-        android:name="com.batarilo.vinylcollection.ui.collection.MyCollectionFragment"
+        android:name="com.batarilo.vinylcollectionPremium.ui.collection.MyCollectionFragment"
         android:label="fragment_my_collection"
         tools:layout="@layout/fragment_my_collection" >
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.batarilo.vinylcollection.ui.search.SearchFragment"
+        android:name="com.batarilo.vinylcollectionPremium.ui.search.SearchFragment"
         android:label="SearchFragment" >
         <action
             android:id="@+id/action_searchFragment_to_myCollectionFragment"
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/wishlistFragment"
-        android:name="com.batarilo.vinylcollection.ui.wishlist.WishlistFragment"
+        android:name="com.batarilo.vinylcollectionPremium.ui.wishlist.WishlistFragment"
         android:label="WishlistFragment" >
         <action
             android:id="@+id/action_wishlistFragment_to_myCollectionFragment"
@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.batarilo.vinylcollection.ui.info.InfoFragment"
+        android:name="com.batarilo.vinylcollectionPremium.ui.info.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" >
         <action
@@ -73,7 +73,7 @@
             app:destination="@id/searchFragment" />
         <argument
             android:name="record"
-            app:argType="com.batarilo.vinylcollection.data.model.Record" />
+            app:argType="com.batarilo.vinylcollectionPremium.data.model.Record" />
         <action
             android:id="@+id/action_infoFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
@@ -83,7 +83,7 @@
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.batarilo.vinylcollection.ui.history.HistoryFragment"
+        android:name="com.batarilo.vinylcollectionPremium.ui.history.HistoryFragment"
         android:label="HistoryFragment" >
         <action
             android:id="@+id/action_historyFragment_to_wishlistFragment"
@@ -103,6 +103,6 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.batarilo.vinylcollection.ui.settings.SettingsFragment"
+        android:name="com.batarilo.vinylcollectionPremium.ui.settings.SettingsFragment"
         android:label="SettingsFragment" />
 </navigation>

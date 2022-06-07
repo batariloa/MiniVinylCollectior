@@ -15,8 +15,8 @@
             android:summary="Erase all cache data from the device."
             android:title="Delete cache">
 
-
         </Preference>
 
     </PreferenceCategory>
+
 </PreferenceScreen>
