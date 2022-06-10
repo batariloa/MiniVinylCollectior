@@ -57,8 +57,8 @@ class NoteDialog(context: Context, val item: Record, val setRecordNote: SetRecor
         findViewById<ImageButton>(R.id.btn_delete).setOnClickListener{
             mainActivityScope.launch {
                 setRecordNote.execute(item, null)
-                dismiss()
             }
+            dismiss()
 
         }
     }

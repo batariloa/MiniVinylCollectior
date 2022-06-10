@@ -1,6 +1,7 @@
 package com.batarilo.vinylcollectionPremium.ui.info
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,7 @@ class InfoFragment : Fragment() {
         val year = if(record?.year==null || record?.year==""){
             "Year N/A"
         } else record?.year
+        Log.d("INFO", "NOTE OF THIS VIEW IS ${record?.note}")
 
 
         viewCurrent.findViewById<TextView>(R.id.tv_title_info).text = record?.title

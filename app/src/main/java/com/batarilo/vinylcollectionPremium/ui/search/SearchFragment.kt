@@ -44,6 +44,8 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
             override fun onQueryTextChange(p0: String?): Boolean {
                 return true
             } })
+
+
         return viewCurrent
     }
 
@@ -70,7 +72,6 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
     }
 
     override fun onAddToWishListClicked(position: Int) {
-        println("STAMPA SE OVO")
         viewModel.addRecordToWishlist(position)
     }
 

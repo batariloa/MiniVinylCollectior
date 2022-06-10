@@ -1,5 +1,6 @@
 package com.batarilo.vinylcollectionPremium.ui.collection.recycle
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -16,7 +17,9 @@ class RecordAdapterCollection(
 ) : Adapter<RecordAdapterCollection.RecordViewHolderSearch>() {
 
 
-
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
     private val diffCallback = object : DiffUtil.ItemCallback<RecordInList>() {
         override fun areItemsTheSame(oldItem: RecordInList, newItem: RecordInList): Boolean {
             return oldItem.record.id== newItem.record.id
@@ -73,8 +76,12 @@ class RecordAdapterCollection(
             println("IS IT NULL ${item.record}.")
 
 
-            if(item.record.note!=null || item.record.note==""){
+            if(!item.record.note.isNullOrEmpty()){
                 rowButtons.btnAddNoteCollection.setImageResource(R.drawable.ic_baseline_sticky_note_set)
+            }
+            else{
+                rowButtons.btnAddNoteCollection.setImageResource(R.drawable.ic_baseline_sticky_note)
+
             }
 
 

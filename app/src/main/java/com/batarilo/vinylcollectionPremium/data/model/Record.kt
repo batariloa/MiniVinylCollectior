@@ -1,9 +1,11 @@
 package com.batarilo.vinylcollectionPremium.data.model
 
+import androidx.annotation.Keep
 import androidx.room.*
 import com.batarilo.vinylcollectionPremium.data.room.RecordConverters
 import java.io.Serializable
 
+@Keep
 @Entity(tableName = "record_table",)
 data class Record (
 
@@ -32,7 +34,7 @@ data class Record (
     val year: String?
 ): Serializable
 
-
+@Keep
 data class RecordInList(
 
     @Embedded
@@ -50,6 +52,7 @@ data class RecordInList(
         childColumns = ["id_record"],),
     ],indices = [Index(value = ["id_record","belongsTo"], unique = true)]
 )
+@Keep
 data class RecordData(
     @PrimaryKey(autoGenerate = true)
     var id_data:Int,

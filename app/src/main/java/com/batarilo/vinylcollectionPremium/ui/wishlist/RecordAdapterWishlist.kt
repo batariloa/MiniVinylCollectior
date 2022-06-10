@@ -16,6 +16,9 @@ class RecordAdapterWishlist(
     private val onRecordListener: OnRecordListenerWishlist
 ) : Adapter<RecordAdapterWishlist.RecordViewHolder>() {
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 
     private val diffCallback = object : DiffUtil.ItemCallback<RecordInList>() {
         override fun areItemsTheSame(oldItem: RecordInList, newItem: RecordInList): Boolean {
@@ -71,8 +74,11 @@ class RecordAdapterWishlist(
 
 
 
-            if(item.record.note!=null || item.record.note==""){
+            if(item.record.note!=null && item.record.note!=""){
                 rowButtons.btnAddNote.setImageResource(R.drawable.ic_baseline_sticky_note_set)
+            }
+            else{
+                rowButtons.btnAddNote.setImageResource(R.drawable.ic_baseline_sticky_note)
             }
 
 
