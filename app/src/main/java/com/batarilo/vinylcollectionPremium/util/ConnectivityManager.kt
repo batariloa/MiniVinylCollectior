@@ -14,7 +14,7 @@ class ConnectivityManager
 constructor(
     application: Application,
 ) {
-    private val connectionLiveData = ConnectionLiveData(application)
+    internal val connectionLiveData = ConnectionLiveData(application)
 
     // observe this in ui
 

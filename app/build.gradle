@@ -26,8 +26,8 @@ android {
         applicationId "com.batarilo.vinylcollectionPremium"
         minSdk 21
         targetSdk 32
-        versionCode 16
-        versionName "2.0"
+        versionCode 21
+        versionName "2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -56,8 +56,11 @@ dependencies {
     //splashscreen
     implementation 'androidx.core:core-splashscreen:1.0.0-rc01'
 
+    //billing
+    def billing_version = "5.0.0"
 
 
+    implementation("com.android.billingclient:billing-ktx:$billing_version")
 
     //tests
     testImplementation 'org.junit.jupiter:junit-jupiter'

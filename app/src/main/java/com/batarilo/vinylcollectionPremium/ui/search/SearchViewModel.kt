@@ -27,7 +27,7 @@ class SearchViewModel @Inject constructor(
     private val searchRecordsApi: SearchRecordsApi,
     private val addToWishList: AddToWishList,
     private val addToCollection: AddToCollection,
-    private val connectivityManager: ConnectivityManager,
+    val connectivityManager: ConnectivityManager,
     private val recordExistsInCollection: RecordExistsInCollection,
     val recordExistsInWishlist: RecordExistsInWishlist,
     private val removeFromWishlist: RemoveFromWishlist,

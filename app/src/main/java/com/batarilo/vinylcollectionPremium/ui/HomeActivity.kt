@@ -1,8 +1,14 @@
 package com.batarilo.vinylcollectionPremium.ui
 
+import android.app.AlertDialog
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -15,6 +21,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.preference.PreferenceManager
+import com.android.billingclient.api.*
+import com.android.billingclient.api.BillingClient.ProductType.INAPP
 import com.batarilo.vinylcollectionPremium.R
 import com.batarilo.vinylcollectionPremium.util.ConnectivityManager
 import com.google.android.material.navigation.NavigationView
@@ -23,7 +32,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
+class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, PurchasesUpdatedListener  {
 
     //Observing network connection in activity
     @Inject
@@ -46,6 +55,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var actionbar: ActionBarDrawerToggle
     private lateinit var toolbar :androidx.appcompat.widget.Toolbar
+    private var billingClient: BillingClient? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +63,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         installSplashScreen()
         setContentView(R.layout.activity_main)
+
+        billingClient = BillingClient.newBuilder(this)
+            .enablePendingPurchases().setListener(this).build()
 
         toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -66,7 +79,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         initNavigation()
-
+        ratingCheck()
 
     }
 
@@ -101,7 +114,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setupActionBarWithNavController(navController,appBarConfiguration)
 
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id){
                R.id.searchFragment->  { supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_icon)
                setTitleTop("Search online")}
@@ -144,6 +157,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .navigate(R.id.settingsFragment)
 
             }
+            R.id.nav_coffee->{
+                openDialogCoffee()
+            }
         }
         item.isChecked = true
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -154,9 +170,111 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         findViewById<TextView>(R.id.toolbar_title).text = s
     }
 
+    private fun openDialog(){
+
+        AlertDialog.Builder(this)
+            .setTitle("Thank you!")
+            .setMessage("If Vinco is useful to you, would you consider rating it 5 stars?") // Specifying a listener allows you to take an action before dismissing the dialog.
+            // The dialog is automatically dismissed when a dialog button is clicked.
+            .setPositiveButton("Yes, Rate 5 stars") { _, _ ->
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
+                } catch (e: ActivityNotFoundException) {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName")))
+                }
+            } // A null listener allows the button to dismiss the dialog and take no further action.
+            .setNegativeButton("Never", null)
+            .setIcon(R.drawable.ic_heart_svgrepo_com)
+            .show()
+    }
+    private fun ratingCheck(){
+        var count = PreferenceManager.getDefaultSharedPreferences(applicationContext).getInt("countApp", 0)
+
+        if(count == 6) {
+            openDialog()
+        }
+        if((count+1)%10==0){
+            openDialogCoffee()
+        }
+        val sp = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val editor = sp.edit()
+        editor.putInt("countApp", count+1)
+        editor.commit()
+    }
 
 
 
+
+    private fun openDialogCoffee(){
+
+        AlertDialog.Builder(this)
+            .setTitle("Enjoying my work?")
+            .setMessage("Would you buy me a coffee to support my work?") // Specifying a listener allows you to take an action before dismissing the dialog.
+            // The dialog is automatically dismissed when a dialog button is clicked.
+            .setPositiveButton("Yes, enjoy.") { _, _ ->
+                purchase()
+            } // A null listener allows the button to dismiss the dialog and take no further action.
+            .setNegativeButton("No", null)
+            .setIcon(R.drawable.ic_coffee_cup_tea_svgrepo_com__1_)
+            .show()
+    }
+
+
+    override fun onPurchasesUpdated(billingResult: BillingResult, purchases: List<Purchase>?) {
+        //if item newly purchased
+        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+            Toast.makeText(this, "Thank you very much!", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun purchase() {
+        //check if service is already connected
+
+        if (billingClient!!.isReady) {
+            initiatePurchase()
+        }
+        //else reconnect service
+        else {
+            billingClient = BillingClient.newBuilder(this).enablePendingPurchases().setListener(this).build()
+            billingClient!!.startConnection(object : BillingClientStateListener {
+                override fun onBillingSetupFinished(billingResult: BillingResult) {
+                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                        initiatePurchase()
+                    } else {
+                        Toast.makeText(applicationContext, "Error " + billingResult.debugMessage, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onBillingServiceDisconnected() {}
+            })
+        }
+    }
+    private fun initiatePurchase() {
+
+        val skuList: MutableList<String> = ArrayList()
+        skuList.add("coffee")
+        val params = SkuDetailsParams.newBuilder()
+        params.setSkusList(skuList).setType(INAPP)
+
+        billingClient!!.querySkuDetailsAsync(params.build())
+        { billingResult, skuDetailsList ->
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                if (skuDetailsList != null && skuDetailsList.size > 0) {
+                    val flowParams = BillingFlowParams.newBuilder()
+                        .setSkuDetails(skuDetailsList[0])
+                        .build()
+                    billingClient!!.launchBillingFlow(this@HomeActivity, flowParams)
+                } else {
+                    //try to add item/product id "purchase" inside managed product in google play console
+
+                    Toast.makeText(applicationContext, "Purchase Item not Found", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(applicationContext,
+                    " Error " + billingResult.debugMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
 }
 

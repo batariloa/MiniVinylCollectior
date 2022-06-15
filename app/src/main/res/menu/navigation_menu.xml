@@ -30,4 +30,9 @@
         android:id="@+id/nav_settings"
         android:icon="@drawable/ic_baseline_settings_24"
         ></item>
+    <item
+        android:title="Buy me a coffee"
+        android:id="@+id/nav_coffee"
+        android:icon="@drawable/ic_baseline_coffee_24"
+        ></item>
 </menu>

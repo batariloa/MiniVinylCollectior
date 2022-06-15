@@ -109,7 +109,7 @@ class RecordAdapterSearch(
                     }
                 }
             }
-        }.launchIn(scope = CoroutineScope(Dispatchers.IO))
+        }.launchIn(scope = CoroutineScope(Dispatchers.Main))
     }
 
     private fun recordInWishlistExists(record: Record, holder: RecordViewHolder){
@@ -122,7 +122,7 @@ class RecordAdapterSearch(
                         rowButtons.btnAddToWishlist.setImageResource(R.drawable.ic_star_filled)
                     else {
                         rowButtons.btnAddToWishlist.setImageResource(R.drawable.ic_baseline_star_border_35)
-                    } } } }.launchIn(scope = CoroutineScope(Dispatchers.IO)) }
+                    } } } }.launchIn(scope = CoroutineScope(Dispatchers.Main)) }
 
 
     class RecordViewHolder(

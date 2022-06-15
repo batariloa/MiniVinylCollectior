@@ -9,11 +9,14 @@ import android.widget.SearchView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.batarilo.vinylcollectionPremium.R
 import com.batarilo.vinylcollectionPremium.ui.info.InfoFragment
 import com.batarilo.vinylcollectionPremium.ui.search.recycle.RecordAdapterSearch
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
 
 @AndroidEntryPoint
@@ -46,6 +49,12 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
             } })
 
 
+        //this is critical and should be changed
+        lifecycleScope.launchWhenCreated {
+            searchFirst()
+
+        }
+
         return viewCurrent
     }
 
@@ -63,8 +72,10 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
         val bundle = Bundle().also {
            it.putSerializable(InfoFragment.RECORD_PARAM,viewModel.recordAdapterSearch.records[position].record)
         }
-        Navigation.findNavController(viewCurrent)
-            .navigate(R.id.infoFragment, bundle)
+        view?.let {
+            Navigation.findNavController(it)
+                .navigate(R.id.infoFragment, bundle)
+        }
     }
 
     override fun onCollectedClicked(position: Int) {
@@ -75,5 +86,13 @@ class SearchFragment : Fragment(), RecordAdapterSearch.OnRecordListenerSearch {
         viewModel.addRecordToWishlist(position)
     }
 
+    private suspend fun searchFirst(){
 
+        delay(300)
+        viewModel.connectivityManager.connectionLiveData.observe(viewLifecycleOwner, Observer {
+            if(it==true){
+                viewModel.newSearch()
+            }
+        })
+    }
 }
